@@ -1,4 +1,5 @@
 import { useCurrentTenant } from '../lib/tenant'
+import SyncStatusBadge from './SyncStatusBadge'
 
 export default function Header() {
   const tenant = useCurrentTenant()
@@ -22,9 +23,7 @@ export default function Header() {
 
         <div className="header-spacer"></div>
 
-        <span className="last-updated-badge" id="lastUpdated">
-          —
-        </span>
+        <SyncStatusBadge />
       </div>
     </header>
   )

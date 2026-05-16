@@ -154,6 +154,35 @@
       color: var(--txt-2);
       white-space: nowrap;
     }
+    .sync-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      background: var(--bg-2, rgba(255,255,255,0.04));
+      border: 1px solid var(--border, rgba(255,255,255,0.08));
+      border-radius: var(--r-md, 8px);
+      font-size: 12px;
+      color: var(--txt-2);
+      white-space: nowrap;
+    }
+    .sync-status-dot { font-size: 10px; line-height: 1; }
+    .sync-status-label { font-size: 12px; }
+    .sync-status-refresh {
+      background: transparent;
+      border: none;
+      color: var(--txt-2);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 2px 4px;
+      border-radius: 4px;
+      line-height: 1;
+    }
+    .sync-status-refresh:hover:not(:disabled) {
+      background: rgba(255,255,255,0.08);
+      color: var(--txt-1, #fff);
+    }
+    .sync-status-refresh:disabled { cursor: not-allowed; opacity: 0.5; }
 
     /* ============================================================
        Aviso de atraso/falta de dados (vendas + Meta Ads)
@@ -1523,4 +1552,192 @@
       padding: 18px; text-align: center;
       color: var(--txt-2); font-size: 12.5px;
       background: var(--mizu-cream); border-radius: var(--r-md);
+    }
+
+    /* ============================================================
+       SyncStatusBadge — overrides pra design system light
+    ============================================================ */
+    .sync-status-badge {
+      background: var(--mizu-cream);
+      border: 1px solid var(--border);
+      color: var(--txt);
+    }
+    .sync-status-label { color: var(--txt-2); }
+    .sync-status-refresh { color: var(--mizu-gold-deep); }
+    .sync-status-refresh:hover:not(:disabled) {
+      background: var(--mizu-gold-soft);
+      color: var(--mizu-gold-deep);
+    }
+
+    /* ============================================================
+       SalesSection — KPIs + grid por unidade
+    ============================================================ */
+    .range-picker {
+      display: inline-flex;
+      gap: 4px;
+      background: var(--mizu-cream);
+      padding: 4px;
+      border-radius: var(--r-md);
+      border: 1px solid var(--border);
+    }
+    .range-picker button {
+      background: transparent;
+      border: none;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--txt-2);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .range-picker button.on {
+      background: #fff;
+      color: var(--mizu-gold-deep);
+      box-shadow: var(--sh-xs);
+    }
+    .sales-kpis {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 720px) {
+      .sales-kpis { grid-template-columns: 1fr; }
+    }
+    .sales-kpis .kpi-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 16px 18px;
+      box-shadow: var(--sh-xs);
+    }
+    .sales-kpis .kpi-card .kpi-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: var(--txt-2);
+      margin-bottom: 8px;
+    }
+    .sales-kpis .kpi-card .kpi-value {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--txt);
+      line-height: 1;
+    }
+    .sales-kpis .kpi-card .kpi-sub {
+      font-size: 12px;
+      color: var(--txt-2);
+      margin-top: 6px;
+    }
+    .sales-unit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .unit-card {
+      background: var(--mizu-rice);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 14px 16px;
+    }
+    .unit-card-name {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--mizu-gold-deep);
+      margin-bottom: 6px;
+    }
+    .unit-card-total {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      color: var(--txt);
+      margin-bottom: 10px;
+    }
+    .unit-card-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      font-size: 12px;
+      color: var(--txt-2);
+      margin-bottom: 6px;
+    }
+    .unit-card-days {
+      font-size: 11px;
+      color: var(--txt-3);
+    }
+    .sales-loading, .sales-empty {
+      padding: 24px; text-align: center;
+      color: var(--txt-2); font-size: 13px;
+      background: var(--mizu-cream); border-radius: var(--r-md);
+    }
+
+    /* ============================================================
+       AdsUploadCard — caixa de upload + lista de imports
+    ============================================================ */
+    .ads-upload-box {
+      background: var(--mizu-cream);
+      border: 1px dashed var(--mizu-gold);
+      border-radius: var(--r-md);
+      padding: 18px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .ads-upload-box input[type=file] {
+      display: inline-block;
+      font-size: 13px;
+      color: var(--txt);
+    }
+    .ads-upload-spinner {
+      margin-left: 10px;
+      font-size: 12px;
+      color: var(--mizu-gold-deep);
+      font-weight: 600;
+    }
+    .ads-upload-feedback {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .ads-imports-list {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      overflow: hidden;
+    }
+    .ads-imports-head {
+      padding: 10px 14px;
+      background: var(--mizu-cream);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--txt-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .ads-import-row {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1fr;
+      gap: 10px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+    }
+    .ads-import-row:last-child { border-bottom: none; }
+    .ads-import-file {
+      color: var(--txt);
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .ads-import-range { color: var(--txt-2); font-family: monospace; font-size: 11.5px; }
+    .ads-import-when { color: var(--txt-2); font-size: 11.5px; text-align: right; }
+    @media (max-width: 600px) {
+      .ads-import-row { grid-template-columns: 1fr; gap: 2px; }
+      .ads-import-when { text-align: left; }
     }

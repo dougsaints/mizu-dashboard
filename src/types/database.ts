@@ -215,6 +215,10 @@ export interface Database {
           label: string | null
           url: string | null
           config: Json
+          last_synced_at: string | null
+          last_error: string | null
+          refresh_interval_seconds: number
+          enabled: boolean
         }
         Insert: {
           id?: string
@@ -224,6 +228,10 @@ export interface Database {
           label?: string | null
           url?: string | null
           config?: Json
+          last_synced_at?: string | null
+          last_error?: string | null
+          refresh_interval_seconds?: number
+          enabled?: boolean
         }
         Update: {
           id?: string
@@ -233,6 +241,93 @@ export interface Database {
           label?: string | null
           url?: string | null
           config?: Json
+          last_synced_at?: string | null
+          last_error?: string | null
+          refresh_interval_seconds?: number
+          enabled?: boolean
+        }
+      }
+      sales_daily: {
+        Row: {
+          tenant_id: string
+          unit_id: string
+          date: string
+          pdv: number
+          anotaai: number
+          ifood: number
+          total: number
+          synced_at: string
+          source_id: string | null
+        }
+        Insert: {
+          tenant_id: string
+          unit_id: string
+          date: string
+          pdv?: number
+          anotaai?: number
+          ifood?: number
+          synced_at?: string
+          source_id?: string | null
+        }
+        Update: {
+          tenant_id?: string
+          unit_id?: string
+          date?: string
+          pdv?: number
+          anotaai?: number
+          ifood?: number
+          synced_at?: string
+          source_id?: string | null
+        }
+      }
+      ads_daily: {
+        Row: {
+          id: string
+          tenant_id: string
+          unit_id: string | null
+          date: string
+          campaign_name: string
+          ad_set_name: string
+          cost: number
+          impressions: number
+          clicks: number
+          reach: number
+          results: number
+          result_value: number
+          import_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          unit_id?: string | null
+          date: string
+          campaign_name: string
+          ad_set_name?: string
+          cost?: number
+          impressions?: number
+          clicks?: number
+          reach?: number
+          results?: number
+          result_value?: number
+          import_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          unit_id?: string | null
+          date?: string
+          campaign_name?: string
+          ad_set_name?: string
+          cost?: number
+          impressions?: number
+          clicks?: number
+          reach?: number
+          results?: number
+          result_value?: number
+          import_id?: string | null
+          updated_at?: string
         }
       }
     }
