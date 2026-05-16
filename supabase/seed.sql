@@ -38,21 +38,22 @@ on conflict (tenant_id, slug) do nothing;
 
 -- ---------- 3) Data sources (Google Sheets das vendas) ----------
 -- URLs extraídas de painel-diario.html (linhas 2244-2257)
-with t as (select id from public.tenants where slug = 'sushi-mizu')
-insert into public.data_sources (tenant_id, kind, label, url)
-select t.id, v.kind, v.label, v.url
-from t, (values
-  ('gsheet_csv', 'Vendas Serraria',
-   'https://docs.google.com/spreadsheets/d/e/2PACX-1vT9DAPbqMaceio--placeholder/pub?gid=842215640&single=true&output=csv'),
-  ('gsheet_csv', 'Vendas Jatiúca',
-   'https://docs.google.com/spreadsheets/d/e/2PACX-1vQie1EI--placeholder/pub?gid=842215640&single=true&output=csv'),
-  ('gsheet_csv', 'Itens Anota AI',
-   'https://docs.google.com/spreadsheets/d/e/2PACX-1vSlJccWq--placeholder/pub?gid=2063859446&single=true&output=csv')
-) as v(kind, label, url)
+with
+  t  as (select id from public.tenants where slug = 'sushi-mizu'),
+  us as (select id, slug from public.units where tenant_id = (select id from t))
+insert into public.data_sources (tenant_id, unit_id, kind, label, url)
+select (select id from t), us.id, v.kind, v.label, v.url
+from us
+join (values
+  ('serraria', 'gsheet_csv', 'Vendas Serraria',
+   'https://docs.google.com/spreadsheets/d/e/2PACX-1vT9DAPbxj4txIhfjMi7sDP5PxRk9rjmz5TRYXThgq4zPXu-wllfv8FpZoV7OybHDWvZgNiDNgQqqNGJ/pub?gid=842215640&single=true&output=csv'),
+  ('jatiuca',  'gsheet_csv', 'Vendas Jatiúca',
+   'https://docs.google.com/spreadsheets/d/e/2PACX-1vQie1EIXLkrj_F5jt2LsQ_Ou4Qt4LR7NLBRI1o_49HrJbh0El9HSrCG8LuNTPy3y8plPdIGoAqtFXTm/pub?gid=842215640&single=true&output=csv'),
+  ('serraria', 'gsheet_csv', 'Itens Anota AI (Serraria)',
+   'https://docs.google.com/spreadsheets/d/e/2PACX-1vSlJccWqei2iTrx6KLapg2FlpJ6KMQYm9uXVPCg4-lI7GSCXs5e4cS08QmF-Dy7MsqYR1Rx7emD7U7r/pub?gid=2063859446&single=true&output=csv')
+) as v(unit_slug, kind, label, url)
+  on v.unit_slug = us.slug
 on conflict do nothing;
-
--- ⚠️ IMPORTANTE: substituir as URLs acima pelas URLs reais do painel-diario.html
---    (procure por `CSV_URLS` no arquivo, linhas 2244-2257)
 
 -- ---------- 4) ROI config default ----------
 with t as (select id from public.tenants where slug = 'sushi-mizu')
