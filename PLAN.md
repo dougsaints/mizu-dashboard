@@ -6,7 +6,7 @@
 > sessão produtiva** marcando o que ficou pronto e ajustando o próximo
 > passo.
 
-**Última atualização:** 2026-05-16
+**Última atualização:** 2026-05-16 (fim do dia — bug Serraria resolvido)
 
 ---
 
@@ -46,44 +46,55 @@ no Supabase, sincronizado em tempo real entre todos os dispositivos.
   estado em `data_sources`. **Já foi rodada por Doug no Supabase
   Dashboard em 2026-05-16.**
 
+### Bug fix de 16/05 (fim do dia)
+- **Sintoma:** badge "🔴 Falha em 1 fonte(s)" + Serraria não aparecia.
+- **Causa:** planilha Serraria tem datas duplicadas (28/03/2026 e
+  03/04/2026 aparecem 2x). Upsert em batch quebra com 500 ("ON CONFLICT
+  cannot affect row a second time").
+- **Conserto em [src/lib/sheets.ts](src/lib/sheets.ts):** dedup por
+  data antes do upsert (última linha vence) + serialização de erro do
+  Supabase decente (antes guardava "[object Object]" em `last_error`).
+- **Validado:** Faturamento Serraria mostra R$ 319.771,29 em 30 dias,
+  badge verde "3 fontes · agora". Pendências 1 e 2 resolvidas.
+
 ---
 
-## 🟡 Pendências curtas (resolver na próxima sessão)
+## 🚧 Próximo passo: AnotaaiUploadCard + WeeklyRecap
 
-1. **Commit + push do trabalho de 16/05** — está local, falta subir pro
-   GitHub. (Possivelmente já feito; verificar com `git log`.)
-2. **Validação visual final** — Doug abriu localhost depois da migration?
-   Os dados das planilhas aparecem na SalesSection? Confirmar com ele.
+**Decisão tomada em 16/05:** vamos com opção A — criar primeiro o card
+de upload do CSV do Anota AI, depois o WeeklyRecap com produtos
+completos.
 
----
+### Passo A1 — AnotaaiUploadCard (1 sessão)
+Replicar padrão de `AdsUploadCard.tsx` + `useAds.ts` + `lib/metaAdsCsv.ts`.
 
-## 🚧 Próximo passo: WeeklyRecap
+1. Migration `0004_anotaai_products.sql` — tabela `anotaai_products`
+   (produtos importados do CSV) + `anotaai_imports` (histórico).
+   Encoding do CSV é **Latin-1** (não UTF-8), linha "Total,X" não é
+   produto. Dedup natural: (date, product_name, unit_id).
+2. Lib `src/lib/anotaaiCsv.ts` — parser. Decodificar Latin-1, ignorar
+   linha "Total".
+3. Hook `src/api/useAnotaai.ts` — query + Realtime + mutation upload.
+4. Componente `src/components/AnotaaiUploadCard.tsx` — copiar visual do
+   `AdsUploadCard`.
+5. Wire-up no `Dashboard.tsx`.
+6. CSS no `index.css`.
 
-**Objetivo:** portar a caixa "Resumo da Semana" do painel antigo, que
-mostra os 3 produtos mais vendidos da semana + ROAS (retorno sobre
-investimento em anúncios).
+### Passo A2 — WeeklyRecap (1 sessão depois)
 
-**Por que essa é a próxima:** o usuário já tem dados de faturamento
-(`sales_daily`) e de ads (`ads_daily`) no banco — WeeklyRecap só
-**combina** os dois. Não precisa de fonte de dados nova, é só lógica
-de agregação + UI.
+**Objetivo:** portar a caixa "Resumo da Semana" do painel antigo —
+top 3 produtos vendidos na semana + ROAS (retorno sobre investimento
+em anúncios).
 
-**Roteiro sugerido (siga o padrão de SalesSection):**
-1. Criar `src/api/useWeeklyRecap.ts` — query que agrega últimos 7 dias
-   de sales + ads, calcula ROAS, identifica top 3 produtos
-2. Criar `src/sections/WeeklyRecap.tsx` — usa o hook + design do
-   painel antigo (consultar `painel-diario.html`, procurar `weeklyRecap`)
-3. Wire-up em `Dashboard.tsx` antes da SalesSection
-4. Appendar CSS no `index.css`
-
-**Dependência de dado:** o painel antigo lê os "top 3 produtos" do CSV
-do Anota AI (`Produtos-consulta-gerada-em-*.csv`). Hoje **não temos
-upload desse CSV no app novo** — provavelmente precisa criar
-`AnotaaiUploadCard.tsx` antes. Decidir com Doug: portar com upload
-manual ou deixar produtos vazios temporariamente?
-
-**Onde está a lógica no painel antigo:** usar Grep pra procurar
-"weeklyRecap" em `painel-diario.html`. Não ler o arquivo inteiro.
+**Roteiro:**
+1. `src/api/useWeeklyRecap.ts` — query que agrega últimos 7 dias de
+   `sales_daily` + `ads_daily` + `anotaai_products`, calcula ROAS,
+   identifica top 3 produtos.
+2. `src/sections/WeeklyRecap.tsx` — design do painel antigo. Achar
+   lógica original com Grep "weeklyRecap" em `painel-diario.html`
+   (não ler arquivo inteiro).
+3. Wire-up em `Dashboard.tsx` antes da SalesSection.
+4. CSS no `index.css`.
 
 ---
 

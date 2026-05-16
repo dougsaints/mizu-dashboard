@@ -183,7 +183,13 @@ export async function syncSheetToSupabase(source: DataSource): Promise<SyncResul
       return { rowsUpserted: 0, source: source.label ?? source.id }
     }
 
-    const payload: SalesInsert[] = parsed.map((r) => ({
+    // Dedup por data: planilha pode ter o mesmo dia em 2 linhas (correção).
+    // Última ocorrência vence (CSV vem ordenado por carimbo de data/hora).
+    const byDate = new Map<string, ParsedSalesRow>()
+    for (const r of parsed) byDate.set(r.date, r)
+
+    const syncedAt = new Date().toISOString()
+    const payload: SalesInsert[] = Array.from(byDate.values()).map((r) => ({
       tenant_id: MIZU_TENANT_ID,
       unit_id: source.unit_id!,
       date: r.date,
@@ -191,7 +197,7 @@ export async function syncSheetToSupabase(source: DataSource): Promise<SyncResul
       anotaai: r.anotaai,
       ifood: r.ifood,
       source_id: source.id,
-      synced_at: new Date().toISOString(),
+      synced_at: syncedAt,
     }))
 
     const { error: upsertErr } = await supabase
@@ -207,13 +213,30 @@ export async function syncSheetToSupabase(source: DataSource): Promise<SyncResul
 
     return { rowsUpserted: parsed.length, source: source.label ?? source.id }
   } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err)
+    const msg = formatError(err)
     await supabase
       .from('data_sources')
       .update({ last_error: msg })
       .eq('id', source.id)
     throw err
   }
+}
+
+// Supabase devolve erro como objeto literal { code, message, details, hint } —
+// não é Error nativo, então `err.message` direto resulta em "[object Object]".
+function formatError(err: unknown): string {
+  if (err instanceof Error) return err.message
+  if (typeof err === 'object' && err !== null) {
+    const e = err as { code?: string; message?: string; details?: string; hint?: string }
+    const parts = [e.code, e.message, e.details, e.hint].filter(Boolean)
+    if (parts.length) return parts.join(' | ')
+    try {
+      return JSON.stringify(err)
+    } catch {
+      return String(err)
+    }
+  }
+  return String(err)
 }
 
 // Roda sync de todos os data_sources do tipo "gsheet_csv" que estiverem
