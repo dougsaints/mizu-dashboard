@@ -1,0 +1,31 @@
+import { useCurrentTenant } from '../lib/tenant'
+
+export default function Header() {
+  const tenant = useCurrentTenant()
+
+  return (
+    <header className="header">
+      <div className="header-inner">
+        <div className="logo">
+          <div className="logo-mark">
+            <img src={tenant.brand.logoUrl} alt={tenant.displayName} />
+          </div>
+          <div>
+            <div className="logo-name">
+              Sushi <span className="gold">Mizú</span>
+            </div>
+            <div className="logo-sub">
+              <span className="kanji-mark">{tenant.brand.kanji}</span> Painel
+            </div>
+          </div>
+        </div>
+
+        <div className="header-spacer"></div>
+
+        <span className="last-updated-badge" id="lastUpdated">
+          —
+        </span>
+      </div>
+    </header>
+  )
+}
