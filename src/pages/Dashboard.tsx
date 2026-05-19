@@ -2,6 +2,7 @@ import Header from '../components/Header'
 import DiarioSection from '../sections/DiarioSection'
 import SalesSection from '../sections/SalesSection'
 import AdsUploadCard from '../components/AdsUploadCard'
+import AnotaaiUploadCard from '../components/AnotaaiUploadCard'
 import { useAutoPollSales } from '../api/useSales'
 
 export default function Dashboard() {
@@ -16,6 +17,7 @@ export default function Dashboard() {
       <main style={{ maxWidth: 1440, margin: '0 auto', padding: '24px 28px' }}>
         <SalesSection />
         <AdsUploadCard />
+        <AnotaaiUploadCard />
         <DiarioSection />
       </main>
     </>

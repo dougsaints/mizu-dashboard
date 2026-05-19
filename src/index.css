@@ -1741,3 +1741,108 @@
       .ads-import-row { grid-template-columns: 1fr; gap: 2px; }
       .ads-import-when { text-align: left; }
     }
+
+    /* ============================================================
+       AnotaaiUploadCard — upload com seletor de unidade + data
+    ============================================================ */
+    .anotaai-upload-box {
+      background: var(--mizu-cream);
+      border: 1px dashed var(--mizu-gold);
+      border-radius: var(--r-md);
+      padding: 16px 18px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .anotaai-upload-row {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      align-items: center;
+      gap: 10px;
+    }
+    .anotaai-upload-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--txt-2);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .anotaai-upload-input {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 13px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      color: var(--txt);
+      font-family: inherit;
+    }
+    .anotaai-upload-input:focus {
+      outline: none;
+      border-color: var(--mizu-gold);
+    }
+    .anotaai-upload-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 4px;
+    }
+    .anotaai-upload-btn {
+      background: var(--mizu-gold);
+      color: #fff;
+      border: none;
+      padding: 9px 18px;
+      border-radius: var(--r-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .anotaai-upload-btn:hover:not(:disabled) { background: var(--mizu-gold-deep); }
+    .anotaai-upload-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .anotaai-upload-feedback {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 0 0 0;
+    }
+    .anotaai-imports-list {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      overflow: hidden;
+    }
+    .anotaai-imports-head {
+      padding: 10px 14px;
+      background: var(--mizu-cream);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--txt-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .anotaai-import-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 0.8fr 1fr;
+      gap: 10px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+    }
+    .anotaai-import-row:last-child { border-bottom: none; }
+    .anotaai-import-file {
+      color: var(--txt);
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .anotaai-import-unit { color: var(--txt-2); font-size: 11.5px; }
+    .anotaai-import-range { color: var(--txt-2); font-family: monospace; font-size: 11.5px; }
+    .anotaai-import-when { color: var(--txt-2); font-size: 11.5px; text-align: right; }
+    @media (max-width: 600px) {
+      .anotaai-upload-row { grid-template-columns: 1fr; gap: 4px; }
+      .anotaai-import-row { grid-template-columns: 1fr; gap: 2px; }
+      .anotaai-import-when { text-align: left; }
+    }

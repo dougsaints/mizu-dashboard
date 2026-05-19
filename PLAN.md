@@ -6,7 +6,7 @@
 > sessão produtiva** marcando o que ficou pronto e ajustando o próximo
 > passo.
 
-**Última atualização:** 2026-05-16 (fim do dia — bug Serraria resolvido)
+**Última atualização:** 2026-05-18 (Passo A1 — AnotaaiUploadCard completo, migration rodada, upload testado ✅)
 
 ---
 
@@ -41,10 +41,12 @@ no Supabase, sincronizado em tempo real entre todos os dispositivos.
   botão "🔄 atualizar agora"
 
 ### Última migration do banco
-- `0003_sales_and_ads_normalized.sql` — cria `sales_daily` (faturamento
-  normalizado) + `ads_daily` (Meta Ads normalizado) + colunas de
-  estado em `data_sources`. **Já foi rodada por Doug no Supabase
-  Dashboard em 2026-05-16.**
+- `0004_anotaai_products.sql` — cria `anotaai_imports` (audit log de
+  uploads) + `anotaai_products` (produtos do Anota AI normalizados com
+  categoria). **Rodada via MCP em 2026-05-18. Tabelas vazias aguardando
+  primeiro upload.**
+- `0003_sales_and_ads_normalized.sql` — cria `sales_daily` +
+  `ads_daily` + colunas de estado em `data_sources`. Rodada em 2026-05-16.
 
 ### Bug fix de 16/05 (fim do dia)
 - **Sintoma:** badge "🔴 Falha em 1 fonte(s)" + Serraria não aparecia.
@@ -59,28 +61,40 @@ no Supabase, sincronizado em tempo real entre todos os dispositivos.
 
 ---
 
-## 🚧 Próximo passo: AnotaaiUploadCard + WeeklyRecap
+## 🚧 Próximo passo: rodar migration 0004 + testar upload, depois WeeklyRecap
 
-**Decisão tomada em 16/05:** vamos com opção A — criar primeiro o card
-de upload do CSV do Anota AI, depois o WeeklyRecap com produtos
-completos.
+**Decisão tomada em 16/05:** opção B — AnotaaiUploadCard antes do
+WeeklyRecap, pra ter Top 3 produtos completo de uma vez.
 
-### Passo A1 — AnotaaiUploadCard (1 sessão)
-Replicar padrão de `AdsUploadCard.tsx` + `useAds.ts` + `lib/metaAdsCsv.ts`.
+### Passo A1 — AnotaaiUploadCard ✅ código pronto (16/05)
 
-1. Migration `0004_anotaai_products.sql` — tabela `anotaai_products`
-   (produtos importados do CSV) + `anotaai_imports` (histórico).
-   Encoding do CSV é **Latin-1** (não UTF-8), linha "Total,X" não é
-   produto. Dedup natural: (date, product_name, unit_id).
-2. Lib `src/lib/anotaaiCsv.ts` — parser. Decodificar Latin-1, ignorar
-   linha "Total".
-3. Hook `src/api/useAnotaai.ts` — query + Realtime + mutation upload.
-4. Componente `src/components/AnotaaiUploadCard.tsx` — copiar visual do
-   `AdsUploadCard`.
-5. Wire-up no `Dashboard.tsx`.
-6. CSS no `index.css`.
+Implementado seguindo padrão de `AdsUploadCard` + `useAds` + `metaAdsCsv`.
+Arquivos criados/atualizados:
+- `supabase/migrations/0004_anotaai_products.sql` — 2 tabelas:
+  `anotaai_imports` (audit log com payload jsonb) e `anotaai_products`
+  (1 linha por produto com snapshot_date + categoria).
+- `src/types/database.ts` — entradas pras 2 tabelas novas.
+- `src/lib/anotaaiCsv.ts` — parser: tenta UTF-8 estrito, cai pra
+  windows-1252 se falhar. Categoriza produto (port da função
+  `categorizeItem` do painel antigo). Extrai data do nome do arquivo
+  ("Produtos-consulta-gerada-em-DD-MM-AAAA.csv"). Ignora linha "Total".
+- `src/api/useAnotaai.ts` — query + Realtime + mutation upload.
+- `src/components/AnotaaiUploadCard.tsx` — UI com seletor de unidade
+  ("Todas / Serraria / Jatiúca") + data do snapshot + arquivo +
+  botão Importar. Mostra últimos 5 uploads.
+- Wire-up no [Dashboard.tsx](src/pages/Dashboard.tsx).
+- CSS appendado em [index.css](src/index.css).
 
-### Passo A2 — WeeklyRecap (1 sessão depois)
+**✅ Migration rodada via MCP em 2026-05-18.**
+- `anotaai_imports`: criada, 0 linhas (aguardando primeiro upload)
+- `anotaai_products`: criada, 0 linhas (aguardando primeiro upload)
+- Realtime ativo, RLS + policy `phase1_anon_all` aplicadas
+
+**✅ Upload testado e validado em 2026-05-18.**
+Seção aparece corretamente no browser. Upload do CSV funcionou:
+1 import registrado, 70 produtos importados no banco.
+
+### Passo A2 — WeeklyRecap (próxima sessão)
 
 **Objetivo:** portar a caixa "Resumo da Semana" do painel antigo —
 top 3 produtos vendidos na semana + ROAS (retorno sobre investimento

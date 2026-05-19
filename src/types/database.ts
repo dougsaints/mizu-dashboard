@@ -330,6 +330,73 @@ export interface Database {
           updated_at?: string
         }
       }
+      anotaai_imports: {
+        Row: {
+          id: string
+          tenant_id: string
+          unit_id: string | null
+          imported_at: string
+          filename: string | null
+          snapshot_date: string | null
+          period_start: string | null
+          period_end: string | null
+          rows: Json
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          unit_id?: string | null
+          imported_at?: string
+          filename?: string | null
+          snapshot_date?: string | null
+          period_start?: string | null
+          period_end?: string | null
+          rows: Json
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          unit_id?: string | null
+          imported_at?: string
+          filename?: string | null
+          snapshot_date?: string | null
+          period_start?: string | null
+          period_end?: string | null
+          rows?: Json
+        }
+      }
+      anotaai_products: {
+        Row: {
+          id: string
+          tenant_id: string
+          unit_id: string | null
+          import_id: string
+          snapshot_date: string
+          product_name: string
+          category: string | null
+          quantity: number
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          unit_id?: string | null
+          import_id: string
+          snapshot_date: string
+          product_name: string
+          category?: string | null
+          quantity?: number
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          unit_id?: string | null
+          import_id?: string
+          snapshot_date?: string
+          product_name?: string
+          category?: string | null
+          quantity?: number
+        }
+      }
     }
     Views: Record<string, never>
     Functions: Record<string, never>
