@@ -156,8 +156,12 @@ margem R$ 349.572, ROAS 32,78x), toggle fluido.
 ## 📋 Fila depois do RoiSection
 
 - **Marketing Unificado (MarketingUnif)** — Orgânico vs Pago.
-  Precisa upload de métricas orgânicas (Instagram/Facebook) — definir
-  fonte com Doug.
+  **Fonte decidida (22/05):** upload de CSV exportado do Meta Business
+  Suite (mesma lógica do upload de Meta Ads). Grava em `organic_entries`
+  (tabela já existe: date, posts, stories, reels, alcance, engajamento).
+  **BLOQUEADO até Doug colocar um CSV de exemplo na pasta do projeto** —
+  preciso ver as colunas reais do export do Business Suite pra escrever
+  o parser. Padrão a copiar: `AdsUploadCard` + `useAds` + `metaAdsCsv`.
 - **Gráficos Chart.js de Vendas** — completar SalesSection com 5
   gráficos do painel antigo.
 - **Fase 2 — Auth** (~1.5 dia). Login email/senha, ativar RLS estrita.
