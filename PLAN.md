@@ -155,9 +155,17 @@ margem R$ 349.572, ROAS 32,78x), toggle fluido.
 
 ## 📋 Fila depois do RoiSection
 
-- **Marketing Unificado (MarketingUnif)** — Orgânico vs Pago.
+- **Marketing Unificado (MarketingUnif)** — Total Instagram + fatia paga.
   **PRÓXIMO A FAZER.** Padrão a copiar: `AdsUploadCard` + `useAds` +
   `metaAdsCsv`.
+
+  **⚠️ Enquadramento decidido (22/05):** os números do Business Suite
+  são TOTAL (orgânico + pago juntos — Instagram não separa no export).
+  Doug escolheu mostrar o **total real do Instagram** + ao lado **quanto
+  e qual % veio dos anúncios** (Meta Ads / `ads_daily`). NÃO estimar
+  "orgânico = total − pago" (estimativa imprecisa, descartada). A seção
+  cruza: alcance total do Instagram × alcance pago dos anúncios → "X%
+  do alcance foi impulsionado por anúncio".
 
   **Fonte (22/05):** upload de CSVs do Meta Business Suite — só
   Instagram (canal principal do Mizú). Exemplos em
@@ -190,7 +198,8 @@ margem R$ 349.572, ROAS 32,78x), toggle fluido.
   3. `src/lib/instagramCsv.ts` — parser UTF-16, multi-arquivo, merge por data.
   4. `src/api/useOrganic.ts` — query + Realtime + mutation upload.
   5. Componente upload (multi-file, aceita os 6 de uma vez).
-  6. Seção `MarketingUnif` — orgânico (organic_entries) vs pago (ads_daily).
+  6. Seção `MarketingUnif` — total do Instagram (`organic_entries`) +
+     fatia paga vinda de `ads_daily` (investimento, alcance/% do total).
 - **Gráficos Chart.js de Vendas** — completar SalesSection com 5
   gráficos do painel antigo.
 - **Fase 2 — Auth** (~1.5 dia). Login email/senha, ativar RLS estrita.
