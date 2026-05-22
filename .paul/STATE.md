@@ -11,19 +11,19 @@ See: .paul/PROJECT.md (updated 2026-05-18)
 
 Milestone: v0.1 MVP
 Phase: 3 of 6 (Anota AI / Delivery)
-Plan: 03-01 criado, aguardando aprovação
-Status: PLAN criado, pronto para APPLY
-Last activity: 2026-05-18 — Criado .paul/phases/03-anotaai-delivery/03-01-PLAN.md
+Plan: 03-01 concluído
+Status: APPLY completo — migration rodada, upload testado (70 produtos), commit feito
+Last activity: 2026-05-18 — Commit d01b152 feat(anotaai)
 
 Progress:
-- Milestone: [███░░░░░░░] 33%
-- Phase 3: [░░░░░░░░░░] 0%
+- Milestone: [████░░░░░░] 50%
+- Phase 3: [██████████] 100%
 
 ## Loop Position
 
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ○        ○     [Plano criado, aguardando aprovação]
+  ✓        ✓        ✓     [Loop fechado — Phase 3 completa]
 ```
 
 ## Accumulated Context
@@ -49,10 +49,10 @@ Nenhum.
 
 ## Session Continuity
 
-Last session: 2026-05-18
-Stopped at: Plano 03-01 criado
-Next action: Revisar o plano e rodar `/paul:apply .paul/phases/03-anotaai-delivery/03-01-PLAN.md`
-Resume file: .paul/phases/03-anotaai-delivery/03-01-PLAN.md
+Last session: 2026-05-22
+Stopped at: WeeklyRecap validado no browser e commitado (3 bugs de janela/fuso corrigidos)
+Next action: Portar ROI / Investimento (RoiSection) — ver PLAN.md
+Resume file: PLAN.md
 
 ---
 *STATE.md — Updated after every significant action*

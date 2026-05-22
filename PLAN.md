@@ -6,7 +6,7 @@
 > sessão produtiva** marcando o que ficou pronto e ajustando o próximo
 > passo.
 
-**Última atualização:** 2026-05-18 (Passo A1 — AnotaaiUploadCard completo, migration rodada, upload testado ✅)
+**Última atualização:** 2026-05-22 (Passo A2 — WeeklyRecap validado e commitado)
 
 ---
 
@@ -61,7 +61,7 @@ no Supabase, sincronizado em tempo real entre todos os dispositivos.
 
 ---
 
-## 🚧 Próximo passo: rodar migration 0004 + testar upload, depois WeeklyRecap
+## 🚧 Próximo passo: ROI / Investimento (RoiSection)
 
 **Decisão tomada em 16/05:** opção B — AnotaaiUploadCard antes do
 WeeklyRecap, pra ter Top 3 produtos completo de uma vez.
@@ -94,21 +94,29 @@ Arquivos criados/atualizados:
 Seção aparece corretamente no browser. Upload do CSV funcionou:
 1 import registrado, 70 produtos importados no banco.
 
-### Passo A2 — WeeklyRecap (próxima sessão)
+### Passo A2 — WeeklyRecap ✅ validado e commitado (22/05)
 
-**Objetivo:** portar a caixa "Resumo da Semana" do painel antigo —
-top 3 produtos vendidos na semana + ROAS (retorno sobre investimento
-em anúncios).
+Implementado seguindo padrão do painel antigo (`renderWeeklyRecap()`):
+- `src/api/useWeeklyRecap.ts` — query única que busca em paralelo
+  `units` + `sales_daily` (14 dias) + `ads_daily` (semana atual) +
+  `anotaai_products` (snapshot mais recente). Calcula ROAS, top 3
+  produtos, alerta de queda > 15%. Realtime subscribe nas 3 tabelas.
+- `src/sections/WeeklyRecap.tsx` — UI com 3 blocos em grid: faturamento
+  por unidade + delta vs semana anterior, ROAS de marketing, top 3
+  produtos do último snapshot Anota AI.
+- Wire-up em `Dashboard.tsx` antes da SalesSection.
+- CSS appendado em `index.css`.
 
-**Roteiro:**
-1. `src/api/useWeeklyRecap.ts` — query que agrega últimos 7 dias de
-   `sales_daily` + `ads_daily` + `anotaai_products`, calcula ROAS,
-   identifica top 3 produtos.
-2. `src/sections/WeeklyRecap.tsx` — design do painel antigo. Achar
-   lógica original com Grep "weeklyRecap" em `painel-diario.html`
-   (não ler arquivo inteiro).
-3. Wire-up em `Dashboard.tsx` antes da SalesSection.
-4. CSS no `index.css`.
+**Validação 22/05 — 3 bugs encontrados e corrigidos em `useWeeklyRecap.ts`:**
+1. Comparava semana parcial (4 dias) contra semana cheia (7 dias) —
+   gerava queda falsa de ~80%. Agora compara janelas de mesmo tamanho.
+2. `toISO()` usava horário UTC: data "23:59 local" virava o dia
+   seguinte no banco (Brasil é UTC-3), inflando o "prev" em 1 dia.
+   Agora `toISO()` formata pela data local.
+3. Comparava "até hoje" mesmo com a planilha atrasada — como o Sheets
+   tem lag de 1-2 dias, comparava 2 dias reais contra 4. Agora ancora
+   no último dia COM dado e compara o mesmo nº de dias.
+- **Validado no browser:** Serraria ▲1%, Jatiúca ▼12%, sem alerta falso.
 
 ---
 
