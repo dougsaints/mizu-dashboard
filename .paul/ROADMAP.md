@@ -8,7 +8,7 @@ Portar o painel HTML monolítico (painel-diario.html) para uma aplicação web m
 
 **v0.1 MVP** (v0.1.0)
 Status: Em progresso
-Phases: 3 of 6 complete
+Phases: 4 of 7 complete
 
 ## Phases
 
@@ -16,10 +16,11 @@ Phases: 3 of 6 complete
 |-------|------|-------|--------|-----------|
 | 1 | Fundação e dados de vendas | 3 | ✅ Complete | 2026-05-16 |
 | 2 | Meta Ads | 1 | ✅ Complete | 2026-05-16 |
-| 3 | Anota AI / Delivery | 1 | 🚧 In progress | - |
-| 4 | Gráficos e comparativos | 2 | 📋 Not started | - |
-| 5 | Correlações e análise cruzada | 2 | 📋 Not started | - |
-| 6 | Hospedagem, polish e autenticação | 2 | 📋 Not started | - |
+| 3 | Anota AI / Delivery | 1 | ✅ Complete | 2026-05-18 |
+| 4 | Resumos: semana, ROI e marketing | 1 | ✅ Complete | 2026-05-22 |
+| 5 | Gráficos e comparativos | 2 | 📋 Not started | - |
+| 6 | Correlações e análise cruzada | 2 | 📋 Not started | - |
+| 7 | Hospedagem, polish e autenticação | 2 | 📋 Not started | - |
 
 ## Phase Details
 
@@ -52,11 +53,10 @@ Phases: 3 of 6 complete
 
 ---
 
-### Phase 3: Anota AI / Delivery 🚧
+### Phase 3: Anota AI / Delivery ✅
 
 **Goal:** Visualização de dados de delivery e produtos via upload de CSV Anota AI
 **Depends on:** Phase 1
-**Research:** Unlikely (padrão de upload já existe em Meta Ads)
 
 **Scope:**
 - Parsing de CSV Latin-1 do Anota AI
@@ -64,14 +64,34 @@ Phases: 3 of 6 complete
 - Componente de upload + visualização de produtos/delivery
 
 **Plans:**
-- [ ] 03-01: Upload Anota AI + tabela + exibição de métricas de delivery
+- [x] 03-01: Upload Anota AI + tabela + exibição de métricas de delivery
 
 ---
 
-### Phase 4: Gráficos e comparativos
+### Phase 4: Resumos: semana, ROI e marketing ✅
+
+**Goal:** Painéis de resumo que cruzam as fontes de dados num panorama executivo rápido
+**Depends on:** Phase 3 (todas as fontes principais conectadas)
+
+> ⚠️ Esta fase foi construída fora do loop do PAUL (sessões de 20-22/05,
+> registradas no `PLAN.md`) e documentada retroativamente em 22/05, quando
+> o PAUL foi reconciliado com a realidade.
+
+**Scope:**
+- WeeklyRecap — resumo semanal (faturamento vs semana anterior, ROAS, top 3 produtos)
+- RoiSection — ROI / investimento vs retorno, configuração salva no Supabase
+- MarketingUnif — marketing unificado Instagram (total real + fatia paga)
+- Migration 0005 — recriação de `organic_entries` + `organic_imports`
+
+**Plans:**
+- [x] 04-01: WeeklyRecap + RoiSection + MarketingUnif (documentado retroativamente)
+
+---
+
+### Phase 5: Gráficos e comparativos
 
 **Goal:** Gráficos visuais por tipo de métrica e comparação entre períodos
-**Depends on:** Phase 3 (todas as fontes de dados conectadas)
+**Depends on:** Phase 4
 **Research:** Likely (escolha de biblioteca de gráficos)
 
 **Scope:**
@@ -81,15 +101,15 @@ Phases: 3 of 6 complete
 - Gráficos para delivery/Anota AI
 
 **Plans:**
-- [ ] 04-01: Biblioteca de gráficos + gráficos de vendas
-- [ ] 04-02: Gráficos Meta Ads e delivery + seletor de período
+- [ ] 05-01: Biblioteca de gráficos + gráficos de vendas
+- [ ] 05-02: Gráficos Meta Ads e delivery + seletor de período
 
 ---
 
-### Phase 5: Correlações e análise cruzada
+### Phase 6: Correlações e análise cruzada
 
 **Goal:** Cruzamento de métricas entre fontes para identificar tendências e ações efetivas
-**Depends on:** Phase 4 (gráficos base prontos)
+**Depends on:** Phase 5 (gráficos base prontos)
 **Research:** Likely (definir quais correlações fazem sentido pro negócio)
 
 **Scope:**
@@ -98,15 +118,15 @@ Phases: 3 of 6 complete
 - Indicadores de tendência (subiu/caiu vs período anterior)
 
 **Plans:**
-- [ ] 05-01: Correlação Meta Ads × Vendas
-- [ ] 05-02: Painel de tendências e indicadores consolidados
+- [ ] 06-01: Correlação Meta Ads × Vendas
+- [ ] 06-02: Painel de tendências e indicadores consolidados
 
 ---
 
-### Phase 6: Hospedagem, polish e autenticação
+### Phase 7: Hospedagem, polish e autenticação
 
 **Goal:** MVP em produção, visual limpo e acesso controlado
-**Depends on:** Phase 5
+**Depends on:** Phase 6
 
 **Scope:**
 - Deploy no Vercel via GitHub
@@ -114,9 +134,9 @@ Phases: 3 of 6 complete
 - Autenticação básica (login simples, pós-MVP)
 
 **Plans:**
-- [ ] 06-01: Deploy Vercel + configuração de ambiente
-- [ ] 06-02: Auth básico + polish final
+- [ ] 07-01: Deploy Vercel + configuração de ambiente
+- [ ] 07-02: Auth básico + polish final
 
 ---
 *Roadmap created: 2026-05-18*
-*Last updated: 2026-05-18*
+*Last updated: 2026-05-22 (reconciliação — Fase 4 nova, renumeração das seguintes)*

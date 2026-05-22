@@ -32,27 +32,43 @@ projeto dele. Adapte sua comunicação:
 - Para validação visual, peça pra ele abrir o browser e olhar — ele não
   consegue ler logs nem stack traces.
 
-## Como retomar trabalho ("siga com o plano")
+## Fluxo de trabalho: PAUL (OBRIGATÓRIO)
 
-**Doug deve poder abrir uma nova sessão e simplesmente dizer "siga com
-o plano".** Pra isso funcionar:
+**Este projeto usa o PAUL como sistema oficial de planejamento.** O PAUL
+organiza o trabalho em fases (phases) e plans, com um ciclo
+PLANEJAR → APLICAR → UNIFICAR pra cada tarefa. Todos os arquivos de
+controle ficam em `.paul/` (STATE.md, ROADMAP.md, PROJECT.md, paul.json,
+phases/).
 
-1. **Sempre mantenha `PLAN.md` (na raiz do projeto) atualizado.** É o
-   estado-da-arte do trabalho: o que tá pronto, o que tá no meio, o que
-   vem a seguir. Atualize ele **no início e no fim de cada sessão**.
-2. Ao receber "siga com o plano", **leia `PLAN.md` primeiro**, confirme
-   em 2-3 linhas o que vai fazer ("vou seguir com a seção X, próximo
-   passo é criar a tabela Y"), e comece.
-3. Se Doug fez mudança manual entre sessões (ex: rodou uma migration no
-   Supabase), confirme isso com ele antes de seguir — pode ter alterado
-   o estado.
-4. Ao fim de cada sessão produtiva, **atualize `PLAN.md`** marcando o
-   que ficou pronto e ajustando o próximo passo.
+**Regras — siga sempre:**
 
-## Estado do projeto (atualizado 2026-05-16)
+1. **Toda feature passa pelo PAUL.** Nada de trabalho "solto" fora do
+   loop — foi exatamente isso que desincronizou o projeto antes (3
+   features feitas fora do PAUL, reconciliadas em 22/05). Se Doug pedir
+   uma feature, ela vira um plan do PAUL.
+2. **Ao receber "siga com o plano" (ou pedido similar), leia
+   `.paul/STATE.md` primeiro.** É a fonte da verdade do estado atual.
+   Confirme em 2-3 linhas onde o projeto está e qual o próximo passo,
+   e siga.
+3. **Mantenha os arquivos do PAUL atualizados:** `STATE.md` depois de
+   toda ação significativa; `ROADMAP.md` e `paul.json` quando fases
+   mudam de status.
+4. **Os comandos `/paul:*` são digitados pelo Doug** — ele invoca as
+   skills; o Claude não dispara sozinho. Quando o próximo passo for um
+   comando PAUL, **diga a ele exatamente qual comando digitar e por quê**
+   (ex: "digite `/paul:plan` pra abrir o planejamento da Fase 5").
+5. Se Doug fez mudança manual entre sessões (rodou migration, etc.),
+   confirme com ele antes de seguir — pode ter alterado o estado.
+
+> **`PLAN.md` (raiz do projeto) é histórico.** Era o sistema antigo de
+> planejamento; foi aposentado em 22/05. Pode ser consultado pra contexto
+> das sessões 1-4, mas **não atualize mais ele** — quem manda agora é o
+> PAUL (`.paul/`).
+
+## Estado do projeto (atualizado 2026-05-22)
 
 - App React + TypeScript + Vite + Supabase em `mizu-dashboard/`
-- Fase atual: **Fase 1 — portar painel HTML para Cloud**
+- Fase atual: **Fase 5 — Gráficos e comparativos** (ver `.paul/STATE.md`)
 - Painel original (referência): `painel-diario.html` (5000+ linhas, monolítico)
 - Banco: Supabase, schema em `mizu-dashboard/supabase/migrations/`
 - Auth: ainda não — usando `phase1_anon_access.sql` (qualquer um com URL lê/escreve)

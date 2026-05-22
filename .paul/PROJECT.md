@@ -15,7 +15,7 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 | Type | Application |
 | Version | 0.1.0 |
 | Status | MVP em construção |
-| Last Updated | 2026-05-18 |
+| Last Updated | 2026-05-22 |
 
 ## Requirements
 
@@ -33,10 +33,14 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 - [x] Leitura de planilhas Google Sheets (vendas Serraria + Jatiúca) — v0.1
 - [x] Upload de CSV Meta Ads — v0.1
 - [x] Seção de diário de operações — v0.1
+- [x] Upload e visualização de dados Anota AI (produtos/delivery) — v0.1
+- [x] WeeklyRecap — resumo semanal (faturamento, ROAS, top 3 produtos) — v0.1
+- [x] RoiSection — ROI / investimento vs retorno (salvo na nuvem) — v0.1
+- [x] MarketingUnif — marketing unificado Instagram (total + fatia paga) — v0.1
 
 ### Active (In Progress)
 
-- [ ] Upload e visualização de dados Anota AI (produtos/delivery) — em andamento
+- [ ] Nada em andamento — próximo: gráficos comparativos (Phase 5)
 
 ### Planned (Next)
 
@@ -81,7 +85,7 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 
 | Metric | Target | Current | Status |
 |--------|--------|---------|--------|
-| Todas as fontes de dados conectadas | 4 fontes (Vendas, Meta, Delivery, Orgânico) | 3/4 | Em andamento |
+| Todas as fontes de dados conectadas | 4 fontes (Vendas, Meta, Delivery, Orgânico) | 4/4 | ✅ Completo |
 | Comparativo de períodos funcionando | Diário + semanal + mensal | - | Não iniciado |
 | Correlações entre métricas visíveis | Pelo menos 2 cruzamentos | - | Não iniciado |
 | Leitura diária efetiva | Time usa todo dia sem abrir outras plataformas | - | Não iniciado |
@@ -107,4 +111,4 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 
 ---
 *PROJECT.md — Updated when requirements or context change*
-*Last updated: 2026-05-18*
+*Last updated: 2026-05-22*

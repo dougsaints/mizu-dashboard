@@ -1,12 +1,12 @@
-# Plano do Mizu Dashboard — estado atual
+# Plano do Mizu Dashboard — ARQUIVO HISTÓRICO (aposentado)
 
-> **Para o Claude:** este é o "estado da arte" do projeto. Quando Doug
-> disser "siga com o plano", leia esse arquivo, confirme em 2-3 linhas
-> o que vai fazer, e comece. **Atualize esse arquivo no fim de toda
-> sessão produtiva** marcando o que ficou pronto e ajustando o próximo
-> passo.
+> ⚠️ **Este arquivo foi APOSENTADO em 2026-05-22.** O projeto agora usa
+> o **PAUL** como sistema oficial de planejamento — veja `.paul/STATE.md`.
+> O conteúdo abaixo é o registro das Fases 1-4 (sessões antigas) e fica
+> aqui só como referência histórica. **Não atualize mais este arquivo.**
 
-**Última atualização:** 2026-05-22 (Passo A4 — MarketingUnif validado e commitado)
+**Última atualização:** 2026-05-22 (Passo A4 — MarketingUnif; depois disso
+o projeto migrou pro PAUL)
 
 ---
 
