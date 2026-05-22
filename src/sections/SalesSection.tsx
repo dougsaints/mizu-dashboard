@@ -1,14 +1,23 @@
 // Seção Vendas — KPIs de faturamento agregados por unidade.
-// O período vem do filtro global no topo (usePeriod).
+// Período, Unidade e Canal de Venda vêm dos filtros globais no topo
+// (useFilters). Os filtros afetam apenas esta seção — Meta Ads e
+// Delivery seguem como estão.
 
 import { useMemo } from 'react'
 import { useSales } from '../api/useSales'
 import { useUnits } from '../api/useUnits'
-import { usePeriod } from '../lib/period'
+import { useFilters, type Channel } from '../lib/period'
 import SalesLineChart from '../components/SalesLineChart'
 import type { Database } from '../types/database'
 
 type SalesRow = Database['public']['Tables']['sales_daily']['Row']
+
+const CHANNEL_LABEL: Record<Channel, string> = {
+  all: '',
+  pdv: 'PDV',
+  ifood: 'iFood',
+  anotaai: 'AnotaAi',
+}
 
 function brl(n: number): string {
   return n.toLocaleString('pt-BR', {
@@ -19,7 +28,9 @@ function brl(n: number): string {
   })
 }
 
-function aggregateByUnit(rows: SalesRow[]): Record<string, { total: number; pdv: number; anotaai: number; ifood: number; days: number }> {
+function aggregateByUnit(
+  rows: SalesRow[],
+): Record<string, { total: number; pdv: number; anotaai: number; ifood: number; days: number }> {
   const out: Record<string, { total: number; pdv: number; anotaai: number; ifood: number; days: number }> = {}
   for (const r of rows) {
     const k = r.unit_id
@@ -34,12 +45,23 @@ function aggregateByUnit(rows: SalesRow[]): Record<string, { total: number; pdv:
 }
 
 export default function SalesSection() {
-  const { start, end } = usePeriod()
+  const { start, end, unitId, channel } = useFilters()
   const { data: rows = [], isLoading, error } = useSales(start, end)
   const { data: units = [] } = useUnits()
   const unitName = (id: string) => units.find((u) => u.id === id)?.display_name ?? id.slice(0, 8)
 
-  const aggregated = useMemo(() => aggregateByUnit(rows), [rows])
+  // Aplica filtros: primeiro Unidade (filtra linhas), depois Canal
+  // (substitui `total` pelo valor da coluna do canal). Os campos
+  // pdv/ifood/anotaai ficam intocados nas linhas — o breakdown só é
+  // exibido quando o canal é "Todos" (com canal específico, ele
+  // duplicaria a informação do total).
+  const displayRows = useMemo<SalesRow[]>(() => {
+    const filtered = unitId ? rows.filter((r) => r.unit_id === unitId) : rows
+    if (channel === 'all') return filtered
+    return filtered.map((r) => ({ ...r, total: Number(r[channel] ?? 0) }))
+  }, [rows, unitId, channel])
+
+  const aggregated = useMemo(() => aggregateByUnit(displayRows), [displayRows])
   const totalGeral = useMemo(
     () => Object.values(aggregated).reduce((s, u) => s + u.total, 0),
     [aggregated],
@@ -48,6 +70,16 @@ export default function SalesSection() {
     const allDays = Object.values(aggregated).reduce((s, u) => s + u.days, 0)
     return allDays > 0 ? totalGeral / allDays : 0
   }, [aggregated, totalGeral])
+
+  // Sufixo de filtros ativos pra label do KPI
+  const filterChips = [
+    unitId ? (units.find((u) => u.id === unitId)?.display_name ?? '') : '',
+    channel === 'all' ? '' : `canal ${CHANNEL_LABEL[channel]}`,
+  ].filter(Boolean)
+  const filterSuffix = filterChips.length > 0 ? ` · ${filterChips.join(' · ')}` : ''
+
+  const showEmpty = !isLoading && !error && displayRows.length === 0
+  const hasData = !isLoading && !error && displayRows.length > 0
 
   return (
     <section className="mizu-section">
@@ -69,20 +101,21 @@ export default function SalesSection() {
         </div>
       )}
 
-      {!isLoading && !error && rows.length === 0 && (
+      {showEmpty && (
         <div className="sales-empty">
-          Nenhum dado de faturamento ainda. As planilhas Google são sincronizadas
-          automaticamente — em alguns segundos os números devem aparecer aqui.
+          {rows.length === 0
+            ? 'Nenhum dado de faturamento ainda. As planilhas Google são sincronizadas automaticamente — em alguns segundos os números devem aparecer aqui.'
+            : 'Nenhum dado pra essa combinação de filtros. Tente trocar a unidade, o canal ou o período.'}
         </div>
       )}
 
-      {!isLoading && rows.length > 0 && (
+      {hasData && (
         <>
           <div className="sales-kpis">
             <div className="kpi-card">
-              <div className="kpi-label">Total geral · período selecionado</div>
+              <div className="kpi-label">Total geral · período selecionado{filterSuffix}</div>
               <div className="kpi-value">{brl(totalGeral)}</div>
-              <div className="kpi-sub">{rows.length} dia(s) com dados</div>
+              <div className="kpi-sub">{displayRows.length} dia(s) com dados</div>
             </div>
             <div className="kpi-card">
               <div className="kpi-label">Ticket médio diário</div>
@@ -92,15 +125,17 @@ export default function SalesSection() {
           </div>
 
           <div className="sales-unit-grid">
-            {Object.entries(aggregated).map(([unitId, agg]) => (
-              <div key={unitId} className="unit-card">
-                <div className="unit-card-name">{unitName(unitId)}</div>
+            {Object.entries(aggregated).map(([id, agg]) => (
+              <div key={id} className="unit-card">
+                <div className="unit-card-name">{unitName(id)}</div>
                 <div className="unit-card-total">{brl(agg.total)}</div>
-                <div className="unit-card-breakdown">
-                  <span>PDV: {brl(agg.pdv)}</span>
-                  <span>Anota AI: {brl(agg.anotaai)}</span>
-                  <span>iFood: {brl(agg.ifood)}</span>
-                </div>
+                {channel === 'all' && (
+                  <div className="unit-card-breakdown">
+                    <span>PDV: {brl(agg.pdv)}</span>
+                    <span>Anota AI: {brl(agg.anotaai)}</span>
+                    <span>iFood: {brl(agg.ifood)}</span>
+                  </div>
+                )}
                 <div className="unit-card-days">{agg.days} dia(s) com dados</div>
               </div>
             ))}
@@ -108,7 +143,7 @@ export default function SalesSection() {
 
           <div className="sales-chart">
             <div className="sales-chart-title">Faturamento dia a dia · por loja</div>
-            <SalesLineChart rows={rows} units={units} />
+            <SalesLineChart rows={displayRows} units={units} />
           </div>
         </>
       )}

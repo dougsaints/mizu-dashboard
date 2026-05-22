@@ -8,7 +8,7 @@ import AdsUploadCard from '../components/AdsUploadCard'
 import AnotaaiUploadCard from '../components/AnotaaiUploadCard'
 import InstagramUploadCard from '../components/InstagramUploadCard'
 import { useAutoPollSales } from '../api/useSales'
-import { PeriodProvider } from '../lib/period'
+import { FilterProvider } from '../lib/period'
 
 export default function Dashboard() {
   // Polling automático das planilhas Google Sheets a cada 5 min.
@@ -17,7 +17,7 @@ export default function Dashboard() {
   useAutoPollSales(300)
 
   return (
-    <PeriodProvider>
+    <FilterProvider>
       <Header />
       <main style={{ maxWidth: 1440, margin: '0 auto', padding: '24px 28px' }}>
         <WeeklyRecap />
@@ -29,6 +29,6 @@ export default function Dashboard() {
         <InstagramUploadCard />
         <DiarioSection />
       </main>
-    </PeriodProvider>
+    </FilterProvider>
   )
 }

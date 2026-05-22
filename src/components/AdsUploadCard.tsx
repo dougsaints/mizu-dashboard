@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import { format, parseISO } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { useUploadAdsCSV, useAdsImports, useAds } from '../api/useAds'
-import { usePeriod } from '../lib/period'
+import { useFilters } from '../lib/period'
 import AdsCharts from './AdsCharts'
 
 export default function AdsUploadCard() {
@@ -12,7 +12,7 @@ export default function AdsUploadCard() {
   const upload = useUploadAdsCSV()
   const { data: imports = [] } = useAdsImports(5)
   const [feedback, setFeedback] = useState<string | null>(null)
-  const { start, end } = usePeriod()
+  const { start, end } = useFilters()
   const { data: adsRows = [] } = useAds(start, end)
 
   const onPick = (e: React.ChangeEvent<HTMLInputElement>) => {

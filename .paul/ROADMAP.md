@@ -104,7 +104,7 @@ Phases: 4 of 7 complete
 - [x] 05-01: Gráfico de linha de vendas por unidade (completo 22/05)
 - [x] 05-02: Gráficos Meta Ads e delivery + seletor de período (completo 22/05)
 - [x] 05-03: Seletor de período completo (calendário + 12 atalhos) (completo 22/05)
-- [ ] 05-04: Filtros de Unidade e Canal de Venda
+- [x] 05-04: Filtros de Unidade e Canal de Venda (completo 22/05)
 - [ ] 05-05: "Comparar com" + Análise mensal/semanal
 
 > Notas:

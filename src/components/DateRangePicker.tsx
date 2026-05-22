@@ -4,7 +4,7 @@
 // Atalho aplica na hora; intervalo do calendário só vale ao "Aplicar".
 
 import { useEffect, useRef, useState } from 'react'
-import { usePeriod } from '../lib/period'
+import { useFilters } from '../lib/period'
 import { PERIOD_PRESETS, resolvePreset, rangeLabel, isoLocal } from '../lib/periodPresets'
 
 const MESES = [
@@ -21,7 +21,7 @@ function fmtDay(iso: string): string {
 }
 
 export default function DateRangePicker() {
-  const { start, end, presetKey, setRange } = usePeriod()
+  const { start, end, presetKey, setRange } = useFilters()
 
   const [open, setOpen] = useState(false)
   const [calY, setCalY] = useState(() => Number(end.slice(0, 4)))
