@@ -174,7 +174,8 @@ margem R$ 349.572, ROAS 32,78x), toggle fluido.
     Alcance→alcance, Visualiz→visualizacoes, Intera→interacoes,
     Seguidor→seguidores_novos, Visita→visitas_perfil, Clique→cliques_link.
   - "Seguidores" = novos seguidores por dia (92, 65, 56…), NÃO total.
-    (confirmar com Doug)
+    Confirmado por Doug 22/05 (tooltip do Business Suite mostra valor/dia;
+    o "1,7 mil" do topo é o total ganho no período).
   - Dados vão até 05-21 mesmo arquivo dizendo "até 22" — lag de 1 dia.
 
   **⚠️ Mudança de schema necessária:** `organic_entries` foi criada na
