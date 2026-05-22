@@ -1999,3 +1999,40 @@
 @media (max-width: 560px) {
   .sales-chart-canvas { height: 240px; }
 }
+
+/* ─── Gráficos Meta Ads e delivery (Fase 5 · plano 05-02) ────── */
+.ads-charts {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ads-chart-block,
+.top-products-chart {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px 18px;
+}
+.top-products-chart {
+  margin-top: 20px;
+}
+.ads-chart-title,
+.top-products-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--txt-2);
+  margin-bottom: 12px;
+}
+/* Chart.js usa maintainAspectRatio:false — altura fixa no container. */
+.ads-chart-canvas,
+.top-products-canvas {
+  position: relative;
+  height: 280px;
+}
+@media (max-width: 560px) {
+  .ads-chart-canvas { height: 220px; }
+  .top-products-canvas { height: 320px; }
+}

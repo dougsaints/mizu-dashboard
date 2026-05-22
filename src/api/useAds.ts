@@ -37,9 +37,11 @@ export function useAds(daysBack = 60) {
     },
   })
 
+  // Nome de canal único por instância do hook — vários componentes
+  // podem usar useAds ao mesmo tempo sem colidir no mesmo canal Realtime.
   useEffect(() => {
     const channel = supabase
-      .channel(`ads-${MIZU_TENANT_ID}`)
+      .channel(`ads-${MIZU_TENANT_ID}-${crypto.randomUUID()}`)
       .on(
         'postgres_changes',
         {

@@ -18,7 +18,7 @@ Phases: 4 of 7 complete
 | 2 | Meta Ads | 1 | ✅ Complete | 2026-05-16 |
 | 3 | Anota AI / Delivery | 1 | ✅ Complete | 2026-05-18 |
 | 4 | Resumos: semana, ROI e marketing | 1 | ✅ Complete | 2026-05-22 |
-| 5 | Gráficos e comparativos | 2 | 🔨 Planning | - |
+| 5 | Gráficos e comparativos | 3 | 🔨 Em progresso | - |
 | 6 | Correlações e análise cruzada | 2 | 📋 Not started | - |
 | 7 | Hospedagem, polish e autenticação | 2 | 📋 Not started | - |
 
@@ -102,10 +102,12 @@ Phases: 4 of 7 complete
 
 **Plans:**
 - [x] 05-01: Gráfico de linha de vendas por unidade (completo 22/05)
-- [ ] 05-02: Gráficos Meta Ads e delivery + seletor de período
+- [x] 05-02: Gráficos Meta Ads e delivery + seletor de período (completo 22/05)
+- [ ] 05-03: Filtro global de período no topo do sistema
 
 > Nota: Chart.js + react-chartjs-2 já estavam instalados no projeto —
 > a parte "biblioteca de gráficos" do 05-01 virou só configuração.
+> O plano 05-03 foi adicionado em 22/05 a pedido do Doug (filtro global).
 
 ---
 

@@ -8,9 +8,11 @@ import { ptBR } from 'date-fns/locale'
 import {
   useUploadAnotaaiCSV,
   useAnotaaiImports,
+  useAnotaaiProducts,
   snapshotDateFromFilename,
 } from '../api/useAnotaai'
 import { useUnits } from '../api/useUnits'
+import TopProductsChart from './TopProductsChart'
 
 function todayISO(): string {
   return new Date().toISOString().slice(0, 10)
@@ -21,6 +23,7 @@ export default function AnotaaiUploadCard() {
   const upload = useUploadAnotaaiCSV()
   const { data: imports = [] } = useAnotaaiImports(5)
   const { data: units = [] } = useUnits()
+  const { data: products = [] } = useAnotaaiProducts()
   const [feedback, setFeedback] = useState<string | null>(null)
   const [unitId, setUnitId] = useState<string>('all')
   const [snapshotDate, setSnapshotDate] = useState<string>(todayISO())
@@ -165,6 +168,8 @@ export default function AnotaaiUploadCard() {
           })}
         </div>
       )}
+
+      <TopProductsChart products={products} />
     </section>
   )
 }

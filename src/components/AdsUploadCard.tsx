@@ -3,13 +3,22 @@
 import { useRef, useState } from 'react'
 import { format, parseISO } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { useUploadAdsCSV, useAdsImports } from '../api/useAds'
+import { useUploadAdsCSV, useAdsImports, useAds } from '../api/useAds'
+import AdsCharts from './AdsCharts'
+
+const RANGES: Array<{ label: string; days: number }> = [
+  { label: '7 dias', days: 7 },
+  { label: '30 dias', days: 30 },
+  { label: '60 dias', days: 60 },
+]
 
 export default function AdsUploadCard() {
   const fileRef = useRef<HTMLInputElement>(null)
   const upload = useUploadAdsCSV()
   const { data: imports = [] } = useAdsImports(5)
   const [feedback, setFeedback] = useState<string | null>(null)
+  const [range, setRange] = useState(30)
+  const { data: adsRows = [] } = useAds(range)
 
   const onPick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -41,6 +50,18 @@ export default function AdsUploadCard() {
             Exporta CSV no Gerenciador de Anúncios e arrasta aqui · histórico
             acumulado, dedup automático por dia/campanha
           </div>
+        </div>
+        <div className="range-picker">
+          {RANGES.map((r) => (
+            <button
+              key={r.days}
+              type="button"
+              className={range === r.days ? 'on' : ''}
+              onClick={() => setRange(r.days)}
+            >
+              {r.label}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -87,6 +108,8 @@ export default function AdsUploadCard() {
           ))}
         </div>
       )}
+
+      <AdsCharts rows={adsRows} />
     </section>
   )
 }
