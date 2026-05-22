@@ -6,7 +6,7 @@
 > sessão produtiva** marcando o que ficou pronto e ajustando o próximo
 > passo.
 
-**Última atualização:** 2026-05-22 (Passo A4 — MarketingUnif código pronto, aguardando migration)
+**Última atualização:** 2026-05-22 (Passo A4 — MarketingUnif validado e commitado)
 
 ---
 
@@ -153,7 +153,7 @@ margem R$ 349.572, ROAS 32,78x), toggle fluido.
 
 ---
 
-### Passo A4 — MarketingUnif ⏳ código pronto, aguardando migration (22/05)
+### Passo A4 — MarketingUnif ✅ validado e commitado (22/05)
 
 Total real do Instagram + fatia que veio de anúncios pagos. Padrão
 seguido: `AdsUploadCard`/`useAds`/`metaAdsCsv`.
@@ -183,8 +183,9 @@ todos os títulos reconhecidos (Alcance, Cliques no link do Instagram,
 Interações com o conteúdo, Seguidores no Instagram, Visitas ao perfil
 do Instagram, Visualizações).
 
-**⏳ PENDENTE — Doug precisa rodar a migration `0005` no Supabase**
-(Dashboard → SQL Editor). Depois: upload dos 6 CSVs e validar no browser.
+**✅ Migration `0005` rodada no Supabase em 22/05.** Upload dos 6 CSVs
+testado e validado no browser: 01/05→21/05 (21 dias). Alcance 1.377.724,
+investimento R$ 2.484, 63% do alcance impulsionado por anúncio.
 
 ---
 
