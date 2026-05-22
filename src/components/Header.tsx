@@ -1,4 +1,5 @@
 import { useCurrentTenant } from '../lib/tenant'
+import DateRangePicker from './DateRangePicker'
 import SyncStatusBadge from './SyncStatusBadge'
 
 export default function Header() {
@@ -22,6 +23,8 @@ export default function Header() {
         </div>
 
         <div className="header-spacer"></div>
+
+        <DateRangePicker />
 
         <SyncStatusBadge />
       </div>

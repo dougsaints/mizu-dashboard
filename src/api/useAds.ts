@@ -15,21 +15,18 @@ type AdsImport = Database['public']['Tables']['ads_imports']['Row']
 const QK_ADS = ['ads', MIZU_TENANT_ID] as const
 const QK_IMPORTS = ['ads_imports', MIZU_TENANT_ID] as const
 
-export function useAds(daysBack = 60) {
+export function useAds(start: string, end: string) {
   const qc = useQueryClient()
 
   const query = useQuery({
-    queryKey: [...QK_ADS, daysBack],
+    queryKey: [...QK_ADS, start, end],
     queryFn: async (): Promise<AdsRow[]> => {
-      const since = new Date()
-      since.setDate(since.getDate() - daysBack)
-      const sinceIso = since.toISOString().slice(0, 10)
-
       const { data, error } = await supabase
         .from('ads_daily')
         .select('*')
         .eq('tenant_id', MIZU_TENANT_ID)
-        .gte('date', sinceIso)
+        .gte('date', start)
+        .lte('date', end)
         .order('date', { ascending: false })
 
       if (error) throw error

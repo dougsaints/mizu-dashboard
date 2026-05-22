@@ -6,6 +6,10 @@
 
 import { useOrganic } from '../api/useOrganic'
 import { useAds } from '../api/useAds'
+import { daysBackRange } from '../lib/periodPresets'
+
+// MarketingUnif tem janela própria de 90 dias — não segue o filtro global.
+const ADS_WINDOW = daysBackRange(90)
 
 function int(n: number): string {
   return Math.round(n).toLocaleString('pt-BR')
@@ -36,7 +40,7 @@ const METRIC_TILES: { key: string; label: string }[] = [
 
 export default function MarketingUnif() {
   const organicQ = useOrganic(60)
-  const adsQ = useAds(90)
+  const adsQ = useAds(ADS_WINDOW.start, ADS_WINDOW.end)
 
   const isLoading = organicQ.isLoading || adsQ.isLoading
   const error = organicQ.error ?? adsQ.error

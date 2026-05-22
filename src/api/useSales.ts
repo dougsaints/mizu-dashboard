@@ -16,21 +16,18 @@ const QK_SOURCES = ['data_sources', MIZU_TENANT_ID] as const
 
 // ─── Query: leitura de sales_daily ───────────────────────────────
 
-export function useSales(daysBack = 60) {
+export function useSales(start: string, end: string) {
   const qc = useQueryClient()
 
   const query = useQuery({
-    queryKey: [...QK_SALES, daysBack],
+    queryKey: [...QK_SALES, start, end],
     queryFn: async (): Promise<SalesRow[]> => {
-      const since = new Date()
-      since.setDate(since.getDate() - daysBack)
-      const sinceIso = since.toISOString().slice(0, 10)
-
       const { data, error } = await supabase
         .from('sales_daily')
         .select('*')
         .eq('tenant_id', MIZU_TENANT_ID)
-        .gte('date', sinceIso)
+        .gte('date', start)
+        .lte('date', end)
         .order('date', { ascending: false })
 
       if (error) throw error

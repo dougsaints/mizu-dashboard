@@ -18,7 +18,7 @@ Phases: 4 of 7 complete
 | 2 | Meta Ads | 1 | ✅ Complete | 2026-05-16 |
 | 3 | Anota AI / Delivery | 1 | ✅ Complete | 2026-05-18 |
 | 4 | Resumos: semana, ROI e marketing | 1 | ✅ Complete | 2026-05-22 |
-| 5 | Gráficos e comparativos | 3 | 🔨 Em progresso | - |
+| 5 | Gráficos e comparativos | 5 | 🔨 Em progresso | - |
 | 6 | Correlações e análise cruzada | 2 | 📋 Not started | - |
 | 7 | Hospedagem, polish e autenticação | 2 | 📋 Not started | - |
 
@@ -103,11 +103,18 @@ Phases: 4 of 7 complete
 **Plans:**
 - [x] 05-01: Gráfico de linha de vendas por unidade (completo 22/05)
 - [x] 05-02: Gráficos Meta Ads e delivery + seletor de período (completo 22/05)
-- [ ] 05-03: Filtro global de período no topo do sistema
+- [x] 05-03: Seletor de período completo (calendário + 12 atalhos) (completo 22/05)
+- [ ] 05-04: Filtros de Unidade e Canal de Venda
+- [ ] 05-05: "Comparar com" + Análise mensal/semanal
 
-> Nota: Chart.js + react-chartjs-2 já estavam instalados no projeto —
-> a parte "biblioteca de gráficos" do 05-01 virou só configuração.
-> O plano 05-03 foi adicionado em 22/05 a pedido do Doug (filtro global).
+> Notas:
+> - Chart.js + react-chartjs-2 já estavam instalados — a parte
+>   "biblioteca de gráficos" do 05-01 virou só configuração.
+> - Os planos 05-03/04/05 nasceram do pedido do Doug (22/05) de portar a
+>   barra de filtros completa do painel original. Quebrada em 3 planos:
+>   Período (03), Unidade/Canal (04), Comparar/Análise (05).
+> - A 1ª versão do 05-03 (3 botões 7/30/60) foi revisada — simples demais
+>   perto da referência.
 
 ---
 

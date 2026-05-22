@@ -10,23 +10,23 @@ See: .paul/PROJECT.md (updated 2026-05-22)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 5 of 7 (Gráficos e comparativos) — Em progresso (2 de 3 plans)
-Plan: 05-02 completo (loop fechado)
-Status: Pronto pra planejar o plano 05-03 (filtro global de período)
-Last activity: 2026-05-22 — UNIFY do 05-02 (SUMMARY criado, gráficos validados)
+Phase: 5 of 7 (Gráficos e comparativos) — Em progresso (3 de 5 plans)
+Plan: 05-03 completo (loop fechado)
+Status: Pronto pra planejar o plano 05-04 (filtros Unidade e Canal)
+Last activity: 2026-05-22 — UNIFY do 05-03 (SUMMARY criado, seletor de período validado)
 
 Progress:
-- Milestone: [███████░░░] 68%
-- Phase 5: [██████░░░░] 67% (05-01 ✓, 05-02 ✓, 05-03 pendente)
+- Milestone: [████████░░] 75%
+- Phase 5: [██████░░░░] 60% (05-01 ✓, 05-02 ✓, 05-03 ✓, 05-04/05 pendentes)
 
 ## Loop Position
 
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop fechado — plano 05-02 completo]
+  ✓        ✓        ✓     [Loop fechado — plano 05-03 completo]
 ```
 
-Próximo: abrir o loop do plano 05-03 com /paul:plan (filtro global de período).
+Próximo: abrir o loop do plano 05-04 com /paul:plan (filtros Unidade e Canal de Venda).
 
 ## Accumulated Context
 
@@ -43,6 +43,7 @@ Próximo: abrir o loop do plano 05-03 com /paul:plan (filtro global de período)
 | 2026-05-22: Gráfico de vendas com uma linha por unidade | Phase 5 | Compara Serraria vs Jatiúca; padrão de gráfico Chart.js para 05-02 |
 | 2026-05-22: Meta Ads com 2 gráficos; delivery usa snapshot mais recente | Phase 5 | Custo e alcance separados (escalas diferentes); não soma snapshots do Anota AI |
 | 2026-05-22: Hooks Realtime devem usar canal com nome único por instância | Phase 5 | Nome fixo colide com 2+ consumidores; corrigido no useAds, latente nos demais |
+| 2026-05-22: Período é intervalo de datas (start/end), filtro global via Context | Phase 5 | useSales/useAds filtram por .gte/.lte; barra de filtros completa pedida pelo Doug, dividida em 05-03/04/05 |
 
 ### Deferred Issues
 
@@ -59,9 +60,9 @@ Nenhum.
 ## Session Continuity
 
 Last session: 2026-05-22
-Stopped at: Loop do plano 05-02 fechado — gráficos Meta Ads e delivery entregues e validados. SUMMARY criado. Phase 5 ganhou um 3º plano (05-03, filtro global) a pedido do Doug.
-Next action: /paul:plan para abrir o plano 05-03 (filtro global de período no topo). Decisão-chave: substituir ou sincronizar os seletores 7/30/60 já existentes.
-Resume file: .paul/phases/05-graficos-comparativos/05-02-SUMMARY.md
+Stopped at: Loop do 05-03 fechado — seletor de período (calendário + 12 atalhos) entregue e validado. SUMMARY criado. Faltam 05-04 e 05-05 pra completar a Fase 5.
+Next action: /paul:plan para abrir o plano 05-04 (filtros de Unidade e Canal de Venda). Servidor dev limpo rodando na porta 5173.
+Resume file: .paul/phases/05-graficos-comparativos/05-03-SUMMARY.md
 
 ---
 *STATE.md — Updated after every significant action*

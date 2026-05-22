@@ -1,19 +1,14 @@
-// Seção Vendas — KPIs de faturamento agregados por unidade,
-// com seletor de período (7/30/60 dias).
+// Seção Vendas — KPIs de faturamento agregados por unidade.
+// O período vem do filtro global no topo (usePeriod).
 
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useSales } from '../api/useSales'
 import { useUnits } from '../api/useUnits'
+import { usePeriod } from '../lib/period'
 import SalesLineChart from '../components/SalesLineChart'
 import type { Database } from '../types/database'
 
 type SalesRow = Database['public']['Tables']['sales_daily']['Row']
-
-const RANGES: Array<{ label: string; days: number }> = [
-  { label: '7 dias', days: 7 },
-  { label: '30 dias', days: 30 },
-  { label: '60 dias', days: 60 },
-]
 
 function brl(n: number): string {
   return n.toLocaleString('pt-BR', {
@@ -39,8 +34,8 @@ function aggregateByUnit(rows: SalesRow[]): Record<string, { total: number; pdv:
 }
 
 export default function SalesSection() {
-  const [range, setRange] = useState(30)
-  const { data: rows = [], isLoading, error } = useSales(range)
+  const { start, end } = usePeriod()
+  const { data: rows = [], isLoading, error } = useSales(start, end)
   const { data: units = [] } = useUnits()
   const unitName = (id: string) => units.find((u) => u.id === id)?.display_name ?? id.slice(0, 8)
 
@@ -65,18 +60,6 @@ export default function SalesSection() {
             Sincronizado das planilhas a cada 5 min · clique no 🔄 do topo pra forçar
           </div>
         </div>
-        <div className="range-picker">
-          {RANGES.map((r) => (
-            <button
-              key={r.days}
-              type="button"
-              className={range === r.days ? 'on' : ''}
-              onClick={() => setRange(r.days)}
-            >
-              {r.label}
-            </button>
-          ))}
-        </div>
       </div>
 
       {isLoading && <div className="sales-loading">Carregando faturamento…</div>}
@@ -97,7 +80,7 @@ export default function SalesSection() {
         <>
           <div className="sales-kpis">
             <div className="kpi-card">
-              <div className="kpi-label">Total geral · últimos {range} dias</div>
+              <div className="kpi-label">Total geral · período selecionado</div>
               <div className="kpi-value">{brl(totalGeral)}</div>
               <div className="kpi-sub">{rows.length} dia(s) com dados</div>
             </div>
