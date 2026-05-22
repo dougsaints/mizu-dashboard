@@ -156,12 +156,40 @@ margem R$ 349.572, ROAS 32,78x), toggle fluido.
 ## 📋 Fila depois do RoiSection
 
 - **Marketing Unificado (MarketingUnif)** — Orgânico vs Pago.
-  **Fonte decidida (22/05):** upload de CSV exportado do Meta Business
-  Suite (mesma lógica do upload de Meta Ads). Grava em `organic_entries`
-  (tabela já existe: date, posts, stories, reels, alcance, engajamento).
-  **BLOQUEADO até Doug colocar um CSV de exemplo na pasta do projeto** —
-  preciso ver as colunas reais do export do Business Suite pra escrever
-  o parser. Padrão a copiar: `AdsUploadCard` + `useAds` + `metaAdsCsv`.
+  **PRÓXIMO A FAZER.** Padrão a copiar: `AdsUploadCard` + `useAds` +
+  `metaAdsCsv`.
+
+  **Fonte (22/05):** upload de CSVs do Meta Business Suite — só
+  Instagram (canal principal do Mizú). Exemplos em
+  `../Instagram Metricas/` (6 arquivos de maio/2026).
+
+  **Formato real do export (descoberto 22/05):**
+  - **1 arquivo por métrica** — Doug exportou 6: Alcance, Visualizações,
+    Interações, Visitas (ao perfil), Cliques no link, Seguidores.
+  - Encoding **UTF-16 LE com BOM** (`FF FE`). Parser tem que detectar
+    BOM e usar `TextDecoder('utf-16le')`, senão cai pra utf-8.
+  - Estrutura: linha 1 `sep=,` (ignorar), linha 2 `"<Título da métrica>"`,
+    linha 3 `"Data","Primary"`, linhas 4+ `"2026-05-01T00:00:00","valor"`.
+  - Métrica identificada pela linha 2 (título). Mapear por palavra-chave:
+    Alcance→alcance, Visualiz→visualizacoes, Intera→interacoes,
+    Seguidor→seguidores_novos, Visita→visitas_perfil, Clique→cliques_link.
+  - "Seguidores" = novos seguidores por dia (92, 65, 56…), NÃO total.
+    (confirmar com Doug)
+  - Dados vão até 05-21 mesmo arquivo dizendo "até 22" — lag de 1 dia.
+
+  **⚠️ Mudança de schema necessária:** `organic_entries` foi criada na
+  0001 com colunas erradas (posts/stories/reels/alcance/engajamento) —
+  não batem com o export real. Migration nova tem que reescrever pra:
+  `tenant_id, date, alcance, visualizacoes, interacoes, seguidores_novos,
+  visitas_perfil, cliques_link` (PK tenant_id+date).
+
+  **Passos pra próxima sessão:**
+  1. Migration `0005_*.sql` — recriar/alterar `organic_entries`.
+  2. Tipos em `database.ts`.
+  3. `src/lib/instagramCsv.ts` — parser UTF-16, multi-arquivo, merge por data.
+  4. `src/api/useOrganic.ts` — query + Realtime + mutation upload.
+  5. Componente upload (multi-file, aceita os 6 de uma vez).
+  6. Seção `MarketingUnif` — orgânico (organic_entries) vs pago (ads_daily).
 - **Gráficos Chart.js de Vendas** — completar SalesSection com 5
   gráficos do painel antigo.
 - **Fase 2 — Auth** (~1.5 dia). Login email/senha, ativar RLS estrita.
