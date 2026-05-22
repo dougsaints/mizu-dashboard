@@ -6,7 +6,7 @@
 > sessão produtiva** marcando o que ficou pronto e ajustando o próximo
 > passo.
 
-**Última atualização:** 2026-05-22 (Passo A2 — WeeklyRecap validado e commitado)
+**Última atualização:** 2026-05-22 (Passo A3 — RoiSection validado e commitado)
 
 ---
 
@@ -120,10 +120,41 @@ Implementado seguindo padrão do painel antigo (`renderWeeklyRecap()`):
 
 ---
 
-## 📋 Fila depois do WeeklyRecap
+### Passo A3 — RoiSection ✅ validado e commitado (22/05)
 
-- **ROI / Investimento (RoiSection)** — investimento configurável
-  vs retorno. Lê/grava `roi_config`. Tabela já existe.
+Implementado seguindo padrão do painel antigo (`recomputeRoi()`):
+- Migration **não precisou** — `roi_config` já existe desde a 0001
+  (Realtime + RLS + policy `phase1_anon_all` já aplicados na 0001/0002).
+- CSS **não precisou** — classes `roi-grid/roi-input-card/roi-metric/`
+  `roi-toggle` já estavam no `index.css`.
+- `src/api/useRoi.ts` — query busca `roi_config` (com defaults se a
+  linha não existir) + `sales_daily` do mês corrente. Calcula
+  faturamento do mês E da semana de uma vez, pra o toggle Mensal/
+  Semanal não refazer fetch. Mutation `useSaveRoiConfig` faz UPSERT.
+  Realtime subscribe em `roi_config` + `sales_daily`.
+- `src/sections/RoiSection.tsx` — 3 inputs (tráfego / mão de obra /
+  mkt geral) salvos na nuvem ao sair do campo, toggle Mensal/Semanal,
+  e 3 métricas: faturamento do período, margem (verde/vermelho),
+  ROAS de marketing (faturamento ÷ investimento total).
+- Wire-up em `Dashboard.tsx` logo abaixo do WeeklyRecap.
+
+**Diferença vs painel antigo:** os valores agora salvam no Supabase
+(antes era `localStorage` de um aparelho só) — Mike e Gab veem o
+mesmo número, sincronizado em tempo real.
+
+**Bug encontrado e corrigido na validação (22/05):** o toggle Mensal/
+Semanal "travava" — só mexia depois de 2 idas ao servidor (salvar +
+recarregar). Adicionada **atualização otimista** em `useSaveRoiConfig`:
+a tela troca na hora e o salvamento roda em segundo plano (`onMutate`
+patcheia o cache, `onError` desfaz se falhar).
+
+**Validado no browser 22/05:** 3 blocos OK (faturamento R$ 360.572,
+margem R$ 349.572, ROAS 32,78x), toggle fluido.
+
+---
+
+## 📋 Fila depois do RoiSection
+
 - **Marketing Unificado (MarketingUnif)** — Orgânico vs Pago.
   Precisa upload de métricas orgânicas (Instagram/Facebook) — definir
   fonte com Doug.
