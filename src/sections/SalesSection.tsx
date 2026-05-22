@@ -4,6 +4,7 @@
 import { useMemo, useState } from 'react'
 import { useSales } from '../api/useSales'
 import { useUnits } from '../api/useUnits'
+import SalesLineChart from '../components/SalesLineChart'
 import type { Database } from '../types/database'
 
 type SalesRow = Database['public']['Tables']['sales_daily']['Row']
@@ -120,6 +121,11 @@ export default function SalesSection() {
                 <div className="unit-card-days">{agg.days} dia(s) com dados</div>
               </div>
             ))}
+          </div>
+
+          <div className="sales-chart">
+            <div className="sales-chart-title">Faturamento dia a dia · por loja</div>
+            <SalesLineChart rows={rows} units={units} />
           </div>
         </>
       )}
