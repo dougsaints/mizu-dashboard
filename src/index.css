@@ -1905,3 +1905,72 @@
 }
 .wr-alert.empty { background: #EAF7EE; border-color: #B7E2C5; color: #1A5C32; }
 .wr-alert .ic { flex-shrink: 0; }
+
+/* ---------- Marketing Unificado (MarketingUnif) ---------- */
+.mkt-block-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--txt-2);
+  margin-bottom: 10px;
+}
+.mkt-metrics {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+@media (max-width: 960px) { .mkt-metrics { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 560px) { .mkt-metrics { grid-template-columns: repeat(2, 1fr); } }
+.mkt-tile {
+  background: var(--mizu-cream);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.mkt-tile-val {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--txt);
+  line-height: 1;
+}
+.mkt-tile-lbl {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--txt-2);
+  margin-top: 6px;
+}
+.mkt-paid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+@media (max-width: 560px) { .mkt-paid { grid-template-columns: 1fr; } }
+.mkt-paid-metric {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.mkt-paid-metric .lbl {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--txt-2);
+}
+.mkt-paid-metric .val {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--txt);
+  margin-top: 6px;
+  line-height: 1;
+}
+.mkt-paid-metric.gold .val { color: var(--mizu-gold-deep); }
+.mkt-paid-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--txt-2);
+  line-height: 1.5;
+}

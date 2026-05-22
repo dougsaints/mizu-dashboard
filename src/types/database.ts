@@ -152,29 +152,64 @@ export interface Database {
         Row: {
           tenant_id: string
           date: string
-          posts: number
-          stories: number
-          reels: number
           alcance: number
-          engajamento: number
+          visualizacoes: number
+          interacoes: number
+          seguidores_novos: number
+          visitas_perfil: number
+          cliques_link: number
+          updated_at: string
         }
         Insert: {
           tenant_id: string
           date: string
-          posts?: number
-          stories?: number
-          reels?: number
           alcance?: number
-          engajamento?: number
+          visualizacoes?: number
+          interacoes?: number
+          seguidores_novos?: number
+          visitas_perfil?: number
+          cliques_link?: number
+          updated_at?: string
         }
         Update: {
           tenant_id?: string
           date?: string
-          posts?: number
-          stories?: number
-          reels?: number
           alcance?: number
-          engajamento?: number
+          visualizacoes?: number
+          interacoes?: number
+          seguidores_novos?: number
+          visitas_perfil?: number
+          cliques_link?: number
+          updated_at?: string
+        }
+      }
+      organic_imports: {
+        Row: {
+          id: string
+          tenant_id: string
+          imported_at: string
+          filenames: Json
+          date_range_start: string | null
+          date_range_end: string | null
+          rows: Json
+        }
+        Insert: {
+          id?: string
+          tenant_id: string
+          imported_at?: string
+          filenames?: Json
+          date_range_start?: string | null
+          date_range_end?: string | null
+          rows: Json
+        }
+        Update: {
+          id?: string
+          tenant_id?: string
+          imported_at?: string
+          filenames?: Json
+          date_range_start?: string | null
+          date_range_end?: string | null
+          rows?: Json
         }
       }
       ads_imports: {

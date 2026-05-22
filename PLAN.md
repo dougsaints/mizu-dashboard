@@ -6,7 +6,7 @@
 > sessão produtiva** marcando o que ficou pronto e ajustando o próximo
 > passo.
 
-**Última atualização:** 2026-05-22 (Passo A3 — RoiSection validado e commitado)
+**Última atualização:** 2026-05-22 (Passo A4 — MarketingUnif código pronto, aguardando migration)
 
 ---
 
@@ -153,53 +153,43 @@ margem R$ 349.572, ROAS 32,78x), toggle fluido.
 
 ---
 
-## 📋 Fila depois do RoiSection
+### Passo A4 — MarketingUnif ⏳ código pronto, aguardando migration (22/05)
 
-- **Marketing Unificado (MarketingUnif)** — Total Instagram + fatia paga.
-  **PRÓXIMO A FAZER.** Padrão a copiar: `AdsUploadCard` + `useAds` +
-  `metaAdsCsv`.
+Total real do Instagram + fatia que veio de anúncios pagos. Padrão
+seguido: `AdsUploadCard`/`useAds`/`metaAdsCsv`.
 
-  **⚠️ Enquadramento decidido (22/05):** os números do Business Suite
-  são TOTAL (orgânico + pago juntos — Instagram não separa no export).
-  Doug escolheu mostrar o **total real do Instagram** + ao lado **quanto
-  e qual % veio dos anúncios** (Meta Ads / `ads_daily`). NÃO estimar
-  "orgânico = total − pago" (estimativa imprecisa, descartada). A seção
-  cruza: alcance total do Instagram × alcance pago dos anúncios → "X%
-  do alcance foi impulsionado por anúncio".
+Arquivos criados/alterados:
+- `supabase/migrations/0005_organic_instagram.sql` — **RECRIA**
+  `organic_entries` (a versão da 0001 tinha colunas erradas e nunca foi
+  populada) com `tenant_id, date, alcance, visualizacoes, interacoes,
+  seguidores_novos, visitas_perfil, cliques_link, updated_at` (PK
+  tenant+date). Cria `organic_imports` (audit log). Realtime + RLS +
+  policy `phase1_anon_all`.
+- `src/types/database.ts` — `organic_entries` reescrita + `organic_imports`.
+- `src/lib/instagramCsv.ts` — parser: detecta BOM UTF-16 LE/BE, lê
+  multi-arquivo, identifica métrica pelo título da linha 2, junta tudo
+  por data, UPSERT em `organic_entries`.
+- `src/api/useOrganic.ts` — query + Realtime + mutation upload (recebe
+  `File[]`).
+- `src/components/InstagramUploadCard.tsx` — upload multi-arquivo
+  (`multiple`), aceita os 6 CSVs de uma vez.
+- `src/sections/MarketingUnif.tsx` — 6 tiles com totais do Instagram +
+  bloco "fatia paga" (investimento, alcance pago, % impulsionado).
+- Wire-up em `Dashboard.tsx` (MarketingUnif após RoiSection,
+  InstagramUploadCard após AnotaaiUploadCard) + CSS em `index.css`.
 
-  **Fonte (22/05):** upload de CSVs do Meta Business Suite — só
-  Instagram (canal principal do Mizú). Exemplos em
-  `../Instagram Metricas/` (6 arquivos de maio/2026).
+**Parser validado contra os 6 arquivos reais** de `../Instagram Metricas/`:
+todos os títulos reconhecidos (Alcance, Cliques no link do Instagram,
+Interações com o conteúdo, Seguidores no Instagram, Visitas ao perfil
+do Instagram, Visualizações).
 
-  **Formato real do export (descoberto 22/05):**
-  - **1 arquivo por métrica** — Doug exportou 6: Alcance, Visualizações,
-    Interações, Visitas (ao perfil), Cliques no link, Seguidores.
-  - Encoding **UTF-16 LE com BOM** (`FF FE`). Parser tem que detectar
-    BOM e usar `TextDecoder('utf-16le')`, senão cai pra utf-8.
-  - Estrutura: linha 1 `sep=,` (ignorar), linha 2 `"<Título da métrica>"`,
-    linha 3 `"Data","Primary"`, linhas 4+ `"2026-05-01T00:00:00","valor"`.
-  - Métrica identificada pela linha 2 (título). Mapear por palavra-chave:
-    Alcance→alcance, Visualiz→visualizacoes, Intera→interacoes,
-    Seguidor→seguidores_novos, Visita→visitas_perfil, Clique→cliques_link.
-  - "Seguidores" = novos seguidores por dia (92, 65, 56…), NÃO total.
-    Confirmado por Doug 22/05 (tooltip do Business Suite mostra valor/dia;
-    o "1,7 mil" do topo é o total ganho no período).
-  - Dados vão até 05-21 mesmo arquivo dizendo "até 22" — lag de 1 dia.
+**⏳ PENDENTE — Doug precisa rodar a migration `0005` no Supabase**
+(Dashboard → SQL Editor). Depois: upload dos 6 CSVs e validar no browser.
 
-  **⚠️ Mudança de schema necessária:** `organic_entries` foi criada na
-  0001 com colunas erradas (posts/stories/reels/alcance/engajamento) —
-  não batem com o export real. Migration nova tem que reescrever pra:
-  `tenant_id, date, alcance, visualizacoes, interacoes, seguidores_novos,
-  visitas_perfil, cliques_link` (PK tenant_id+date).
+---
 
-  **Passos pra próxima sessão:**
-  1. Migration `0005_*.sql` — recriar/alterar `organic_entries`.
-  2. Tipos em `database.ts`.
-  3. `src/lib/instagramCsv.ts` — parser UTF-16, multi-arquivo, merge por data.
-  4. `src/api/useOrganic.ts` — query + Realtime + mutation upload.
-  5. Componente upload (multi-file, aceita os 6 de uma vez).
-  6. Seção `MarketingUnif` — total do Instagram (`organic_entries`) +
-     fatia paga vinda de `ads_daily` (investimento, alcance/% do total).
+## 📋 Fila depois do MarketingUnif
+
 - **Gráficos Chart.js de Vendas** — completar SalesSection com 5
   gráficos do painel antigo.
 - **Fase 2 — Auth** (~1.5 dia). Login email/senha, ativar RLS estrita.
