@@ -10,10 +10,10 @@ See: .paul/PROJECT.md (updated 2026-05-22)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 6 ✅ Complete. Phase 7: deploy Vercel ✅ (no ar em <https://mizu-dashboard-pi.vercel.app/>). Auth ✅ user único criado via MCP. Falta 2 configs manuais Site URL + signup off.
-Plan: 06-01 a 06-05 + 07-01b + 07-01 + 07-02 — 8 plans completos.
-Status: Login renderizando no Vercel (validado via headless Chrome screenshot). Banco com 1 user autorizado (`genezilab@gmail.com`); douglasknk removido via MCP.
-Last activity: 2026-05-23 — MCP Supabase OAuth + delete usuário extra + atualização AUTH_SETUP.md.
+Phase: 6 ✅ Complete. Phase 7: deploy Vercel ✅ + auth UI (magic link + OTP fallback) ✅. Faltam 2 configs manuais (Site URL + signup off) + teste end-to-end do Doug.
+Plan: 06-01 a 06-05 + 07-01b + 07-01 + 07-02 + 07-02b — 9 plans completos.
+Status: Bug encontrado no teste real (Gmail URL scanner pré-consumiu magic link). Fix entregue: campo OTP fallback no Login. Bundle no Vercel atualizado (index-ZkhwBBd0.js).
+Last activity: 2026-05-23 — UNIFY 07-02b (OTP fallback) + push + Vercel auto-deploy.
 
 Vercel URL: <https://mizu-dashboard-pi.vercel.app/>.
 
