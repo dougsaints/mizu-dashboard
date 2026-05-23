@@ -2,92 +2,42 @@
 
 ## Overview
 
-Portar o painel HTML monolítico (`painel-diario.html`) para uma aplicação web moderna com banco de dados, atualização automática e análise cruzada de métricas. O MVP (v0.1) entregou leitura diária efetiva de vendas, tráfego pago, delivery e marketing orgânico, com auth + RLS hardening. A v0.2 foca em **polish visual, densidade, organização e exportação PNG/PDF** — alinhar o React ao padrão visual do HTML antigo de referência e ganhar fluxo de envio pro cliente.
+Portar o painel HTML monolítico (`painel-diario.html`) para uma aplicação web moderna com banco de dados, atualização automática e análise cruzada de métricas. O MVP (v0.1) entregou leitura diária efetiva de vendas, tráfego pago, delivery e marketing orgânico, com auth + RLS hardening. A v0.2 entregou **polish visual, densidade, organização e exportação PNG/PDF** — alinhamento do React ao padrão visual do HTML antigo de referência e fluxo de envio pro cliente via WhatsApp/email.
 
 ## Current Milestone
 
-**v0.2 Polish, Densidade & Exportação** (v0.2.0)
-Status: 🚧 In Progress
-Phases: 0 of 4 complete
+**Nenhuma milestone ativa.**
+Status: ✅ v0.2 completa em 2026-05-24
+Próximo passo: rode `/paul:discuss-milestone` pra conversar sobre escopo da v0.3, ou `/paul:milestone` se já tem direção definida.
 
-**Foco:** Trazer o melhor visual do HTML antigo pro React, fechar gaps de conteúdo, reorganizar o Dashboard pra leitura limpa em desktop + mobile, e adicionar exportação PNG/PDF pro fluxo WhatsApp/email do cliente.
+## Next Milestone (a definir)
 
-## Phases
+Candidatos prováveis baseados em carryover:
 
-| Phase | Name | Plans | Status | Completed |
-|-------|------|-------|--------|-----------|
-| 10 | Densidade visual + identidade por fonte | TBD | Not started | - |
-| 11 | Portar conteúdo do HTML antigo | TBD | Not started | - |
-| 12 | Organização do Dashboard + Mobile | TBD | Not started | - |
-| 13 | Exportação PNG / PDF | TBD | Not started | - |
-
-## Phase Details
-
-### Phase 10: Densidade visual + identidade por fonte
-
-**Goal:** Trazer o React ao padrão visual do HTML antigo de referência — cards mais densos, identidade clara por fonte de dados, storytelling em prosa nos heroes.
-**Depends on:** Nada (primeira phase da v0.2)
-**Plans:** TBD (definidos via `/paul:plan`)
-
-**Scope:**
-
-- Header de seção com ícone + cor temática por fonte: Meta Ads azul Facebook, Anota AI laranja, Instagram rosa/gradient, Vendas dourado, Diário verde
-- Cards KPI compactos (altura proporcional ao conteúdo, fim do espaço vazio)
-- Badges coloridos por categoria (Engajamento roxo, Vendas dourado, Alcance ocre)
-- Cores por unidade consistentes em todo painel (Jatiúca azul, Serraria roxo)
-- Storytelling em prosa nos heroes individuais (replicar pattern do `TrendsSection.buildSummary`)
-- Cabeçalho contextual de seção com data/período do snapshot visível
-
----
-
-### Phase 11: Portar conteúdo do HTML antigo
-
-**Goal:** Fechar gaps de conteúdo identificados via comparação com o `painel-diario.html` de referência.
-**Depends on:** Phase 10 (identidade visual já definida pra aplicar nos novos componentes)
-**Plans:** TBD (definidos via `/paul:plan`)
-
-**Scope:**
-
-- 8 KPIs Meta-only no topo do `MetaAdsAnalysisSection` (Investimento, Alcance, Impressões, Cliques, CTR, CPM, CPC, Frequência) — hoje só Investimento e Cliques aparecem no `TrendsSection` cross-source
-- Tabela "Por Categoria" complementando o donut existente (donut = proporção; tabela = valores absolutos + delta INVEST se houver comparação)
-- Cards de unidade lado a lado complementando o donut por unidade (paralelo ao donut, valor absoluto por loja)
-- Auditoria das outras seções (Vendas, Anota AI, Instagram orgânico) vs HTML antigo — listar e portar o que faltou
-
----
-
-### Phase 12: Organização do Dashboard + Mobile
-
-**Goal:** Separar área de leitura (números) de área de upload (configuração), reordenar seções por importância, ficar mobile-friendly de verdade.
-**Depends on:** Phases 10 + 11 (componentes finais definidos antes de reorganizar)
-**Plans:** TBD
-
-**Scope:**
-
-- Separar área de leitura vs área de upload/configuração: `AdsUploadCard`, `AnotaaiUploadCard`, `InstagramUploadCard` saem do scroll principal e vão pra rodapé / "Configurações" / final do scroll discreto
-- Reordenar seções por importância natural de leitura: Tendências → Vendas → Meta Ads → Delivery (Anota AI) → Marketing orgânico → Padrões/Correlações → Diário → Configurações/Uploads
-- Mobile responsivo de verdade — reflow de cards em 1 coluna, gráficos com tamanho adequado, touch targets >44px, header com filtros colapsável (não só "encolheu")
-- Avaliar deferred do v0.1: filtro global de período no topo (carryover) — incluir aqui se fizer sentido junto da reorganização
-
----
-
-### Phase 13: Exportação PNG / PDF
-
-**Goal:** Resolver o fluxo de envio pro cliente: botão exportar PNG por seção (WhatsApp) + relatório PDF (diário ou semanal).
-**Depends on:** Phases 10-12 (exportar tem que pegar o painel já polido, não a bagunça atual)
-**Plans:** TBD
-
-**Scope:**
-
-- Botão "📷 Exportar PNG" por seção — gera PNG com proporção vertical pra WhatsApp (~1080×1920), padding adequado, marca d'água 水 dourado no canto, data + URL no rodapé. Usar `html2canvas` (já no `package.json`)
-- Botão "📄 Exportar relatório PDF" — modo "diário" (dia anterior) e "semanal" (segunda-feira, geral da semana). Combina seções relevantes em PDF formatado com cabeçalho personalizado ("Sushi Mizú — Relatório do dia DD/MM" / "Relatório semanal DD/MM → DD/MM")
-- Lib pra PDF: começar com `window.print()` + CSS print-friendly (zero dependência nova); cair pra `jspdf` se a qualidade não bater
-
----
+- **v0.3 Polish v2 + correções pequenas** — alinhamento header/subheader, pílulas mensais de saúde da planilha, helper `unitSlug`, débito técnico do code-reviewer
+- **v0.3 Filtro global de período** — substituir/sincronizar seletores 7/30/60 (carryover v0.1)
+- **v0.3 Endurecimento RLS tenant-scoped** — popular `tenant_users` + 13 WARNs `rls_policy_always_true`
+- **v0.3 Novas integrações** — Instagram Insights API real, ou outra fonte de dados
 
 ## Completed Milestones
 
 <details>
-<summary>v0.1 MVP — 2026-05-23 (9 phases, 20 plans, 8 dias)</summary>
+<summary><strong>v0.2 Polish, Densidade & Exportação</strong> — 2026-05-24 (4 phases, 17 plans, ~36h)</summary>
+
+| Phase | Name | Plans | Completed |
+|-------|------|-------|-----------|
+| 10 | Densidade visual + identidade por fonte | 4 (10-01..10-04) | 2026-05-23 |
+| 11 | Portar conteúdo do HTML antigo (+ remediação) | 9 (11-01, 11-02, 11-04..11-09, 11-11) | 2026-05-24 |
+| 12 | Organização do Dashboard + Mobile | 2 (12-01, 12-02) | 2026-05-24 |
+| 13 | Exportação PNG / PDF | 2 (13-01, 13-02) | 2026-05-24 |
+
+Detalhes completos: [`.paul/milestones/v0.2-ROADMAP.md`](milestones/v0.2-ROADMAP.md)
+Summary executivo: [`.paul/MILESTONES.md`](MILESTONES.md)
+
+</details>
+
+<details>
+<summary><strong>v0.1 MVP</strong> — 2026-05-23 (9 phases, 20 plans, 8 dias)</summary>
 
 | Phase | Name | Plans | Completed |
 |-------|------|-------|-----------|
@@ -106,16 +56,22 @@ Summary executivo: [`.paul/MILESTONES.md`](MILESTONES.md)
 
 </details>
 
-## Carryover (deferred issues vivos do v0.1)
+## Carryover (deferred vivos pra próximas milestones)
 
-Itens que sobreviveram à milestone v0.1 e que podem virar plans dentro da v0.2 ou de milestones futuras:
+**Da v0.2:**
 
-- **Policies tenant-scoped via `is_member_of_tenant`** — resolve 13 WARNs `rls_policy_always_true`. Requer popular `tenant_users`. Effort M. → adiado pra v0.3 (técnico, não bloqueia v0.2).
-- **Filtro global de período no topo do sistema** — substituir/sincronizar os seletores 7/30/60. Effort M. → candidato pra Phase 12 (organização do Dashboard).
-- **Estender toggle Mensal/Semanal pro gráfico de linha de Vendas** — Effort S. → revisitar se Doug sentir falta usando.
-- **HaveIBeenPwned password protection** — cosmético. Effort XS. → adiar.
-- **Adicionar Mike + Gab como usuários autorizados** — tarefa manual Doug no Supabase Dashboard. → quando ele quiser dar acesso.
+- Alinhamento header vs subheader (UAT v0.2 OK no header, mas subheader alinha à esquerda enquanto header tem padding diferente) — Effort XS. → v0.3 polish precoce
+- Pílulas mensais de saúde da planilha + lista de campanhas Jatiúca + "% do alcance" em unit-cards Meta + frases comparativas em todos os KPIs + heatmap tooltip rico + sinergia diária pago+orgânico + tooltip Chart.js branded — Effort S-M cada
+- Débito técnico (KPI_DEFS.map, unitSlug helper, unificar @media print, regex unicode em exportPng, fallback useCORS) — Effort S total
+
+**Da v0.1:**
+
+- Policies tenant-scoped via `is_member_of_tenant` (resolve 13 WARNs) — Effort M. Adiar pra v0.3+
+- Filtro global de período no topo do sistema — Effort M
+- Estender toggle Mensal/Semanal pro gráfico de linha de Vendas — Effort S
+- HaveIBeenPwned password protection — Effort XS, cosmético
+- Adicionar Mike + Gab como usuários (manual no Supabase Dashboard) — quando Doug quiser
 
 ---
 *Roadmap created: 2026-05-18*
-*Last updated: 2026-05-23 (milestone v0.2 aberta via /paul:milestone)*
+*Last updated: 2026-05-24 (após /paul:complete-milestone v0.2)*

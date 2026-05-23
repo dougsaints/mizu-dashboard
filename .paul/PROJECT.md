@@ -13,9 +13,9 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 | Attribute | Value |
 |-----------|-------|
 | Type | Application |
-| Version | 0.1.0 |
-| Status | ✅ v0.1 MVP completo (2026-05-23) — em uso, aguardando próxima milestone |
-| Last Updated | 2026-05-23 (após /paul:complete-milestone v0.1) |
+| Version | 0.2.0 |
+| Status | ✅ v0.2 Polish, Densidade & Exportação completo (2026-05-24) — em uso, aguardando próxima milestone |
+| Last Updated | 2026-05-24 (após /paul:complete-milestone v0.2) |
 
 ## Requirements
 
@@ -54,16 +54,43 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 - [x] Polish visual: KPI heroes pretos com gradient + watermark 水 dourado — Phase 8-01
 - [x] Meta Ads expandido: donut por objetivo, donut por unidade, hero Jatiúca azul — Phase 8-02
 - [x] RLS hardening: cutover authenticated-only (anon dropado, banco trancado) — Phase 9
+- [x] Identidade visual por fonte de dados (kanji-pill + badge, paleta por seção) — v0.2 / Phase 10
+- [x] Densidade visual ~2x — KPI heroes compactos + sparklines SVG inline em Vendas — v0.2 / Phase 10-11
+- [x] Cores por unidade determinísticas (Jatiúca azul, Serraria roxo) em todo painel — v0.2 / Phase 10
+- [x] Storytelling em prosa nos heroes (WeeklyRecap, MarketingUnif, RoiSection) — v0.2 / Phase 10
+- [x] 8 KPIs Meta-only no topo + tabela Por Categoria 6 colunas + cards unidade — v0.2 / Phase 11
+- [x] 5 KPIs de Vendas com sparklines (Vendas Totais, Item Mais Vendido, PDV, iFood, AnotaAi) — v0.2 / Phase 11-04
+- [x] 4 KPIs de Produtos (Unidades, SKUs, Concentração Top 10, Maior Categoria) — v0.2 / Phase 11-06
+- [x] Painel de Alertas Operacionais preto/gold (anomalyDetection) — v0.2 / Phase 11-09
+- [x] Gráfico Investimento × Faturamento diário (eixo Y duplo) — v0.2 / Phase 11-11
+- [x] Header em 2 faixas (marca sticky 60px + filtros sticky 12px) — v0.2 / Phase 11-05
+- [x] Dashboard reordenado + uploads colapsáveis em `<details>` — v0.2 / Phase 12-01
+- [x] Mobile responsivo (13 grids → 1-col em <640px, touch ≥44px, filter reflow) — v0.2 / Phase 12-02
+- [x] Export PNG por seção (html2canvas lazy, marca d'água, data + URL no rodapé) — v0.2 / Phase 13-01
+- [x] Print PDF global (window.print + @media print branded) — v0.2 / Phase 13-02
+- [x] Header refinado (emojis → SVG inline + bullet CSS + selects estilizados) — v0.2 / sprint refinamento
 
 ### Active (In Progress)
 
-- [ ] Nada em andamento — milestone v0.1 fechada, aguardando definição de v0.2
+- [ ] Nada em andamento — milestone v0.2 fechada, aguardando definição de v0.3
 
 ### Planned (Next)
 
 - Aguardando `/paul:discuss-milestone` ou `/paul:milestone` pra próxima direção
 
-### Carryover (deferred do v0.1)
+### Carryover (deferred do v0.2)
+
+- [ ] **Alinhamento header vs subheader** — UAT v0.2 OK no refinamento, mas Doug notou que subheader alinha à esquerda enquanto header tem padding diferente. Plan precoce de polish na v0.3
+- [ ] Pílulas mensais ❌✅⚠️ de saúde da planilha (do audit HTML antigo, item médio)
+- [ ] Lista de campanhas Jatiúca individuais
+- [ ] "% do alcance" em cards de unidade Meta
+- [ ] Frases comparativas "vs R$ X (data-data)" embaixo de todos os KPIs (hero já tem, restante não)
+- [ ] Heatmap tooltip rico
+- [ ] Sinergia diária pago + orgânico
+- [ ] Tooltip Chart.js customizado branded
+- [ ] **Débito técnico:** 8 KPIs Meta como `KPI_DEFS.map()` em vez de inline; helper `unitSlug(name)` (lógica duplicada 3x); unificar 2 blocos `@media print`; refazer regex unicode em `exportPng.ts`; fallback se `useCORS:true` falhar
+
+### Carryover (deferred do v0.1, ainda vivos)
 
 - [ ] Policies tenant-scoped via `is_member_of_tenant` (resolve 13 WARNs `rls_policy_always_true`) — requer popular `tenant_users` primeiro
 - [ ] Filtro global de período no topo do sistema (sincronizar com seletores 7/30/60 existentes)
@@ -106,6 +133,14 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 | Hooks Realtime multi-consumer com opt-out (subscribeRealtime?: false) | Cache do React Query é compartilhado pela queryKey; 2º consumer não precisa abrir WebSocket próprio | 2026-05-22 | Active |
 | Magic link + código OTP fallback no Login | Gmail scanner "queima" magic link via prefetch; código numérico contorna sem alterar UX | 2026-05-23 | Active |
 | RLS hardening em 2 passos (aditivo + subtrativo) | Mudança de policy em produção: adiciona authenticated em paralelo, valida login real, depois dropa anon. Zero risco de "trancar a chave dentro do carro" | 2026-05-23 | Active |
+| Identidade por fonte via kanji-pill (não cor de borda) | Paleta Mizú é coesa demais; cor pequena some. Área generosa registra | 2026-05-23 | Active |
+| Cores por unidade determinísticas por nome (`includes('jatiu')`) | Jatiúca sempre azul, Serraria sempre roxo, mesmo se ordem mudar — paleta determinística em SalesLineChart + unit-cards | 2026-05-23 | Active |
+| Sparklines SVG puro (sem Chart.js) | 5 KPIs com mini-charts = render barato, zero dependência nova | 2026-05-24 | Active |
+| Alertas Operacionais hardcoded (não config) | Thresholds escolhidos com Doug, mudança = nova versão (não setting). Simplifica MVP de alertas | 2026-05-24 | Active |
+| html2canvas lazy + useCORS:true pro PNG | Lazy = bundle não infla pra quem não exporta; useCORS = fonts custom do painel renderizam | 2026-05-24 | Active |
+| Print PDF via window.print (não jspdf) | Zero dependência nova; @media print branded já é suficiente pro fluxo WhatsApp/email | 2026-05-24 | Active |
+| Emojis → SVG inline lucide-style no header | Doug detectou 🔄 "parecendo WhatsApp"; SVG inline fica profissional, ainda zero dependência | 2026-05-24 | Active |
+| Auditoria automatizada vs HTML antigo quando Doug diz "tava melhor" | Doug é leigo em código mas tem olho de design; quando ele sente regressão visual, o gap é real e mensurável — vale rodar audit | 2026-05-24 | Active |
 
 ## Success Metrics
 
@@ -140,4 +175,4 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 
 ---
 *PROJECT.md — Updated when requirements or context change*
-*Last updated: 2026-05-23 after /paul:complete-milestone (v0.1 MVP fechada)*
+*Last updated: 2026-05-24 after /paul:complete-milestone (v0.2 Polish, Densidade & Exportação fechada)*
