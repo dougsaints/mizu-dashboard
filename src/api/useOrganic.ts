@@ -14,7 +14,10 @@ type OrganicImport = Database['public']['Tables']['organic_imports']['Row']
 const QK_ORGANIC = ['organic', MIZU_TENANT_ID] as const
 const QK_IMPORTS = ['organic_imports', MIZU_TENANT_ID] as const
 
-export function useOrganic(daysBack = 60) {
+type UseOrganicOptions = { subscribeRealtime?: boolean }
+
+export function useOrganic(daysBack = 60, options: UseOrganicOptions = {}) {
+  const { subscribeRealtime = true } = options
   const qc = useQueryClient()
 
   const query = useQuery({
@@ -37,8 +40,9 @@ export function useOrganic(daysBack = 60) {
   })
 
   useEffect(() => {
+    if (!subscribeRealtime) return
     const channel = supabase
-      .channel(`organic-${MIZU_TENANT_ID}`)
+      .channel(`organic-${MIZU_TENANT_ID}-${crypto.randomUUID()}`)
       .on(
         'postgres_changes',
         {
@@ -53,7 +57,7 @@ export function useOrganic(daysBack = 60) {
     return () => {
       void supabase.removeChannel(channel)
     }
-  }, [qc])
+  }, [qc, subscribeRealtime])
 
   return query
 }

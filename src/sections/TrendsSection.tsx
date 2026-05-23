@@ -144,9 +144,11 @@ export default function TrendsSection() {
     { subscribeRealtime: false },
   )
 
-  // Janelas amplas — filtramos localmente por start/end
-  const organic = useOrganic(120)
-  const anotaai = useAnotaaiProducts(120)
+  // Janelas amplas — filtramos localmente por start/end.
+  // subscribeRealtime: false porque MarketingUnif/AnotaaiUploadCard
+  // já mantêm o canal aberto; cache compartilhado por queryKey.
+  const organic = useOrganic(120, { subscribeRealtime: false })
+  const anotaai = useAnotaaiProducts(120, { subscribeRealtime: false })
 
   const isLoading =
     salesCurr.isLoading ||

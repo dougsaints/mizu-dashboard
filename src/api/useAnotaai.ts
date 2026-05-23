@@ -19,7 +19,10 @@ type ImportRow = Database['public']['Tables']['anotaai_imports']['Row']
 const QK_PRODUCTS = ['anotaai_products', MIZU_TENANT_ID] as const
 const QK_IMPORTS = ['anotaai_imports', MIZU_TENANT_ID] as const
 
-export function useAnotaaiProducts(daysBack = 90) {
+type UseAnotaaiOptions = { subscribeRealtime?: boolean }
+
+export function useAnotaaiProducts(daysBack = 90, options: UseAnotaaiOptions = {}) {
+  const { subscribeRealtime = true } = options
   const qc = useQueryClient()
 
   const query = useQuery({
@@ -43,8 +46,9 @@ export function useAnotaaiProducts(daysBack = 90) {
   })
 
   useEffect(() => {
+    if (!subscribeRealtime) return
     const channel = supabase
-      .channel(`anotaai-${MIZU_TENANT_ID}`)
+      .channel(`anotaai-${MIZU_TENANT_ID}-${crypto.randomUUID()}`)
       .on(
         'postgres_changes',
         {
@@ -59,7 +63,7 @@ export function useAnotaaiProducts(daysBack = 90) {
     return () => {
       void supabase.removeChannel(channel)
     }
-  }, [qc])
+  }, [qc, subscribeRealtime])
 
   return query
 }
