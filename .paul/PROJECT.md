@@ -14,8 +14,8 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 |-----------|-------|
 | Type | Application |
 | Version | 0.1.0 |
-| Status | MVP em construção (Fase 5 de 7 completa) |
-| Last Updated | 2026-05-22 (após Phase 5) |
+| Status | ✅ v0.1 MVP completo (2026-05-23) — em uso, aguardando próxima milestone |
+| Last Updated | 2026-05-23 (após /paul:complete-milestone v0.1) |
 
 ## Requirements
 
@@ -43,24 +43,38 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 - [x] Filtros globais Unidade + Canal de Venda — Phase 5
 - [x] Comparativos entre períodos (anterior / mês passado) com delta ▲▼% nos KPIs e linha tracejada no gráfico — Phase 5
 - [x] Análise mensal/semanal agregada (AnalysisSection com barras agrupadas) — Phase 5
+- [x] Correlação Meta Ads × Vendas (CorrelationSection, ParetoChart, TopProductsChart) — Phase 6
+- [x] Painel de tendências e indicadores consolidados (TrendsSection com delta ▲▼%) — Phase 6
+- [x] Análise de produtos (ProductsAnalysisSection, CategoryDonutChart) — Phase 6
+- [x] Padrões de uso (PatternsSection, SalesHeatmap, JatiucaVisibilityCard) — Phase 6
+- [x] Tabela de dados consolidada com export CSV (DataTableSection) — Phase 6
+- [x] Deploy Vercel via GitHub (mizu-dashboard-pi.vercel.app) — Phase 7-01
+- [x] Code-splitting do bundle (React.lazy nas sections + manualChunks no Vite) — Phase 7
+- [x] Auth magic link + código OTP fallback (contorna Gmail scanner) — Phase 7-02b
+- [x] Polish visual: KPI heroes pretos com gradient + watermark 水 dourado — Phase 8-01
+- [x] Meta Ads expandido: donut por objetivo, donut por unidade, hero Jatiúca azul — Phase 8-02
+- [x] RLS hardening: cutover authenticated-only (anon dropado, banco trancado) — Phase 9
 
 ### Active (In Progress)
 
-- [ ] Nada em andamento — próximo: correlações e análise cruzada (Phase 6)
+- [ ] Nada em andamento — milestone v0.1 fechada, aguardando definição de v0.2
 
 ### Planned (Next)
 
-- [ ] Correlação Meta Ads × Vendas (Phase 6)
-- [ ] Painel de tendências e indicadores consolidados (Phase 6)
-- [ ] Hospedagem no Vercel (Phase 7)
-- [ ] Code-splitting do bundle (>500KB) (Phase 7)
-- [ ] Autenticação básica (Phase 7, pós-MVP)
+- Aguardando `/paul:discuss-milestone` ou `/paul:milestone` pra próxima direção
+
+### Carryover (deferred do v0.1)
+
+- [ ] Policies tenant-scoped via `is_member_of_tenant` (resolve 13 WARNs `rls_policy_always_true`) — requer popular `tenant_users` primeiro
+- [ ] Filtro global de período no topo do sistema (sincronizar com seletores 7/30/60 existentes)
+- [ ] Estender toggle Mensal/Semanal pro gráfico de linha de Vendas (Doug optou por isolar; revisitar se sentir falta)
+- [ ] HaveIBeenPwned password protection (cosmético, não usamos senha)
+- [ ] Adicionar Mike + Gab como usuários autorizados (Supabase Dashboard → Authentication → Users)
 
 ### Out of Scope
 
 - MovimentoSection (covers no salão) — não vai ser portada
 - API paga do Meta Ads — upload manual de CSV por enquanto
-- Autenticação — pós-MVP (acesso por URL no momento)
 
 ## Constraints
 
@@ -69,7 +83,7 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 - Meta Ads: sem API pública gratuita — upload manual de CSV
 - Anota AI: CSV encoding Latin-1, linha "Total,X" não é produto
 - Google Sheets: lidas como CSV publicado (polling 5min)
-- Auth: nenhuma no MVP (phase1_anon_access — qualquer um com URL lê/escreve)
+- Auth: Supabase Auth obrigatório (RLS hardened em Phase 9). Signup público OFF; admin cadastra usuários manualmente.
 - 1 tenant (Sushi Mizú) + 2 unidades (Serraria + Jatiúca)
 
 ### Business Constraints
@@ -90,6 +104,8 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 | Filtros Unidade/Canal aplicam só em Vendas | Meta Ads ~48% sem loja, Anota AI 100% sem; filtrar lá esconderia dado válido | 2026-05-22 | Active |
 | queryKey de queries derivadas separada do prefix invalidado por Realtime | Evita cascade de invalidates → loop ERR_INSUFFICIENT_RESOURCES. Pattern: QK_X_CMP separada + staleTime alto | 2026-05-22 | Active |
 | Hooks Realtime multi-consumer com opt-out (subscribeRealtime?: false) | Cache do React Query é compartilhado pela queryKey; 2º consumer não precisa abrir WebSocket próprio | 2026-05-22 | Active |
+| Magic link + código OTP fallback no Login | Gmail scanner "queima" magic link via prefetch; código numérico contorna sem alterar UX | 2026-05-23 | Active |
+| RLS hardening em 2 passos (aditivo + subtrativo) | Mudança de policy em produção: adiciona authenticated em paralelo, valida login real, depois dropa anon. Zero risco de "trancar a chave dentro do carro" | 2026-05-23 | Active |
 
 ## Success Metrics
 
@@ -97,8 +113,11 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 |--------|--------|---------|--------|
 | Todas as fontes de dados conectadas | 4 fontes (Vendas, Meta, Delivery, Orgânico) | 4/4 | ✅ Completo |
 | Comparativo de períodos funcionando | Diário + semanal + mensal | 3/3 | ✅ Completo (Phase 5) |
-| Correlações entre métricas visíveis | Pelo menos 2 cruzamentos | - | Phase 6 (próxima) |
-| Leitura diária efetiva | Time usa todo dia sem abrir outras plataformas | - | Pós-deploy (Phase 7) |
+| Correlações entre métricas visíveis | Pelo menos 2 cruzamentos | 5 (Meta×Vendas, Pareto, TopProducts, Padrões, Heatmap) | ✅ Completo (Phase 6) |
+| Deploy em produção | Vercel com URL pública | mizu-dashboard-pi.vercel.app | ✅ Completo (Phase 7-01) |
+| Auth funcional | Login magic link end-to-end testado | Doug logado em 2026-05-23 18:42 UTC | ✅ Completo (Phase 7-02b) |
+| Banco trancado (não vaza por anon) | curl anon retorna `[]` em todas as tabelas | Confirmado em 2026-05-23 | ✅ Completo (Phase 9) |
+| Leitura diária efetiva | Time usa todo dia sem abrir outras plataformas | A medir nas próximas semanas de uso | 🔍 Em observação |
 
 ## Tech Stack / Tools
 
@@ -107,7 +126,7 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 | Frontend | React + TypeScript + Vite | — |
 | Banco de dados | Supabase (PostgreSQL) | Schema em supabase/migrations/ |
 | Hospedagem | Vercel (free tier) | Deploy via GitHub |
-| Auth | Nenhuma (MVP) | phase1_anon_access policy |
+| Auth | Supabase Auth (magic link + OTP fallback) | Sessão JWT persistente; signup público OFF; só users criados manualmente |
 | Dados externos | Google Sheets (CSV publicado) | Polling 5min |
 | Tráfego pago | Meta Ads CSV (upload manual) | — |
 | Delivery/produtos | Anota AI CSV (upload manual) | Encoding Latin-1 |
@@ -121,4 +140,4 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 
 ---
 *PROJECT.md — Updated when requirements or context change*
-*Last updated: 2026-05-22 after Phase 5*
+*Last updated: 2026-05-23 after /paul:complete-milestone (v0.1 MVP fechada)*
