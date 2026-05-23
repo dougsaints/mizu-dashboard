@@ -7,8 +7,8 @@ Portar o painel HTML monolítico (painel-diario.html) para uma aplicação web m
 ## Current Milestone
 
 **v0.1 MVP** (v0.1.0)
-Status: Em progresso
-Phases: 7 of 9 complete (Phase 7 a 95% — falta 2 cliques no Supabase Dashboard + teste end-to-end Doug)
+Status: ✅ Complete (2026-05-23)
+Phases: 9 of 9 complete
 
 ## Phases
 
@@ -22,7 +22,7 @@ Phases: 7 of 9 complete (Phase 7 a 95% — falta 2 cliques no Supabase Dashboard
 | 6 | Correlações e análises avançadas | 5 | ✅ Complete | 2026-05-23 |
 | 7 | Hospedagem, polish e autenticação | 4 | 🔄 In progress | - |
 | 8 | Polish visual e Meta Ads expandido | 2 | ✅ Complete | 2026-05-23 |
-| 9 | RLS hardening (authenticated-only) | 2 | 🔄 In progress | - |
+| 9 | RLS hardening (authenticated-only) | 2 | ✅ Complete | 2026-05-23 |
 
 ## Phase Details
 
@@ -171,8 +171,8 @@ Phases: 7 of 9 complete (Phase 7 a 95% — falta 2 cliques no Supabase Dashboard
 - Após Doug validar login end-to-end: drop das policies anon (cutover)
 
 **Plans:**
-- [ ] 09-01: Migration aditiva — policies authenticated + fix advisors (não-destrutiva, app não quebra)
-- [ ] 09-02: Cutover — drop das policies `phase1_anon_all` (destrutiva, só depois do Doug validar login)
+- [x] 09-01: Migration aditiva — policies authenticated + fix advisors (completo 23/05)
+- [x] 09-02: Cutover — drop das policies `phase1_anon_all` (completo 23/05, Doug logado + signup off confirmados antes)
 
 > Notas:
 > - Anon key continua sendo enviada pelo front no header (é o `apikey`),

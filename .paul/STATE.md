@@ -5,32 +5,35 @@
 See: .paul/PROJECT.md (updated 2026-05-22)
 
 **Core value:** Time e cliente têm acesso rápido a métricas de faturamento, tráfego e delivery — tudo num lugar, sem abrir múltiplas plataformas.
-**Current focus:** v0.1 MVP — Phase 9: RLS hardening (passo aditivo entregue; cutover bloqueado em Doug validar login)
+**Current focus:** v0.1 MVP ✅ COMPLETO (2026-05-23) — 9 phases, 13 plans, todas entregues.
 
 ## Current Position
 
-Milestone: v0.1 MVP
-Phase: 6 ✅ + 7 ✅ + 8 ✅ + 9 (em curso — 09-01 ✅, 09-02 bloqueado em Doug).
-Plan: 06-01 a 06-05 + 07-01b + 07-01 + 07-02 + 07-02b + 08-01 + 08-02 + 09-01 — 12 plans completos.
-Status: Phase 9-01 (aditiva) entregue autonomamente. Migration 0006 aplicada via MCP: 13 tabelas ganharam policy `authenticated_all` espelhando a anon (zero impacto no app), função `is_member_of_tenant` endurecida (search_path + revoke anon execute). Anon ainda lê — validado por curl em 4 tabelas. 2 WARNs do advisor caíram.
-Last activity: 2026-05-23 — UNIFY 09-01 (RLS aditivo).
+Milestone: v0.1 MVP ✅ Complete (2026-05-23)
+Phase: 6 ✅ + 7 ✅ + 8 ✅ + 9 ✅
+Plan: 06-01 a 06-05 + 07-01b + 07-01 + 07-02 + 07-02b + 08-01 + 08-02 + 09-01 + 09-02 — 13 plans completos.
+Status: Phase 9 FECHADA. Cutover RLS aplicado via migration 0007: dropadas as 14 policies `phase1_anon_*`. Banco agora SÓ responde a request com JWT. Anon curl retorna `[]` em todas as tabelas testadas. Doug logado com `genezilab@gmail.com` confirma painel funcional. Signup público OFF.
+Last activity: 2026-05-23 — UNIFY 09-02 (RLS cutover). MVP entregue.
 
 Vercel URL: <https://mizu-dashboard-pi.vercel.app/>.
 
 Progress:
-- Milestone: [██████████] ~99% (falta 2 configs no Supabase Dashboard + 1 teste end-to-end Doug + 09-02 cutover)
-- Phase 7: [██████████] 95%
-- Phase 9: [█████░░░░░] 50% (09-01 ✅ aditivo; 09-02 ⏳ cutover bloqueado em Doug validar login)
+- Milestone v0.1 MVP: [██████████] 100% ✅
+- Phase 9: [██████████] 100% (09-01 ✅ aditivo + 09-02 ✅ cutover)
 
 ## Loop Position
 
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [12 loops fechados]
-                          09-02 aguarda Doug (BLOCKED_ON_USER)
+  ✓        ✓        ✓     [13 loops fechados — MVP completo]
+                          IDLE — aguarda próxima milestone definida pelo Doug
 ```
 
-Próximo: Doug clica 2 vezes no Supabase Dashboard (Site URL + Redirect URLs; desligar signup público) + testa login com genezilab@gmail.com. Quando confirmar "login ok", rodo o 09-02 (drop das policies anon — app passa a exigir login).
+Próximo: Doug decide o que vem depois do MVP. Sugestões (deferred issues remanescentes ou novas direções):
+
+- Adicionar Mike/Gab como usuários autorizados (Supabase Dashboard → Authentication → Users → "Add user")
+- Phase 10 (opcional): policies tenant-scoped via `is_member_of_tenant` — derruba as 13 WARNs `rls_policy_always_true` que sobraram. Requer popular `tenant_users`.
+- v0.2 milestone novo (ex: mais fontes de dados, dashboard analítico próprio, mobile, etc.)
 
 ## Accumulated Context
 
@@ -71,17 +74,20 @@ Nenhum.
 ## Session Continuity
 
 Last session: 2026-05-23
-Stopped at: 12 loops PAUL fechados. Último: Phase 9-01 (RLS hardening aditivo) — migration 0006 aplicada via MCP, 13 tabelas com `authenticated_all` em paralelo às `phase1_anon_all`, função `is_member_of_tenant` endurecida (search_path + revoke anon execute). Anon ainda lê (sanity check curl em 4 tabelas: HTTP 200). Painel em produção segue normal — zero impacto. Próximo passo bloqueado em Doug validar login.
+Stopped at: **MVP v0.1 entregue.** 13 loops PAUL fechados. Sessão final: Phase 9 completa (RLS hardening em 2 passos — aditivo + cutover). Migrations 0006 e 0007 aplicadas via MCP. Banco trancado: anon curl retorna `[]` em todas as tabelas; só authenticated lê/escreve. Doug logou com `genezilab@gmail.com` antes do cutover. Signup público OFF.
 
 Próximos passos (em ordem):
 
-1. **Doug fora do remoto**: 2 cliques no Supabase Dashboard (Authentication → URL Configuration: Site URL + Redirect URLs; Sign In/Up: desligar "Allow new users to sign up"). Detalhes em AUTH_SETUP.md.
-2. **Doug testa login**: aba anônima, abre Vercel, pede magic link, usa o CÓDIGO de 8 dígitos (não o link — Gmail consome) no campo OTP fallback.
-3. **Doug valida visual** das 11 entregas anteriores. Especial atenção:
-   - SalesSection Total Geral (card preto com 水 dourado)
-   - TrendsSection 1º card (Faturamento, preto)
-   - MetaAdsAnalysisSection (NOVA, donut por objetivo + donut por unidade + hero Jatiúca azul claro)
-4. **Quando Doug confirmar "login ok"**: Claude roda plan 09-02 (drop das 14 policies `phase1_anon_all`, app passa a exigir login de verdade). Migration já planejada, ~30 segundos pra aplicar.
+1. **Doug pusha os commits locais** (4 commits aguardando push manual, regra de proteção da main impede Claude pushar direto):
+   - `1d3c326` Phase 9-01 RLS aditivo
+   - `9391bbb` Plan 09-02 antecipado + bundle auditado
+   - `[novo]` Phase 9-02 cutover (gerado neste turno)
+   - Roda: `git push origin main`
+2. **Doug adiciona Mike/Gab como usuários** (Supabase Dashboard → Authentication → Users → "Add user") quando quiser dar acesso pra eles.
+3. **Próxima milestone**: Doug decide. Possíveis direções abertas:
+   - Phase 10 opcional: policies tenant-scoped (deferred issue restante)
+   - v0.2: nova feature ou nova fonte de dados
+   - Pausa pra usar o MVP por algumas semanas antes de decidir próximo passo
 
 Next action: Doug abre nova sessão → digita "/paul:resume" ou simplesmente "continua daí" → Claude lê STATE.md.
 Resume file: .paul/STATE.md (este arquivo)
