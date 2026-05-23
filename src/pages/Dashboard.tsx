@@ -10,6 +10,7 @@ const SalesSection = lazy(() => import('../sections/SalesSection'))
 const CorrelationSection = lazy(() => import('../sections/CorrelationSection'))
 const DataTableSection = lazy(() => import('../sections/DataTableSection'))
 const ProductsAnalysisSection = lazy(() => import('../sections/ProductsAnalysisSection'))
+const PatternsSection = lazy(() => import('../sections/PatternsSection'))
 const RoiSection = lazy(() => import('../sections/RoiSection'))
 const MarketingUnif = lazy(() => import('../sections/MarketingUnif'))
 const AdsUploadCard = lazy(() => import('../components/AdsUploadCard'))
@@ -46,6 +47,9 @@ export default function Dashboard() {
         </Suspense>
         <Suspense fallback={<LazyFallback label="Carregando análise de produtos…" />}>
           <ProductsAnalysisSection />
+        </Suspense>
+        <Suspense fallback={<LazyFallback label="Carregando padrões…" />}>
+          <PatternsSection />
         </Suspense>
         <Suspense fallback={<LazyFallback label="Carregando ROI…" />}>
           <RoiSection />

@@ -10,24 +10,24 @@ See: .paul/PROJECT.md (updated 2026-05-22)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 6 ✅ Complete. Phase 7 em progresso parcial (07-01b feito; 07-01 deploy e 07-02 auth aguardam Doug acordado).
-Plan: 06-01 + 06-02 + 07-01b — 3 plans completos na sessão noturna autônoma.
-Status: Sessão noturna fechada. Aguardando Doug validar visualmente de manhã.
-Last activity: 2026-05-23 — UNIFY 07-01b + commit (último loop da noite)
+Phase: 6 ✅ Complete (5/5 plans, reaberta como "Correlações e análises avançadas"). Phase 7 parcial (07-01b feito; 07-01 deploy e 07-02 auth aguardam decisões do Doug).
+Plan: 06-01, 06-02, 06-03, 06-04, 06-05, 07-01b — 6 plans completos no total da sessão.
+Status: Phase 6 fechada. Pronto pra Phase 7 (deploy + auth).
+Last activity: 2026-05-23 — UNIFY 06-05 + commit (heatmap + comparação justa)
 
 Progress:
-- Milestone: [█████████░] ~92% (Phase 6 completa; Phase 7 com 1 de 2 plans estruturais feitos)
-- Phase 6: [██████████] 100%
-- Phase 7: [█████░░░░░] 50% (07-01b feito; 07-01 deploy e 07-02 auth ficam pra Doug acordado)
+- Milestone: [█████████░] ~93% (Phase 6 100%; Phase 7 com 1 de 2 plans estruturais feitos)
+- Phase 6: [██████████] 100% (5/5 plans)
+- Phase 7: [█████░░░░░] 50% (07-01b feito; 07-01 deploy e 07-02 auth aguardam Doug)
 
 ## Loop Position
 
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [3 loops fechados nesta sessão: 06-01, 06-02, 07-01b]
+  ✓        ✓        ✓     [6 loops fechados: 06-01 a 06-05, 07-01b]
 ```
 
-Próximo: **Doug valida visualmente** abrindo `npm run dev` — confere as 3 entregas (Correlação Meta × Vendas, Painel Tendências, Code-splitting). Depois decide juntos: deploy Vercel (07-01) e auth (07-02).
+Próximo: **Doug valida visualmente** as 5 novas seções no `npm run dev`. Depois decide juntos: deploy Vercel (07-01) e auth (07-02).
 
 ## Accumulated Context
 
