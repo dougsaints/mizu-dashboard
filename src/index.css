@@ -2475,3 +2475,69 @@ body { overflow-x: hidden; }
   border-top: 2px solid var(--mizu-gold-soft);
   font-weight: 600;
 }
+
+/* ---- Análise de Produtos (Phase 6-04) ----------------------- */
+.products-analysis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.chart-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px 18px;
+  box-shadow: var(--sh-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.chart-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--txt);
+}
+.chart-card-sub {
+  font-size: 11px;
+  color: var(--txt-2);
+  margin-bottom: 4px;
+}
+.chart-empty-state {
+  color: var(--txt-2);
+  font-size: 13px;
+  padding: 60px 12px;
+  text-align: center;
+  background: var(--mizu-gold-soft);
+  border-radius: var(--r-sm);
+}
+.donut-wrap,
+.pareto-wrap {
+  height: 320px;
+  position: relative;
+}
+.donut-center-total {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  /* Empurrado um pouco pra esquerda porque legenda fica à direita */
+  margin-left: -50px;
+}
+.donut-center-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--txt);
+  line-height: 1;
+}
+.donut-center-label {
+  font-size: 11px;
+  color: var(--txt-2);
+  margin-top: 2px;
+}
+@media (max-width: 768px) {
+  .products-analysis-grid { grid-template-columns: 1fr; }
+  .donut-wrap, .pareto-wrap { height: 280px; }
+  .donut-center-total { margin-left: 0; }
+}
