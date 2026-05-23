@@ -12,16 +12,17 @@ Tempo estimado: **5 minutos**, 5 cliques.
 
 ---
 
-## Passo 1 — Habilitar Email Provider + Magic Link
+## Passo 1 — Habilitar Email Provider
 
 1. Abre o **Supabase Dashboard** do projeto Mizú
 2. Menu lateral: **Authentication** → **Sign In / Up** (ou **Providers** dependendo da versão)
 3. Encontra o card **"Email"** e clica
-4. Confere que estão **ligados**:
-   - ✅ Enable email provider
-   - ✅ Enable Magic Link
-   - ❌ Confirm email (desliga — magic link já confirma)
-5. Salva
+4. Confere que **"Enable email provider"** está **ligado** ✅
+5. **Não precisa procurar toggle "Magic Link" separado** — nas versões recentes do Supabase, magic link já vem incluído com o email provider (a função `signInWithOtp()` que o código usa funciona automaticamente).
+6. Confere as configs de OTP (já vêm bons por default):
+   - **Email OTP expiration:** 3600 segundos (1 hora) — tempo que o link/código fica válido
+   - **Email OTP length:** 6-8 dígitos — o email vai conter tanto link clicável quanto código numérico
+7. **Clica Save no canto inferior direito.**
 
 ---
 
