@@ -20,7 +20,8 @@ Phases: 5 of 7 complete
 | 4 | Resumos: semana, ROI e marketing | 1 | ✅ Complete | 2026-05-22 |
 | 5 | Gráficos e comparativos | 5 | ✅ Complete | 2026-05-22 |
 | 6 | Correlações e análises avançadas | 5 | ✅ Complete | 2026-05-23 |
-| 7 | Hospedagem, polish e autenticação | 2 | 📋 Not started | - |
+| 7 | Hospedagem, polish e autenticação | 4 | 🔄 In progress | - |
+| 8 | Polish visual e Meta Ads expandido | 2 | 🔄 In progress | - |
 
 ## Phase Details
 

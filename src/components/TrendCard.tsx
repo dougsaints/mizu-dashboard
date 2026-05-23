@@ -12,6 +12,7 @@ export type TrendCardProps = {
   formattedPrev?: string
   favorability?: Favorability
   hint?: string
+  hero?: boolean
 }
 
 type BadgeState = {
@@ -91,11 +92,12 @@ export default function TrendCard({
   formattedPrev,
   favorability = 'positive',
   hint,
+  hero = false,
 }: TrendCardProps) {
   const badge = computeBadge(curr, prev, favorability, formattedPrev)
 
   return (
-    <div className="trend-card">
+    <div className={hero ? 'trend-card trend-card--hero' : 'trend-card'}>
       <div className="trend-card-label">{label}</div>
       <div className="trend-card-value-row">
         <div className="trend-card-value">{formatted}</div>

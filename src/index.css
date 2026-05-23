@@ -2966,3 +2966,81 @@ body { overflow-x: hidden; }
   .login-title { font-size: 20px; }
   .header-logout-email { display: none; }
 }
+
+/* ---- KPI hero (Phase 8-01) — card preto com gradient e kanji watermark ----
+   Aplicado nos KPIs ESTRELA (Total Geral, Faturamento Tendência). Mantém o
+   visual de pose do painel HTML original (linhas 393-415). */
+
+.kpi-card.kpi-hero {
+  background: linear-gradient(135deg, var(--mizu-ink-2) 0%, var(--mizu-ink) 100%);
+  border: 1px solid var(--mizu-gold-deep);
+  box-shadow:
+    0 4px 20px rgba(22, 20, 15, 0.35),
+    inset 0 1px 0 rgba(201, 169, 97, 0.18);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-card.kpi-hero::before {
+  content: '水';
+  font-family: 'Noto Serif JP', serif;
+  position: absolute;
+  right: -10px;
+  bottom: -32px;
+  font-size: 140px;
+  color: var(--mizu-gold);
+  opacity: 0.1;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+.kpi-card.kpi-hero > * { position: relative; z-index: 1; }
+.kpi-card.kpi-hero .kpi-label { color: rgba(255, 255, 255, 0.7); }
+.kpi-card.kpi-hero .kpi-value { color: #fff; }
+.kpi-card.kpi-hero .kpi-sub   { color: rgba(255, 255, 255, 0.6); }
+.kpi-card.kpi-hero .kpi-delta--up      { background: rgba(255, 255, 255, 0.20); color: #fff; }
+.kpi-card.kpi-hero .kpi-delta--down    { background: rgba(0, 0, 0, 0.30); color: #FFE5E2; }
+.kpi-card.kpi-hero .kpi-delta--flat,
+.kpi-card.kpi-hero .kpi-delta--empty   { background: rgba(255, 255, 255, 0.16); color: rgba(255, 255, 255, 0.85); }
+
+/* Trend card hero (versão menor pro grid 3-col da TrendsSection) */
+.trend-card.trend-card--hero {
+  background: linear-gradient(135deg, var(--mizu-ink-2) 0%, var(--mizu-ink) 100%);
+  border: 1px solid var(--mizu-gold-deep);
+  box-shadow:
+    0 3px 14px rgba(22, 20, 15, 0.30),
+    inset 0 1px 0 rgba(201, 169, 97, 0.15);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.trend-card.trend-card--hero::before {
+  content: '水';
+  font-family: 'Noto Serif JP', serif;
+  position: absolute;
+  right: -8px;
+  bottom: -22px;
+  font-size: 96px;
+  color: var(--mizu-gold);
+  opacity: 0.1;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+.trend-card.trend-card--hero > * { position: relative; z-index: 1; }
+.trend-card.trend-card--hero .trend-card-label { color: rgba(255, 255, 255, 0.7); }
+.trend-card.trend-card--hero .trend-card-value { color: #fff; }
+.trend-card.trend-card--hero .trend-card-hint  { color: rgba(255, 255, 255, 0.55); }
+.trend-card.trend-card--hero .trend-delta--up-good,
+.trend-card.trend-card--hero .trend-delta--down-good   { background: rgba(255, 255, 255, 0.22); color: #B8F0C9; }
+.trend-card.trend-card--hero .trend-delta--up-bad,
+.trend-card.trend-card--hero .trend-delta--down-bad    { background: rgba(0, 0, 0, 0.30); color: #FFE5E2; }
+.trend-card.trend-card--hero .trend-delta--up-neutral,
+.trend-card.trend-card--hero .trend-delta--down-neutral { background: rgba(255, 255, 255, 0.16); color: #BCE0FF; }
+.trend-card.trend-card--hero .trend-delta--flat        { background: rgba(255, 255, 255, 0.16); color: rgba(255, 255, 255, 0.85); }
+.trend-card.trend-card--hero .trend-delta--new         { background: var(--mizu-gold); color: var(--mizu-ink); }
+
+@media (max-width: 768px) {
+  .kpi-card.kpi-hero::before { font-size: 100px; bottom: -22px; }
+  .trend-card.trend-card--hero::before { font-size: 70px; bottom: -16px; }
+}

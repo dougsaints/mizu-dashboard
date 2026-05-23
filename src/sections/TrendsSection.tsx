@@ -341,6 +341,7 @@ export default function TrendsSection() {
               formattedPrev={m.formattedPrev}
               favorability={m.favorability}
               hint={m.hint}
+              hero={m.key === 'faturamento'}
             />
           ))}
         </div>

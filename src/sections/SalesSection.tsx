@@ -167,7 +167,7 @@ export default function SalesSection() {
       {hasData && (
         <>
           <div className="sales-kpis">
-            <div className="kpi-card">
+            <div className="kpi-card kpi-hero">
               <div className="kpi-label">Total geral · período selecionado{filterSuffix}</div>
               <div className="kpi-value">{brl(totalGeral)}</div>
               {comparing && (
