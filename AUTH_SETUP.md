@@ -4,6 +4,19 @@ Guia em PT-BR pra você ativar o login do painel. **Custo: zero** (Supabase free
 
 ---
 
+## Status atual (atualizado 2026-05-23)
+
+- **Email Provider habilitado** — ✅ feito pelo Doug
+- **Usuário `genezilab@gmail.com` criado** — ✅ criado e confirmado (manual via Dashboard)
+- **Usuário `douglasknk@hotmail.com` removido** — ✅ deletado via MCP em 23/05 (pedido pra ter SÓ 1 user autorizado)
+- **Site URL + Redirect URLs** — ⏳ pendente (passo 2 abaixo)
+- **Signup público desligado** — ⏳ pendente (passo 3 abaixo)
+- **Teste end-to-end** (login → dashboard) — ⏳ pendente (testar após passo 3)
+
+**Falta ~2 min de cliques no Dashboard.** Site URL e desligar signup são as 2 únicas pendências críticas.
+
+---
+
 ## Contexto
 
 O código React do login já está pronto (Phase 7-02). Falta configurar o Supabase pra **enviar os emails de magic link** e **autorizar quem entra**.

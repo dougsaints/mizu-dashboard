@@ -10,15 +10,17 @@ See: .paul/PROJECT.md (updated 2026-05-22)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 6 ✅ Complete. Phase 7: 07-01b ✅ + 07-01 ✅ (prep) + 07-02 ✅ (UI). Deploy real + Supabase Auth config aguardam Doug.
+Phase: 6 ✅ Complete. Phase 7: deploy Vercel ✅ (no ar em <https://mizu-dashboard-pi.vercel.app/>). Auth ✅ user único criado via MCP. Falta 2 configs manuais Site URL + signup off.
 Plan: 06-01 a 06-05 + 07-01b + 07-01 + 07-02 — 8 plans completos.
-Status: Painel funcionalmente completo. Falta Doug fazer 2 setups manuais (DEPLOY.md ~10min + AUTH_SETUP.md ~5min).
-Last activity: 2026-05-23 — UNIFY 07-02 (magic link auth UI)
+Status: Login renderizando no Vercel (validado via headless Chrome screenshot). Banco com 1 user autorizado (`genezilab@gmail.com`); douglasknk removido via MCP.
+Last activity: 2026-05-23 — MCP Supabase OAuth + delete usuário extra + atualização AUTH_SETUP.md.
+
+Vercel URL: <https://mizu-dashboard-pi.vercel.app/>.
 
 Progress:
-- Milestone: [██████████] ~98% (falta deploy real + Supabase Auth config)
+- Milestone: [██████████] ~99% (falta 2 configs no Supabase Dashboard + 1 teste end-to-end)
 - Phase 6: [██████████] 100%
-- Phase 7: [██████████] 90% (todos os plans prontos; aguarda ações manuais Doug)
+- Phase 7: [██████████] 95%
 
 ## Loop Position
 
@@ -27,7 +29,7 @@ PLAN ──▶ APPLY ──▶ UNIFY
   ✓        ✓        ✓     [8 loops fechados]
 ```
 
-Próximo: Doug executa **DEPLOY.md** (Vercel) + **AUTH_SETUP.md** (Supabase Auth). Painel sobe ao ar. Depois disso, próxima fase será Phase 8 (polish visual: cards heroes, Meta Ads expandido, hero Jatiúca) — opcional.
+Próximo: Doug clica 2 vezes no Supabase Dashboard (Site URL + Redirect URLs; desligar signup público). Depois testa login com genezilab@gmail.com. MVP fica 100% pronto.
 
 ## Accumulated Context
 
