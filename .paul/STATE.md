@@ -10,10 +10,10 @@ See: .paul/PROJECT.md (updated 2026-05-22)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 6 ✅ Complete. Phase 7: deploy Vercel ✅ + auth UI (magic link + OTP fallback) ✅. Faltam 2 configs manuais (Site URL + signup off) + teste end-to-end do Doug.
-Plan: 06-01 a 06-05 + 07-01b + 07-01 + 07-02 + 07-02b — 9 plans completos.
-Status: Bug encontrado no teste real (Gmail URL scanner pré-consumiu magic link). Fix entregue: campo OTP fallback no Login. Bundle no Vercel atualizado (index-ZkhwBBd0.js).
-Last activity: 2026-05-23 — UNIFY 07-02b (OTP fallback) + push + Vercel auto-deploy.
+Phase: 6 ✅ + 7 ✅ + 8 ✅ Complete (auto sem Doug). Faltam apenas: 2 cliques Supabase Dashboard (Site URL + signup off) + teste end-to-end do Doug.
+Plan: 06-01 a 06-05 + 07-01b + 07-01 + 07-02 + 07-02b + 08-01 + 08-02 — 11 plans completos.
+Status: Phase 8 entregue autonomamente. KPI heroes pretos com gradient nos cards estrela (Total Geral + Faturamento Tendência); MetaAdsAnalysisSection com donut por objetivo + donut por unidade + hero Jatiúca azul. Tudo deployado.
+Last activity: 2026-05-23 — UNIFY 08-02 (Meta Ads expandido) + push + Vercel auto-deploy.
 
 Vercel URL: <https://mizu-dashboard-pi.vercel.app/>.
 
