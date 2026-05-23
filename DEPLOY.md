@@ -72,7 +72,39 @@ Ainda na tela de configuração, expande a seção **"Environment Variables"**:
 
 - **Auto-deploy ativado por padrão**: todo `git push` na branch `main` faz a Vercel re-deployar sozinha em ~2 minutos
 - **Preview deploys**: PRs do GitHub ganham uma URL de preview separada (útil pra testar mudanças antes do merge)
-- **Domínio próprio (opcional)**: Settings → Domains → "Add" → segue as instruções de DNS
+- **Domínio próprio (gratuito, recomendo configurar)**: ver seção abaixo
+
+---
+
+## Domínio personalizado (grátis no free tier)
+
+Se você já tem um domínio (ex: `sushi-mizu.com.br`), pode apontar uma URL bonita pro painel. Custo: **zero** — Vercel free tier inclui domínios ilimitados + SSL automático.
+
+### Como configurar
+
+1. **Decide um subdomínio** — ex: `painel.sushi-mizu.com.br`, `dashboard.sushi-mizu.com.br`, ou o domínio raiz se preferir
+2. Na Vercel: **Settings → Domains → "Add"**
+3. Digita o domínio escolhido e clica **Add**
+4. A Vercel mostra **DNS records** que você precisa adicionar — geralmente algo assim:
+
+   | Tipo    | Nome                       | Valor                  |
+   | ------- | -------------------------- | ---------------------- |
+   | `CNAME` | `painel` (ou `@` pra raiz) | `cname.vercel-dns.com` |
+
+   *Os valores exatos a Vercel te dá na hora — copia o que ela mostrar.*
+
+5. **No painel do seu registrador** (Registro.br, GoDaddy, Cloudflare, etc.):
+   - Vai na seção de DNS / Zonas DNS
+   - Adiciona os records que a Vercel pediu
+   - Salva
+6. **Volta na Vercel** e aguarda — em 5 a 30 min ela valida e mostra ✅ "Valid Configuration"
+7. **SSL automático ativa sozinho** após a validação (cadeado verde na URL)
+
+### Notas
+
+- O domínio antigo `xxx.vercel.app` continua funcionando como fallback
+- Se você quer **redirecionar `www.sushi-mizu.com.br` → `painel.sushi-mizu.com.br`**, dá pra fazer também na Vercel (Settings → Domains → redirect to)
+- DNS pode demorar até 24h em casos raros (registradores lentos). Em geral, 5-15 min resolve.
 
 ---
 
