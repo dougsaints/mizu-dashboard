@@ -10,24 +10,24 @@ See: .paul/PROJECT.md (updated 2026-05-22)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 6 of 7 (Correlações e análise cruzada) — ✅ Complete
-Plan: Phase 6 completa (06-01 + 06-02). Próximo: PLAN 07-01b (parcial — sem deploy).
-Status: Loops 06-01 e 06-02 fechados. Indo pro PLAN 07-01b.
-Last activity: 2026-05-23 — UNIFY 06-02 + commit (sessão noturna autônoma)
+Phase: 6 ✅ Complete. Phase 7 em progresso parcial (07-01b feito; 07-01 deploy e 07-02 auth aguardam Doug acordado).
+Plan: 06-01 + 06-02 + 07-01b — 3 plans completos na sessão noturna autônoma.
+Status: Sessão noturna fechada. Aguardando Doug validar visualmente de manhã.
+Last activity: 2026-05-23 — UNIFY 07-01b + commit (último loop da noite)
 
 Progress:
-- Milestone: [█████████░] ~86% (6 de 7 fases completas — falta Phase 7 parcial)
-- Phase 6: [██████████] 100% (2 de 2 plans completos)
-- Phase 7: [░░░░░░░░░░] 0% (07-01b vai cobrir code-splitting + polish; deploy + auth ficam pra acordado)
+- Milestone: [█████████░] ~92% (Phase 6 completa; Phase 7 com 1 de 2 plans estruturais feitos)
+- Phase 6: [██████████] 100%
+- Phase 7: [█████░░░░░] 50% (07-01b feito; 07-01 deploy e 07-02 auth ficam pra Doug acordado)
 
 ## Loop Position
 
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loops 06-01 e 06-02 fechados — Phase 6 completa]
+  ✓        ✓        ✓     [3 loops fechados nesta sessão: 06-01, 06-02, 07-01b]
 ```
 
-Próximo: PLAN 07-01b (code-splitting + polish mobile) → APPLY → UNIFY. Tudo autônomo. Doug valida visualmente de manhã.
+Próximo: **Doug valida visualmente** abrindo `npm run dev` — confere as 3 entregas (Correlação Meta × Vendas, Painel Tendências, Code-splitting). Depois decide juntos: deploy Vercel (07-01) e auth (07-02).
 
 ## Accumulated Context
 

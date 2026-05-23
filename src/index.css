@@ -2294,3 +2294,43 @@
 @media (max-width: 480px) {
   .trends-grid { grid-template-columns: 1fr; }
 }
+
+/* ---- Polish mobile + lazy fallback (Phase 7-01b) ------------- */
+body { overflow-x: hidden; }
+
+.lazy-fallback {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 22px 24px;
+  margin-bottom: 22px;
+  color: var(--txt-2);
+  font-size: 14px;
+  text-align: center;
+  box-shadow: var(--sh-xs);
+}
+
+@media (max-width: 768px) {
+  /* Touch targets adequados */
+  select,
+  button,
+  input[type="date"],
+  input[type="text"],
+  input[type="number"] {
+    min-height: 40px;
+  }
+  /* Respiro nos cards principais em telas pequenas */
+  .kpi-card,
+  .unit-card,
+  .trend-card {
+    padding: 12px 14px;
+  }
+  /* Container principal com gutters menores */
+  main {
+    padding: 16px 14px !important;
+  }
+  /* Section padding levemente menor */
+  .mizu-section {
+    padding: 18px 16px;
+  }
+}
