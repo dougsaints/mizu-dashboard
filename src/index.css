@@ -2036,3 +2036,114 @@
   .ads-chart-canvas { height: 220px; }
   .top-products-canvas { height: 320px; }
 }
+
+/* ─── Nota "Sem dados no período de comparação" (SalesSection) ── */
+.sales-cmp-note {
+  font-size: 12px;
+  color: var(--txt-2);
+  margin-top: 4px;
+}
+
+/* ─── Toggle "Análise por" no Header (Fase 5 · plano 05-05) ─── */
+.fg-toggle { flex-shrink: 0; }
+.fg-toggle-btns {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  background: var(--card);
+}
+.fg-toggle-btns button {
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--txt-2);
+  line-height: 1;
+  transition: background 0.12s ease, color 0.12s ease;
+  white-space: nowrap;
+}
+.fg-toggle-btns button:hover:not(.active) {
+  background: var(--mizu-gold-light);
+  color: var(--txt);
+}
+.fg-toggle-btns button.active {
+  background: var(--mizu-gold);
+  color: var(--mizu-ink);
+}
+
+/* ─── Badges de variação % nos KPIs (Fase 5 · plano 05-05) ────── */
+.kpi-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+.kpi-delta--up {
+  background: rgba(39, 174, 96, 0.12);
+  color: #1a7a44;
+}
+.kpi-delta--down {
+  background: rgba(192, 57, 43, 0.10);
+  color: var(--alert-red);
+}
+.kpi-delta--flat {
+  background: rgba(107, 98, 83, 0.10);
+  color: var(--txt-2);
+}
+.kpi-delta--empty {
+  background: rgba(107, 98, 83, 0.08);
+  color: var(--txt-2);
+  font-weight: 500;
+}
+
+/* ─── Seção Análise por Período (Fase 5 · plano 05-05) ─────────── */
+.analysis-section {
+  margin-bottom: 28px;
+}
+.analysis-charts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+.analysis-chart-block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px 18px;
+}
+.analysis-chart-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--txt-2);
+  margin-bottom: 12px;
+}
+.analysis-chart-canvas {
+  position: relative;
+  height: 280px;
+}
+.analysis-incomplete-note {
+  font-size: 11px;
+  color: var(--txt-2);
+  margin-top: 8px;
+}
+.analysis-empty {
+  color: var(--txt-2);
+  font-size: 14px;
+  padding: 20px 0;
+  text-align: center;
+}
+@media (max-width: 560px) {
+  .analysis-chart-canvas { height: 220px; }
+}

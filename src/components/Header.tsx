@@ -1,6 +1,6 @@
 import { useCurrentTenant } from '../lib/tenant'
 import { useUnits } from '../api/useUnits'
-import { useFilters, type Channel } from '../lib/period'
+import { useFilters, type Channel, type CmpMode, type AnalysisMode } from '../lib/period'
 import DateRangePicker from './DateRangePicker'
 import SyncStatusBadge from './SyncStatusBadge'
 
@@ -11,10 +11,16 @@ const CHANNELS: Array<{ value: Channel; label: string }> = [
   { value: 'anotaai', label: 'AnotaAi' },
 ]
 
+const CMP_OPTIONS: Array<{ value: CmpMode; label: string }> = [
+  { value: 'prev', label: 'Período anterior' },
+  { value: 'prevMonth', label: 'Mês passado' },
+  { value: 'none', label: 'Não comparar' },
+]
+
 export default function Header() {
   const tenant = useCurrentTenant()
   const { data: units = [] } = useUnits()
-  const { unitId, channel, setUnit, setChannel } = useFilters()
+  const { unitId, channel, cmpMode, analysisMode, setUnit, setChannel, setCmpMode, setAnalysisMode } = useFilters()
 
   return (
     <header className="header">
@@ -36,6 +42,22 @@ export default function Header() {
         <div className="header-spacer"></div>
 
         <DateRangePicker />
+
+        <div className="filter-sep"></div>
+
+        <div className="fg">
+          <span className="fg-label">Comparar com</span>
+          <select
+            value={cmpMode}
+            onChange={(e) => setCmpMode(e.target.value as CmpMode)}
+          >
+            {CMP_OPTIONS.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
+              </option>
+            ))}
+          </select>
+        </div>
 
         <div className="filter-sep"></div>
 
@@ -68,6 +90,26 @@ export default function Header() {
               </option>
             ))}
           </select>
+        </div>
+
+        <div className="filter-sep"></div>
+
+        <div className="fg fg-toggle">
+          <span className="fg-label">Análise por</span>
+          <div className="fg-toggle-btns">
+            <button
+              className={analysisMode === 'monthly' ? 'active' : ''}
+              onClick={() => setAnalysisMode('monthly' as AnalysisMode)}
+            >
+              Mensal
+            </button>
+            <button
+              className={analysisMode === 'weekly' ? 'active' : ''}
+              onClick={() => setAnalysisMode('weekly' as AnalysisMode)}
+            >
+              Semanal
+            </button>
+          </div>
         </div>
 
         <SyncStatusBadge />

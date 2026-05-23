@@ -15,7 +15,12 @@ type AdsImport = Database['public']['Tables']['ads_imports']['Row']
 const QK_ADS = ['ads', MIZU_TENANT_ID] as const
 const QK_IMPORTS = ['ads_imports', MIZU_TENANT_ID] as const
 
-export function useAds(start: string, end: string) {
+// Opt-in/out de Realtime. Default true. Componentes que só leem cache
+// passam { subscribeRealtime: false } para não abrir WebSocket extra.
+type UseAdsOptions = { subscribeRealtime?: boolean }
+
+export function useAds(start: string, end: string, options: UseAdsOptions = {}) {
+  const { subscribeRealtime = true } = options
   const qc = useQueryClient()
 
   const query = useQuery({
@@ -37,6 +42,7 @@ export function useAds(start: string, end: string) {
   // Nome de canal único por instância do hook — vários componentes
   // podem usar useAds ao mesmo tempo sem colidir no mesmo canal Realtime.
   useEffect(() => {
+    if (!subscribeRealtime) return
     const channel = supabase
       .channel(`ads-${MIZU_TENANT_ID}-${crypto.randomUUID()}`)
       .on(
@@ -53,7 +59,7 @@ export function useAds(start: string, end: string) {
     return () => {
       void supabase.removeChannel(channel)
     }
-  }, [qc])
+  }, [qc, subscribeRealtime])
 
   return query
 }

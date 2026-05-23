@@ -11,6 +11,8 @@ import { resolvePreset } from './periodPresets'
 const DEFAULT_PRESET = '30d'
 
 export type Channel = 'all' | 'pdv' | 'ifood' | 'anotaai'
+export type CmpMode = 'prev' | 'prevMonth' | 'none'
+export type AnalysisMode = 'monthly' | 'weekly'
 
 type FilterState = {
   start: string
@@ -18,12 +20,16 @@ type FilterState = {
   presetKey: string
   unitId: string | null  // null = "Todas as unidades"
   channel: Channel       // 'all' = "Todos os canais"
+  cmpMode: CmpMode       // 'prev' = período anterior | 'prevMonth' = mês passado | 'none' = sem comparação
+  analysisMode: AnalysisMode  // 'monthly' = mês a mês | 'weekly' = semana a semana
 }
 
 type FilterContextValue = FilterState & {
   setRange: (start: string, end: string, presetKey: string) => void
   setUnit: (id: string | null) => void
   setChannel: (c: Channel) => void
+  setCmpMode: (m: CmpMode) => void
+  setAnalysisMode: (m: AnalysisMode) => void
 }
 
 const FilterContext = createContext<FilterContextValue | null>(null)
@@ -37,6 +43,8 @@ export function FilterProvider({ children }: { children: ReactNode }) {
       presetKey: DEFAULT_PRESET,
       unitId: null,
       channel: 'all',
+      cmpMode: 'prev',
+      analysisMode: 'monthly',
     }
   })
 
@@ -47,9 +55,13 @@ export function FilterProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, unitId: id }))
   const setChannel = (c: Channel) =>
     setState((s) => ({ ...s, channel: c }))
+  const setCmpMode = (m: CmpMode) =>
+    setState((s) => ({ ...s, cmpMode: m }))
+  const setAnalysisMode = (m: AnalysisMode) =>
+    setState((s) => ({ ...s, analysisMode: m }))
 
   return (
-    <FilterContext.Provider value={{ ...state, setRange, setUnit, setChannel }}>
+    <FilterContext.Provider value={{ ...state, setRange, setUnit, setChannel, setCmpMode, setAnalysisMode }}>
       {children}
     </FilterContext.Provider>
   )

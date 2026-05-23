@@ -1,5 +1,6 @@
 // Gráfico de linha de faturamento diário — uma linha por unidade.
 // Reaproveita as rows de sales_daily já carregadas pela SalesSection.
+// Aceita cmpRows opcional para desenhar 2ª série tracejada (comparação).
 
 import { useMemo } from 'react'
 import { Line } from 'react-chartjs-2'
@@ -26,6 +27,8 @@ type Unit = Database['public']['Tables']['units']['Row']
 
 // Cores fixas legíveis — uma quente, uma fria. Cai no array se surgir 3ª.
 const PALETTE = ['#e8623d', '#3d8be8', '#3dba8b', '#b88a2e']
+// Cor da série comparada: cinza claro com transparência
+const CMP_COLOR = 'rgba(107, 98, 83, 0.45)'
 
 function brl(n: number): string {
   return n.toLocaleString('pt-BR', {
@@ -48,9 +51,10 @@ function brlShort(n: number): string {
 type Props = {
   rows: SalesRow[]
   units: Unit[]
+  cmpRows?: SalesRow[]  // série de comparação (opcional); vazio = não exibe
 }
 
-export default function SalesLineChart({ rows, units }: Props) {
+export default function SalesLineChart({ rows, units, cmpRows = [] }: Props) {
   const { data, options } = useMemo(() => {
     // Datas distintas em ordem ASCENDENTE (rows vêm DESC do hook).
     // ISO yyyy-mm-dd ordena corretamente como string.
@@ -63,6 +67,24 @@ export default function SalesLineChart({ rows, units }: Props) {
       byUnit.get(r.unit_id)!.set(r.date, Number(r.total ?? 0))
     }
 
+    // Mapa da série comparada: unit_id → valores por índice de dia
+    // (alinhamos por posição, não por data exata — dia 1 atual vs dia 1 comparado)
+    const cmpByUnit = new Map<string, number[]>()
+    if (cmpRows.length > 0) {
+      const cmpDates = [...new Set(cmpRows.map((r) => r.date))].sort()
+      for (const r of cmpRows) {
+        if (!cmpByUnit.has(r.unit_id)) cmpByUnit.set(r.unit_id, [])
+      }
+      // Preenche array de valores por índice de data comparada
+      for (const [uid, arr] of cmpByUnit.entries()) {
+        const unitMap = new Map<string, number>()
+        for (const r of cmpRows) {
+          if (r.unit_id === uid) unitMap.set(r.date, Number(r.total ?? 0))
+        }
+        cmpDates.forEach((d) => arr.push(unitMap.get(d) ?? 0))
+      }
+    }
+
     // Ordena pelas unidades conhecidas (sort_order); anexa unit_ids
     // que por acaso não estejam na lista de units.
     const unitIds = [
@@ -72,22 +94,52 @@ export default function SalesLineChart({ rows, units }: Props) {
 
     const labels = dates.map((d) => `${d.slice(8, 10)}/${d.slice(5, 7)}`)
 
+    const hasCmp = cmpRows.length > 0
+
+    // Série principal: 1 linha colorida por unidade com label "Atual · NomeUnidade"
+    const mainDatasets = unitIds.map((id, i) => {
+      const perDay = byUnit.get(id)!
+      const color = PALETTE[i % PALETTE.length]
+      const unitLabel = units.find((u) => u.id === id)?.display_name ?? id.slice(0, 8)
+      return {
+        label: hasCmp ? `Atual · ${unitLabel}` : unitLabel,
+        data: dates.map((d) => perDay.get(d) ?? null),
+        borderColor: color,
+        backgroundColor: color,
+        tension: 0.3,
+        spanGaps: true,
+        pointRadius: 3,
+        pointHoverRadius: 5,
+        borderDash: [] as number[],
+      }
+    })
+
+    // Série comparada: 1 linha tracejada cinza por unidade com label "Comparado · NomeUnidade"
+    const cmpDatasets = hasCmp
+      ? unitIds
+          .filter((id) => cmpByUnit.has(id))
+          .map((id) => {
+            const unitLabel = units.find((u) => u.id === id)?.display_name ?? id.slice(0, 8)
+            const values = cmpByUnit.get(id)!
+            // Alinha por índice: preenche com null se comparado tem menos dias
+            const aligned = dates.map((_, i) => values[i] ?? null)
+            return {
+              label: `Comparado · ${unitLabel}`,
+              data: aligned,
+              borderColor: CMP_COLOR,
+              backgroundColor: CMP_COLOR,
+              tension: 0.3,
+              spanGaps: true,
+              pointRadius: 2,
+              pointHoverRadius: 4,
+              borderDash: [4, 4],
+            }
+          })
+      : []
+
     const chartData: ChartData<'line'> = {
       labels,
-      datasets: unitIds.map((id, i) => {
-        const perDay = byUnit.get(id)!
-        const color = PALETTE[i % PALETTE.length]
-        return {
-          label: units.find((u) => u.id === id)?.display_name ?? id.slice(0, 8),
-          data: dates.map((d) => perDay.get(d) ?? null),
-          borderColor: color,
-          backgroundColor: color,
-          tension: 0.3,
-          spanGaps: true,
-          pointRadius: 3,
-          pointHoverRadius: 5,
-        }
-      }),
+      datasets: [...mainDatasets, ...cmpDatasets],
     }
 
     const chartOptions: ChartOptions<'line'> = {
@@ -113,7 +165,7 @@ export default function SalesLineChart({ rows, units }: Props) {
     }
 
     return { data: chartData, options: chartOptions }
-  }, [rows, units])
+  }, [rows, units, cmpRows])
 
   // Sem dados: não renderiza nada (a SalesSection já mostra os avisos).
   if (rows.length === 0) return null
