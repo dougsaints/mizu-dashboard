@@ -10,23 +10,24 @@ See: .paul/PROJECT.md (updated 2026-05-22)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 6 of 7 (Correlações e análise cruzada) — In progress
-Plan: 06-01 completo (Correlação Meta Ads × Vendas). Próximo: 06-02.
-Status: Loop 06-01 fechado. Indo pro PLAN 06-02.
-Last activity: 2026-05-22 — UNIFY 06-01 + commit (sessão noturna autônoma)
+Phase: 6 of 7 (Correlações e análise cruzada) — ✅ Complete
+Plan: Phase 6 completa (06-01 + 06-02). Próximo: PLAN 07-01b (parcial — sem deploy).
+Status: Loops 06-01 e 06-02 fechados. Indo pro PLAN 07-01b.
+Last activity: 2026-05-23 — UNIFY 06-02 + commit (sessão noturna autônoma)
 
 Progress:
-- Milestone: [████████░░] ~79% (5 de 7 fases + 1 de 2 plans da Phase 6)
-- Phase 6: [█████░░░░░] 50% (1 de 2 plans completos)
+- Milestone: [█████████░] ~86% (6 de 7 fases completas — falta Phase 7 parcial)
+- Phase 6: [██████████] 100% (2 de 2 plans completos)
+- Phase 7: [░░░░░░░░░░] 0% (07-01b vai cobrir code-splitting + polish; deploy + auth ficam pra acordado)
 
 ## Loop Position
 
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop 06-01 fechado]
+  ✓        ✓        ✓     [Loops 06-01 e 06-02 fechados — Phase 6 completa]
 ```
 
-Próximo: PLAN 06-02 (Painel de tendências consolidado) → APPLY → UNIFY → PLAN 07-01b → APPLY → UNIFY. Tudo autônomo. Doug valida visualmente de manhã.
+Próximo: PLAN 07-01b (code-splitting + polish mobile) → APPLY → UNIFY. Tudo autônomo. Doug valida visualmente de manhã.
 
 ## Accumulated Context
 

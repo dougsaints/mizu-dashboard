@@ -2214,3 +2214,83 @@
   }
   .correlation-chart { height: 240px; }
 }
+
+/* ---- Tendências do período (Phase 6-02) ----------------------- */
+.trends-summary {
+  font-style: italic;
+}
+.trends-loading {
+  color: var(--txt-2);
+  font-size: 14px;
+  padding: 16px 0;
+  text-align: center;
+}
+.trends-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 6px;
+}
+.trend-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  box-shadow: var(--sh-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 96px;
+}
+.trend-card-label {
+  font-size: 11px;
+  color: var(--txt-2);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.trend-card-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+.trend-card-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--txt);
+  letter-spacing: -0.3px;
+  line-height: 1.1;
+}
+.trend-card-hint {
+  font-size: 11px;
+  color: var(--txt-3);
+  margin-top: 2px;
+}
+.trend-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.trend-delta--up-good      { background: rgba(39, 174, 96, 0.12);  color: #1B7E45; }
+.trend-delta--down-bad     { background: rgba(192, 57, 43, 0.10);  color: #A12C20; }
+.trend-delta--up-bad       { background: rgba(192, 57, 43, 0.10);  color: #A12C20; }
+.trend-delta--down-good    { background: rgba(39, 174, 96, 0.12);  color: #1B7E45; }
+.trend-delta--up-neutral   { background: rgba(41, 128, 185, 0.12); color: #1F628F; }
+.trend-delta--down-neutral { background: rgba(41, 128, 185, 0.12); color: #1F628F; }
+.trend-delta--flat         { background: rgba(168, 158, 137, 0.18); color: var(--txt-2); }
+.trend-delta--new          { background: var(--mizu-gold-soft); color: var(--mizu-gold-deep); }
+
+@media (max-width: 768px) {
+  .trends-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .trends-grid { grid-template-columns: 1fr; }
+}

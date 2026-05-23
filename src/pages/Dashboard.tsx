@@ -6,6 +6,7 @@ import RoiSection from '../sections/RoiSection'
 import MarketingUnif from '../sections/MarketingUnif'
 import AnalysisSection from '../sections/AnalysisSection'
 import CorrelationSection from '../sections/CorrelationSection'
+import TrendsSection from '../sections/TrendsSection'
 import AdsUploadCard from '../components/AdsUploadCard'
 import AnotaaiUploadCard from '../components/AnotaaiUploadCard'
 import InstagramUploadCard from '../components/InstagramUploadCard'
@@ -23,6 +24,7 @@ export default function Dashboard() {
       <Header />
       <main style={{ maxWidth: 1440, margin: '0 auto', padding: '24px 28px' }}>
         <WeeklyRecap />
+        <TrendsSection />
         <AnalysisSection />
         <SalesSection />
         <CorrelationSection />
