@@ -1,17 +1,21 @@
-// Tela de Login com magic link (Phase 7-02).
-// 3 estados: idle (form), submitting (botão disabled), sent (sucesso).
+// Tela de Login: magic link como caminho principal + código OTP como
+// fallback robusto (Gmail "queima" magic links via URL scanner; código
+// numérico contorna).
 
 import { useState, type FormEvent } from 'react'
-import { signInWithEmail, isValidEmail } from '../api/useAuth'
+import { signInWithEmail, verifyEmailOtp, isValidEmail } from '../api/useAuth'
 
-type Status = 'idle' | 'submitting' | 'sent'
+type Status = 'idle' | 'submitting' | 'sent' | 'verifying'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState<string | null>(null)
+  const [otp, setOtp] = useState('')
+  const [otpError, setOtpError] = useState<string | null>(null)
 
   const emailLooksValid = email.length > 0 && isValidEmail(email)
+  const otpLooksValid = /^\d{6,8}$/.test(otp.trim())
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -27,9 +31,25 @@ export default function Login() {
     }
   }
 
+  const handleOtpSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    if (!otpLooksValid) return
+    setStatus('verifying')
+    setOtpError(null)
+    const result = await verifyEmailOtp(email, otp)
+    if (!result.ok) {
+      setOtpError(result.error)
+      setStatus('sent')
+    }
+    // Em sucesso, useAuth detecta a sessão via onAuthStateChange e
+    // App.tsx troca pra Dashboard automaticamente — sem precisar setStatus.
+  }
+
   const reset = () => {
     setEmail('')
+    setOtp('')
     setError(null)
+    setOtpError(null)
     setStatus('idle')
   }
 
@@ -46,19 +66,49 @@ export default function Login() {
           Digite seu email pra receber um link de acesso. Sem senha.
         </p>
 
-        {status === 'sent' ? (
-          <div className="login-sent">
-            <div className="login-sent-icon">📩</div>
-            <div className="login-sent-msg">
-              <strong>Link enviado!</strong>
-              <p>
-                Confira o inbox de <em>{email}</em> (e a pasta de spam). O link expira em 1 hora.
-              </p>
+        {status === 'sent' || status === 'verifying' ? (
+          <>
+            <div className="login-sent">
+              <div className="login-sent-icon">📩</div>
+              <div className="login-sent-msg">
+                <strong>Link enviado!</strong>
+                <p>
+                  Confira o inbox de <em>{email}</em> (e a pasta de spam). O link expira em 1 hora.
+                </p>
+              </div>
             </div>
+
+            <form onSubmit={handleOtpSubmit} className="login-otp-block" noValidate>
+              <div className="login-otp-label">
+                Se o link não funcionar (acontece com Gmail), digite o <strong>código de 8 dígitos</strong> que está no mesmo email:
+              </div>
+              <input
+                type="text"
+                inputMode="numeric"
+                pattern="\d{6,8}"
+                maxLength={8}
+                placeholder="00000000"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value.replace(/\D/g, ''))}
+                disabled={status === 'verifying'}
+                className="login-input login-otp-input"
+                aria-label="Código de 8 dígitos"
+                autoComplete="one-time-code"
+              />
+              <button
+                type="submit"
+                disabled={status === 'verifying' || !otpLooksValid}
+                className="login-submit"
+              >
+                {status === 'verifying' ? 'Verificando…' : 'Entrar com código'}
+              </button>
+              {otpError && <div className="login-error">{otpError}</div>}
+            </form>
+
             <button type="button" onClick={reset} className="login-link-btn">
               Tentar com outro email
             </button>
-          </div>
+          </>
         ) : (
           <form onSubmit={handleSubmit} className="login-form" noValidate>
             <input

@@ -85,6 +85,27 @@ export async function signInWithEmail(email: string): Promise<SignInResult> {
   return { ok: true }
 }
 
+// Fallback pro magic link quando o Gmail "queima" o token via URL scanner.
+// O mesmo email contém um código numérico (6-8 dígitos) que o user digita
+// no painel — Gmail não pré-consome códigos, então sempre funciona.
+export async function verifyEmailOtp(email: string, token: string): Promise<SignInResult> {
+  const cleanedEmail = email.trim().toLowerCase()
+  const cleanedToken = token.trim()
+  if (!isValidEmail(cleanedEmail)) {
+    return { ok: false, error: 'Email inválido.' }
+  }
+  if (!/^\d{6,8}$/.test(cleanedToken)) {
+    return { ok: false, error: 'O código deve ter 6 a 8 dígitos numéricos.' }
+  }
+  const { error } = await supabase.auth.verifyOtp({
+    email: cleanedEmail,
+    token: cleanedToken,
+    type: 'email',
+  })
+  if (error) return { ok: false, error: translateError(error.message) }
+  return { ok: true }
+}
+
 export async function signOut(): Promise<void> {
   await supabase.auth.signOut()
 }

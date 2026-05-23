@@ -2893,8 +2893,32 @@ body { overflow-x: hidden; }
   text-decoration: underline;
   padding: 4px 8px;
   font-family: inherit;
+  margin-top: 14px;
 }
 .login-link-btn:hover { color: var(--txt); }
+
+/* Bloco OTP fallback (Phase 7-02b) */
+.login-otp-block {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.login-otp-label {
+  font-size: 12px;
+  color: var(--txt-2);
+  line-height: 1.5;
+  text-align: left;
+}
+.login-otp-input {
+  text-align: center;
+  font-size: 20px !important;
+  letter-spacing: 6px;
+  font-family: 'Courier New', Courier, monospace !important;
+  font-weight: 600;
+}
 .login-footer {
   font-size: 11px;
   color: var(--txt-3);
