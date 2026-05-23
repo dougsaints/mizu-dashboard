@@ -5,31 +5,32 @@
 See: .paul/PROJECT.md (updated 2026-05-22)
 
 **Core value:** Time e cliente têm acesso rápido a métricas de faturamento, tráfego e delivery — tudo num lugar, sem abrir múltiplas plataformas.
-**Current focus:** v0.1 MVP — Phase 6: Correlações e análise cruzada
+**Current focus:** v0.1 MVP — Phase 9: RLS hardening (passo aditivo entregue; cutover bloqueado em Doug validar login)
 
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 6 ✅ + 7 ✅ + 8 ✅ Complete (auto sem Doug). Faltam apenas: 2 cliques Supabase Dashboard (Site URL + signup off) + teste end-to-end do Doug.
-Plan: 06-01 a 06-05 + 07-01b + 07-01 + 07-02 + 07-02b + 08-01 + 08-02 — 11 plans completos.
-Status: Phase 8 entregue autonomamente. KPI heroes pretos com gradient nos cards estrela (Total Geral + Faturamento Tendência); MetaAdsAnalysisSection com donut por objetivo + donut por unidade + hero Jatiúca azul. Tudo deployado.
-Last activity: 2026-05-23 — UNIFY 08-02 (Meta Ads expandido) + push + Vercel auto-deploy.
+Phase: 6 ✅ + 7 ✅ + 8 ✅ + 9 (em curso — 09-01 ✅, 09-02 bloqueado em Doug).
+Plan: 06-01 a 06-05 + 07-01b + 07-01 + 07-02 + 07-02b + 08-01 + 08-02 + 09-01 — 12 plans completos.
+Status: Phase 9-01 (aditiva) entregue autonomamente. Migration 0006 aplicada via MCP: 13 tabelas ganharam policy `authenticated_all` espelhando a anon (zero impacto no app), função `is_member_of_tenant` endurecida (search_path + revoke anon execute). Anon ainda lê — validado por curl em 4 tabelas. 2 WARNs do advisor caíram.
+Last activity: 2026-05-23 — UNIFY 09-01 (RLS aditivo).
 
 Vercel URL: <https://mizu-dashboard-pi.vercel.app/>.
 
 Progress:
-- Milestone: [██████████] ~99% (falta 2 configs no Supabase Dashboard + 1 teste end-to-end)
-- Phase 6: [██████████] 100%
+- Milestone: [██████████] ~99% (falta 2 configs no Supabase Dashboard + 1 teste end-to-end Doug + 09-02 cutover)
 - Phase 7: [██████████] 95%
+- Phase 9: [█████░░░░░] 50% (09-01 ✅ aditivo; 09-02 ⏳ cutover bloqueado em Doug validar login)
 
 ## Loop Position
 
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [8 loops fechados]
+  ✓        ✓        ✓     [12 loops fechados]
+                          09-02 aguarda Doug (BLOCKED_ON_USER)
 ```
 
-Próximo: Doug clica 2 vezes no Supabase Dashboard (Site URL + Redirect URLs; desligar signup público). Depois testa login com genezilab@gmail.com. MVP fica 100% pronto.
+Próximo: Doug clica 2 vezes no Supabase Dashboard (Site URL + Redirect URLs; desligar signup público) + testa login com genezilab@gmail.com. Quando confirmar "login ok", rodo o 09-02 (drop das policies anon — app passa a exigir login).
 
 ## Accumulated Context
 
@@ -70,16 +71,17 @@ Nenhum.
 ## Session Continuity
 
 Last session: 2026-05-23
-Stopped at: 11 loops PAUL fechados, tudo commitado e pushado pra GitHub (último: 52b0766 Phase 8-02 Meta Ads expandido). Vercel auto-deployou, painel funcional em <https://mizu-dashboard-pi.vercel.app/> (validado via curl + screenshot Chrome headless). Doug AFK no AnyDesk remoto — não pode clicar no Supabase Dashboard pra fechar Phase 7.
+Stopped at: 12 loops PAUL fechados. Último: Phase 9-01 (RLS hardening aditivo) — migration 0006 aplicada via MCP, 13 tabelas com `authenticated_all` em paralelo às `phase1_anon_all`, função `is_member_of_tenant` endurecida (search_path + revoke anon execute). Anon ainda lê (sanity check curl em 4 tabelas: HTTP 200). Painel em produção segue normal — zero impacto. Próximo passo bloqueado em Doug validar login.
 
 Próximos passos (em ordem):
+
 1. **Doug fora do remoto**: 2 cliques no Supabase Dashboard (Authentication → URL Configuration: Site URL + Redirect URLs; Sign In/Up: desligar "Allow new users to sign up"). Detalhes em AUTH_SETUP.md.
 2. **Doug testa login**: aba anônima, abre Vercel, pede magic link, usa o CÓDIGO de 8 dígitos (não o link — Gmail consome) no campo OTP fallback.
-3. **Doug valida visual** das 11 entregas. Especial atenção:
+3. **Doug valida visual** das 11 entregas anteriores. Especial atenção:
    - SalesSection Total Geral (card preto com 水 dourado)
    - TrendsSection 1º card (Faturamento, preto)
    - MetaAdsAnalysisSection (NOVA, donut por objetivo + donut por unidade + hero Jatiúca azul claro)
-4. **Próximo plan possível**: Phase 9 — RLS hardening (Claude pode fazer sozinho via MCP). Trocar phase1_anon_access por authenticated-only nas tabelas. Risco médio, reversível. Aguarda confirmação Doug.
+4. **Quando Doug confirmar "login ok"**: Claude roda plan 09-02 (drop das 14 policies `phase1_anon_all`, app passa a exigir login de verdade). Migration já planejada, ~30 segundos pra aplicar.
 
 Next action: Doug abre nova sessão → digita "/paul:resume" ou simplesmente "continua daí" → Claude lê STATE.md.
 Resume file: .paul/STATE.md (este arquivo)

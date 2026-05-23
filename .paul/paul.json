@@ -7,17 +7,17 @@
     "status": "in_progress"
   },
   "phase": {
-    "number": 6,
-    "name": "Correlações e análise cruzada",
-    "status": "not_started"
+    "number": 9,
+    "name": "RLS hardening (authenticated-only)",
+    "status": "in_progress"
   },
   "loop": {
-    "plan": null,
-    "position": "IDLE"
+    "plan": "09-02",
+    "position": "BLOCKED_ON_USER"
   },
   "timestamps": {
     "created_at": "2026-05-18T00:00:00Z",
-    "updated_at": "2026-05-22T22:10:00Z"
+    "updated_at": "2026-05-23T00:00:00Z"
   },
   "satellite": {
     "groom": true

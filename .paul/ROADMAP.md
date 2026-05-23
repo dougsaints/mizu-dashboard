@@ -8,7 +8,7 @@ Portar o painel HTML monolítico (painel-diario.html) para uma aplicação web m
 
 **v0.1 MVP** (v0.1.0)
 Status: Em progresso
-Phases: 5 of 7 complete
+Phases: 7 of 9 complete (Phase 7 a 95% — falta 2 cliques no Supabase Dashboard + teste end-to-end Doug)
 
 ## Phases
 
@@ -22,6 +22,7 @@ Phases: 5 of 7 complete
 | 6 | Correlações e análises avançadas | 5 | ✅ Complete | 2026-05-23 |
 | 7 | Hospedagem, polish e autenticação | 4 | 🔄 In progress | - |
 | 8 | Polish visual e Meta Ads expandido | 2 | ✅ Complete | 2026-05-23 |
+| 9 | RLS hardening (authenticated-only) | 2 | 🔄 In progress | - |
 
 ## Phase Details
 
@@ -155,5 +156,34 @@ Phases: 5 of 7 complete
 - [ ] 07-02: Auth básico + polish final
 
 ---
+
+### Phase 9: RLS hardening (authenticated-only)
+
+**Goal:** Fechar a porta dos fundos — banco passa a exigir login pra ler/escrever (hoje qualquer um com a URL + anon key lê tudo via REST)
+**Depends on:** Phase 7 completa (login funcional) — corte definitivo só com Doug logado validado
+**Risco:** Médio. Mitigado em 2 passos: 09-01 ADITIVO (não quebra nada), 09-02 SUBTRATIVO (cutover real, só depois do go-ahead do Doug)
+
+**Scope:**
+- Adicionar policies `authenticated_all` espelhando as `phase1_anon_all` (acesso só pra role `authenticated`)
+- Manter `tenants` legível por anon (precisa pra Login resolver tenant antes de session)
+- Setar `search_path` em `is_member_of_tenant` (fixa WARN do advisor `function_search_path_mutable`)
+- Revogar `EXECUTE` da função pro anon (fixa WARN `anon_security_definer_function_executable`)
+- Após Doug validar login end-to-end: drop das policies anon (cutover)
+
+**Plans:**
+- [ ] 09-01: Migration aditiva — policies authenticated + fix advisors (não-destrutiva, app não quebra)
+- [ ] 09-02: Cutover — drop das policies `phase1_anon_all` (destrutiva, só depois do Doug validar login)
+
+> Notas:
+> - Anon key continua sendo enviada pelo front no header (é o `apikey`),
+>   mas Supabase troca o role de `anon` pra `authenticated` automaticamente
+>   quando há JWT válido na request — sem mudar nenhuma linha de código.
+> - O 09-01 é zero-risco: policies em RLS são OR (qualquer match libera).
+>   Adicionar policy authenticated em cima de policy anon não tira nada.
+> - O 09-02 só roda depois do Doug: (a) clicar Site URL, Redirect URLs
+>   e desligar signup público no Supabase Dashboard; (b) fazer login com
+>   sucesso na Vercel uma vez. Sem isso, o app quebra.
+
+---
 *Roadmap created: 2026-05-18*
-*Last updated: 2026-05-22 (Phase 5 completa — barra de filtros global + comparativo + análise mensal/semanal)*
+*Last updated: 2026-05-23 (Phase 9 aberta — RLS hardening em 2 passos: aditivo agora, cutover depois)*
