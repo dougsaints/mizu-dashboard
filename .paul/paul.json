@@ -1,16 +1,15 @@
 {
   "name": "Sushi Mizú Dashboard",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "milestone": {
-    "name": "v0.1 MVP",
-    "version": "0.1.0",
-    "status": "complete",
-    "completed_at": "2026-05-23"
+    "name": "v0.2 Polish, Densidade & Exportação",
+    "version": "0.2.0",
+    "status": "in_progress"
   },
   "phase": {
-    "number": null,
-    "name": null,
-    "status": "idle"
+    "number": 10,
+    "name": "Densidade visual + identidade por fonte",
+    "status": "not_started"
   },
   "loop": {
     "plan": null,
@@ -18,7 +17,7 @@
   },
   "timestamps": {
     "created_at": "2026-05-18T00:00:00Z",
-    "updated_at": "2026-05-23T22:00:00Z"
+    "updated_at": "2026-05-23T22:30:00Z"
   },
   "satellite": {
     "groom": true
