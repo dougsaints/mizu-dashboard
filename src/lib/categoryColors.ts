@@ -1,25 +1,28 @@
 // Mapeamento heurístico de categoria de produto Anota AI → cor.
 // Sem deps. Heurísticas + fallback determinístico por hash.
 
+// Paleta puxada pro vermelho/quente (Phase 11-06) — vibe sushi/cozinha asiática.
+// Doug pediu "mais quente, mais puxado pro vermelho" comparado ao painel antigo.
 const HEURISTIC: Array<[RegExp, string]> = [
-  [/sushi|sashimi|nigiri|temaki|niguiri|maki/i, '#E74C3C'],
-  [/hot[\s_-]*roll|empanad|frit/i, '#E67E22'],
-  [/combinado|combo|cmb|festival/i, '#8E44AD'],
-  [/bebida|drink|suco|refri|cerveja|chopp|\bagua\b/i, '#3498DB'],
-  [/sobremes|dessert|doce|mochi/i, '#F39C12'],
-  [/entrada|aperitivo|petisc|porc/i, '#16A085'],
-  [/yakisoba|robata|skewer|grelh/i, '#C0392B'],
+  [/sushi|sashimi|nigiri|temaki|niguiri|maki/i, '#C0392B'],            // vermelho-bordô (sushi = destaque principal)
+  [/hot[\s_-]*roll|empanad|frit/i, '#E67E22'],                          // laranja queimado
+  [/combinado|combo|cmb|festival/i, '#D35400'],                         // vermelho-laranja escuro (combo = flagship)
+  [/bebida|drink|suco|refri|cerveja|chopp|\bagua\b/i, '#5D6D7E'],       // azul-ardósia (bebida fica fria, mas não destoa)
+  [/sobremes|dessert|doce|mochi/i, '#E74C3C'],                          // vermelho-cereja (doce vibrante)
+  [/entrada|aperitivo|petisc|porc/i, '#A04000'],                        // marrom-terracota
+  [/yakisoba|robata|skewer|grelh/i, '#922B21'],                         // bordô-escuro (grelhado)
+  [/molho|extra|salsa/i, '#B9770E'],                                    // mostarda-queimada
 ]
 
 const FALLBACK = [
-  '#95A5A6',
-  '#7F8C8D',
-  '#34495E',
-  '#BDC3C7',
-  '#1ABC9C',
-  '#9B59B6',
-  '#27AE60',
-  '#D35400',
+  '#B03A2E',  // vermelho-tijolo
+  '#CA6F1E',  // ocre-quente
+  '#E59866',  // pêssego
+  '#A93226',  // bordô
+  '#D68910',  // amarelo-mostarda
+  '#7E5109',  // marrom-tabaco
+  '#7B241C',  // castanho-vinho
+  '#AF601A',  // âmbar
 ]
 
 function hashCategory(s: string): number {

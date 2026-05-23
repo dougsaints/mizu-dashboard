@@ -17,6 +17,7 @@ import {
 } from '../lib/aggregation'
 import { buildCsv, downloadCsv, formatNumberBR } from '../lib/csvExport'
 import type { Database } from '../types/database'
+import SectionHeader from '../components/SectionHeader'
 
 type SalesRow = Database['public']['Tables']['sales_daily']['Row']
 type Unit = Database['public']['Tables']['units']['Row']
@@ -203,17 +204,14 @@ export default function DataTableSection() {
   const channelHighlight = (col: Channel) => (channel === col ? 'data-table-channel-highlight' : '')
 
   return (
-    <section className="mizu-section data-table-section">
-      <div className="mizu-section-head">
-        <div>
-          <div className="mizu-section-title">
-            <span className="kanji-deco">表</span> Tabela de Dados
-          </div>
-          <div className="mizu-section-sub">
-            Visão mês a mês fixa + tabela do período selecionado (export CSV)
-          </div>
-        </div>
-      </div>
+    <section className="mizu-section data-table-section is-source-neutro">
+      <SectionHeader
+        source="neutro"
+        kanji="表"
+        title="Tabela de Dados"
+        subtitle="Visão mês a mês fixa + tabela do período selecionado (export CSV)"
+        period={{ start, end }}
+      />
 
       {isLoading && <div className="data-table-loading">Carregando dados…</div>}
 

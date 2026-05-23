@@ -7,6 +7,7 @@
 import { useOrganic } from '../api/useOrganic'
 import { useAds } from '../api/useAds'
 import { daysBackRange } from '../lib/periodPresets'
+import SectionHeader from '../components/SectionHeader'
 
 // MarketingUnif tem janela própria de 90 dias — não segue o filtro global.
 const ADS_WINDOW = daysBackRange(90)
@@ -83,15 +84,25 @@ export default function MarketingUnif() {
       : 'Sem dados do Instagram ainda'
 
   return (
-    <section className="mizu-section">
-      <div className="mizu-section-head">
-        <div>
-          <div className="mizu-section-title">
-            <span className="kanji-deco">繋</span> Marketing Unificado
-          </div>
-          <div className="mizu-section-sub">{periodLabel}</div>
+    <section className="mizu-section is-source-instagram">
+      <SectionHeader
+        source="instagram"
+        kanji="繋"
+        title="Marketing Unificado"
+        subtitle={periodLabel}
+      />
+
+      {!isLoading && hasData && (
+        <div className="hero-summary">
+          Em <strong>{organic.length} dia(s)</strong>, o Instagram do Sushi Mizú alcançou <strong>{int(totals.alcance)}</strong> pessoas com <strong>{int(totals.visualizacoes)}</strong> visualizações totais.
+          {paidPct != null && paidPct > 0 && (
+            <> Cerca de <strong>{paidPct.toFixed(0)}%</strong> desse alcance veio de campanhas pagas ({brl(adSpend)} investidos).</>
+          )}
+          {paidPct === null && adSpend > 0 && (
+            <> Houve {brl(adSpend)} investidos em Meta Ads no período (alcance pago não calculável sem dado do Instagram).</>
+          )}
         </div>
-      </div>
+      )}
 
       {error && (
         <div style={{ color: 'var(--alert-red)', marginTop: 8, fontSize: 13 }}>

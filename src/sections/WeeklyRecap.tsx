@@ -1,4 +1,5 @@
 import { useWeeklyRecap } from '../api/useWeeklyRecap'
+import SectionHeader from '../components/SectionHeader'
 
 function brl(n: number): string {
   return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0, maximumFractionDigits: 0 })
@@ -8,17 +9,27 @@ export default function WeeklyRecap() {
   const { data, isLoading, error } = useWeeklyRecap()
 
   return (
-    <section className="mizu-section wr-section">
-      <div className="mizu-section-head">
-        <div>
-          <div className="mizu-section-title">
-            <span className="kanji-deco">週</span> Resumo da Semana
+    <section className="mizu-section wr-section is-source-vendas">
+      <SectionHeader
+        source="vendas"
+        kanji="週"
+        title="Resumo da Semana"
+        subtitle={isLoading ? 'Carregando período…' : (data?.periodLabel ?? '—')}
+      />
+
+      {!isLoading && data && (() => {
+        const totalAtual = data.units.reduce((s, u) => s + u.cur, 0)
+        const totalAnterior = data.units.reduce((s, u) => s + u.prev, 0)
+        const delta = totalAnterior > 0 ? ((totalAtual - totalAnterior) / totalAnterior) * 100 : null
+        const deltaStr = delta == null ? '' : delta > 2 ? ` (▲ ${delta.toFixed(0)}% vs semana passada)` : delta < -2 ? ` (▼ ${Math.abs(delta).toFixed(0)}% vs semana passada)` : ' (estável vs semana passada)'
+        const alertStr = data.alertDown ? ` ${data.alertDown.unit} caiu ${Math.abs(data.alertDown.pct).toFixed(0)}% — vale investigar.` : ''
+        const roasStr = data.roas != null && data.adSpend > 0 ? ` ROAS de ${data.roas.toFixed(2)}x sobre ${brl(data.adSpend)} investidos no Meta Ads.` : ''
+        return (
+          <div className="hero-summary">
+            Faturamento da semana: <strong>{brl(totalAtual)}</strong>{deltaStr}.{alertStr}{roasStr}
           </div>
-          <div className="mizu-section-sub">
-            {isLoading ? 'Carregando período…' : (data?.periodLabel ?? '—')}
-          </div>
-        </div>
-      </div>
+        )
+      })()}
 
       {error && (
         <div style={{ color: 'var(--alert-red)', marginTop: 8, fontSize: 13 }}>

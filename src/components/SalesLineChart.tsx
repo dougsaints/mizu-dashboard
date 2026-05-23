@@ -25,8 +25,18 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip,
 type SalesRow = Database['public']['Tables']['sales_daily']['Row']
 type Unit = Database['public']['Tables']['units']['Row']
 
-// Cores fixas legíveis — uma quente, uma fria. Cai no array se surgir 3ª.
-const PALETTE = ['#e8623d', '#3d8be8', '#3dba8b', '#b88a2e']
+// Cores por NOME da unidade (Phase 10-03 + revisão sprint v0.2).
+// Map evita regressão silenciosa se sort_order mudar no banco.
+const COLOR_SERRARIA = '#8E44AD' // roxo
+const COLOR_JATIUCA = '#2980B9'  // azul
+const FALLBACK_PALETTE = ['#3dba8b', '#b88a2e', '#16a085', '#d35400']
+
+function colorForUnitName(name: string, fallbackIdx: number): string {
+  const n = name.toLowerCase()
+  if (n.includes('serraria')) return COLOR_SERRARIA
+  if (n.includes('jatiu')) return COLOR_JATIUCA
+  return FALLBACK_PALETTE[fallbackIdx % FALLBACK_PALETTE.length]
+}
 // Cor da série comparada: cinza claro com transparência
 const CMP_COLOR = 'rgba(107, 98, 83, 0.45)'
 
@@ -99,8 +109,8 @@ export default function SalesLineChart({ rows, units, cmpRows = [] }: Props) {
     // Série principal: 1 linha colorida por unidade com label "Atual · NomeUnidade"
     const mainDatasets = unitIds.map((id, i) => {
       const perDay = byUnit.get(id)!
-      const color = PALETTE[i % PALETTE.length]
       const unitLabel = units.find((u) => u.id === id)?.display_name ?? id.slice(0, 8)
+      const color = colorForUnitName(unitLabel, i)
       return {
         label: hasCmp ? `Atual · ${unitLabel}` : unitLabel,
         data: dates.map((d) => perDay.get(d) ?? null),

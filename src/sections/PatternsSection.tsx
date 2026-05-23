@@ -10,6 +10,7 @@ import { startOfWeekSun, toIso } from '../lib/heatmap'
 import SalesHeatmap from '../components/SalesHeatmap'
 import UnitCompareCard from '../components/UnitCompareCard'
 import type { Database } from '../types/database'
+import SectionHeader from '../components/SectionHeader'
 
 type SalesRow = Database['public']['Tables']['sales_daily']['Row']
 type Unit = Database['public']['Tables']['units']['Row']
@@ -104,17 +105,14 @@ export default function PatternsSection() {
   const isLoading = rowsAtual.isLoading || rowsHeatmap.isLoading
 
   return (
-    <section className="mizu-section">
-      <div className="mizu-section-head">
-        <div>
-          <div className="mizu-section-title">
-            <span className="kanji-deco">律</span> Padrões e Performance
-          </div>
-          <div className="mizu-section-sub">
-            Padrão semanal de faturamento (últimas 12 semanas) e comparação normalizada entre unidades
-          </div>
-        </div>
-      </div>
+    <section className="mizu-section is-source-vendas">
+      <SectionHeader
+        source="vendas"
+        kanji="律"
+        title="Padrões e Performance"
+        subtitle="Padrão semanal de faturamento (últimas 12 semanas) e comparação normalizada entre unidades"
+        period={{ start, end }}
+      />
 
       {isLoading && <div className="data-table-loading">Carregando padrões…</div>}
 

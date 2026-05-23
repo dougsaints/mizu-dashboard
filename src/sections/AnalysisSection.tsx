@@ -20,6 +20,7 @@ import { useAds } from '../api/useAds'
 import { useFilters } from '../lib/period'
 import { useUnits } from '../api/useUnits'
 import type { Database } from '../types/database'
+import SectionHeader from '../components/SectionHeader'
 
 // Registrar Chart.js no escopo do módulo (uma vez)
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend)
@@ -27,10 +28,11 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend)
 type SalesRow = Database['public']['Tables']['sales_daily']['Row']
 type AdsRow = Database['public']['Tables']['ads_daily']['Row']
 
-// Cores das unidades — padrão já estabelecido no projeto
-const COLOR_SERRARIA = '#e8623d'
-const COLOR_JATIUCA = '#3d8be8'
-const COLOR_ADS = '#b88a2e'
+// Cores das unidades — padrão Phase 10-03 (Serraria roxo, Jatiúca azul)
+const COLOR_SERRARIA = '#8E44AD'
+const COLOR_JATIUCA = '#2980B9'
+// Phase 11-07: trocou amarelo cocô (#b88a2e) por azul Meta (identidade da fonte)
+const COLOR_ADS = '#1877F2'
 
 function brl(n: number): string {
   return n.toLocaleString('pt-BR', {
@@ -334,32 +336,37 @@ export default function AnalysisSection() {
 
   if (!hasAnySales && !hasAnyAds) {
     return (
-      <section className="mizu-section analysis-section">
-        <div className="mizu-section-head">
-          <div>
-            <div className="mizu-section-title">
-              <span className="kanji-deco">析</span> Análise por Período
-            </div>
-            <div className="mizu-section-sub">{subtitle}</div>
-          </div>
-        </div>
+      <section className="mizu-section analysis-section is-source-vendas">
+        <SectionHeader
+          source="vendas"
+          kanji="析"
+          title="Análise por Período"
+          subtitle={subtitle}
+          period={{ start, end }}
+        />
         <div className="analysis-empty">Sem dados suficientes para análise.</div>
       </section>
     )
   }
 
   return (
-    <section className="mizu-section analysis-section">
-      <div className="mizu-section-head">
-        <div>
-          <div className="mizu-section-title">
-            <span className="kanji-deco">析</span> Análise por Período
-          </div>
-          <div className="mizu-section-sub">{subtitle}</div>
-        </div>
-      </div>
+    <section className="mizu-section analysis-section is-source-vendas">
+      <SectionHeader
+        source="vendas"
+        kanji="析"
+        title="Análise por Período"
+        subtitle={subtitle}
+        period={{ start, end }}
+      />
 
-      <div className="analysis-charts">
+      {(salesBuckets.length < 3 || adsBuckets.length < 3) && (
+        <div className="analysis-sparse-note">
+          📅 Período curto pra comparação: {salesBuckets.length} {analysisMode === 'monthly' ? 'mês(es)' : 'semana(s)'} de dado{salesBuckets.length === 1 ? '' : 's'}.
+          Pra ver evolução, escolha um período maior no seletor do topo.
+        </div>
+      )}
+
+      <div className={`analysis-charts ${salesBuckets.length < 3 ? 'analysis-charts--sparse' : ''}`}>
         {hasAnySales && (
           <FaturamentoChart
             buckets={salesBuckets}

@@ -8,6 +8,7 @@ import { useFilters } from '../lib/period'
 import CategoryDonutChart from '../components/CategoryDonutChart'
 import ParetoChart from '../components/ParetoChart'
 import type { Database } from '../types/database'
+import SectionHeader from '../components/SectionHeader'
 
 type ProductRow = Database['public']['Tables']['anotaai_products']['Row']
 
@@ -48,26 +49,76 @@ export default function ProductsAnalysisSection() {
 
   const latestSnapshotDate = latestRows[0]?.snapshot_date ?? null
 
+  // 4 KPIs de produtos (Phase 11-06)
+  const productsKpis = useMemo(() => {
+    if (latestRows.length === 0) return null
+    const totalUnits = latestRows.reduce((s, p) => s + Number(p.quantity ?? 0), 0)
+    const skus = new Set(latestRows.map(p => p.product_name).filter(Boolean)).size
+    const skusUnicos = latestRows.filter(p => Number(p.quantity ?? 0) === 1).length
+
+    // Concentração top 10 (% do total que vem dos 10 mais vendidos)
+    const sorted = [...latestRows].sort((a, b) => Number(b.quantity ?? 0) - Number(a.quantity ?? 0))
+    const top10Sum = sorted.slice(0, 10).reduce((s, p) => s + Number(p.quantity ?? 0), 0)
+    const concentrationPct = totalUnits > 0 ? (top10Sum / totalUnits) * 100 : 0
+    const top10Units = top10Sum
+
+    // Maior categoria
+    const byCat = new Map<string, number>()
+    for (const p of latestRows) {
+      const k = p.category?.trim() || 'Sem categoria'
+      byCat.set(k, (byCat.get(k) ?? 0) + Number(p.quantity ?? 0))
+    }
+    const sortedCats = [...byCat.entries()].sort((a, b) => b[1] - a[1])
+    const topCat = sortedCats[0]
+    const topCatName = topCat ? topCat[0] : '—'
+    const topCatPct = topCat && totalUnits > 0 ? (topCat[1] / totalUnits) * 100 : 0
+
+    return { totalUnits, skus, skusUnicos, concentrationPct, top10Units, topCatName, topCatPct }
+  }, [latestRows])
+
   return (
-    <section className="mizu-section">
-      <div className="mizu-section-head">
-        <div>
-          <div className="mizu-section-title">
-            <span className="kanji-deco">品</span> Análise de Produtos
-          </div>
-          <div className="mizu-section-sub">
-            Mix de categorias e concentração de vendas no delivery (Anota AI) ·{' '}
-            {latestSnapshotDate
-              ? `snapshot de ${formatDateBR(latestSnapshotDate)}`
-              : 'sem snapshot no período'}
-          </div>
-        </div>
-      </div>
+    <section className="mizu-section is-source-anotaai">
+      <SectionHeader
+        source="anotaai"
+        kanji="品"
+        title="Análise de Produtos"
+        subtitle={`Mix de categorias e concentração de vendas no delivery (Anota AI) · ${
+          latestSnapshotDate
+            ? `snapshot de ${formatDateBR(latestSnapshotDate)}`
+            : 'sem snapshot no período'
+        }`}
+        period={{ start, end }}
+      />
 
       {isLoading && <div className="data-table-loading">Carregando análise de produtos…</div>}
       {error && (
         <div className="data-table-loading" style={{ color: 'var(--alert-red)' }}>
           Erro ao carregar: {(error as Error).message}
+        </div>
+      )}
+
+      {!isLoading && !error && productsKpis && (
+        <div className="products-kpis-grid">
+          <div className="products-kpi">
+            <div className="products-kpi-lbl">Unidades Vendidas</div>
+            <div className="products-kpi-val">{productsKpis.totalUnits.toLocaleString('pt-BR')}</div>
+            <div className="products-kpi-sub">somando todos os SKUs</div>
+          </div>
+          <div className="products-kpi">
+            <div className="products-kpi-lbl">SKUs Distintos</div>
+            <div className="products-kpi-val">{productsKpis.skus}</div>
+            <div className="products-kpi-sub">{productsKpis.skusUnicos} vendidos 1× (cauda longa)</div>
+          </div>
+          <div className="products-kpi">
+            <div className="products-kpi-lbl">Concentração Top 10</div>
+            <div className="products-kpi-val">{productsKpis.concentrationPct.toFixed(1).replace('.', ',')}%</div>
+            <div className="products-kpi-sub">{productsKpis.top10Units.toLocaleString('pt-BR')} un dos top 10</div>
+          </div>
+          <div className="products-kpi">
+            <div className="products-kpi-lbl">Maior Categoria</div>
+            <div className="products-kpi-val products-kpi-val--text">{productsKpis.topCatName}</div>
+            <div className="products-kpi-sub">{productsKpis.topCatPct.toFixed(1).replace('.', ',')}% das unidades</div>
+          </div>
         </div>
       )}
 

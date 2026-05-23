@@ -59,6 +59,28 @@
       --r-md: 12px;
       --r-lg: 16px;
       --r-xl: 20px;
+
+      /* ====================================================
+         Identidade visual por fonte de dados (Phase 10)
+         Cor curta = ícone/border. Cor *-soft = chips/badges.
+      ==================================================== */
+      --source-meta:           #1877F2;
+      --source-meta-soft:      rgba(24,119,242,0.10);
+      --source-anotaai:        #FF6B35;
+      --source-anotaai-soft:   rgba(255,107,53,0.10);
+      --source-instagram:      #DD2A7B;
+      --source-instagram-soft: rgba(221,42,123,0.10);
+      --source-instagram-grad: linear-gradient(45deg, #F58529 0%, #DD2A7B 50%, #8134AF 100%);
+      --source-vendas:         var(--mizu-gold);
+      --source-vendas-soft:    var(--mizu-gold-soft);
+      --source-diario:         #27AE60;
+      --source-diario-soft:    rgba(39,174,96,0.10);
+
+      /* Cores por unidade (consistentes em todo painel) */
+      --unit-jatiuca:        #2980B9;
+      --unit-jatiuca-soft:   rgba(41,128,185,0.10);
+      --unit-serraria:       #8E44AD;
+      --unit-serraria-soft:  rgba(142,68,173,0.10);
     }
 
     body {
@@ -393,7 +415,7 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--r-lg);
-      padding: 20px;
+      padding: 16px 18px;
       box-shadow: var(--sh-sm);
       position: relative;
       overflow: hidden;
@@ -424,21 +446,21 @@
     .kpi-card.kpi-hero .kpi-val   { color: #fff; }
     .kpi-card.kpi-hero .kpi-sub   { color: rgba(255,255,255,0.6); }
     .kpi-icon {
-      width: 36px; height: 36px;
-      border-radius: 10px;
+      width: 30px; height: 30px;
+      border-radius: 9px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 17px;
-      margin-bottom: 14px;
+      font-size: 15px;
+      margin-bottom: 8px;
     }
     .kpi-label {
       font-size: 10px; font-weight: 700;
       text-transform: uppercase; letter-spacing: 0.7px;
-      color: var(--txt-2); margin-bottom: 6px;
+      color: var(--txt-2); margin-bottom: 4px;
     }
     .kpi-val {
-      font-size: 24px; font-weight: 800;
-      letter-spacing: -0.8px; line-height: 1;
-      color: var(--txt); margin-bottom: 6px;
+      font-size: 28px; font-weight: 800;
+      letter-spacing: -0.9px; line-height: 1;
+      color: var(--txt); margin-bottom: 4px;
     }
     .kpi-sub { font-size: 11px; color: var(--txt-3); font-weight: 400; }
     .kpi-pct {
@@ -515,15 +537,9 @@
       border: 1px solid var(--border);
       background: #FAFAFB;
     }
-    .unit-card.serraria { border-left: 4px solid rgba(142,68,173,.85); }
-    .unit-card.jatiuca  { border-left: 4px solid rgba(41,128,185,.85); }
-    .unit-card-head     { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; }
-    .unit-card-name     { font-weight:700; font-size:15px; }
-    .unit-card-share    { font-size:12px; color:var(--muted); }
-    .unit-card-total    { font-size:22px; font-weight:700; }
-    .unit-card-rate     { font-size:13px; color:var(--muted); margin-top:2px; }
-    .unit-card-meta     { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px; font-size:12px; }
-    .unit-card-ref      { font-size:11px; color:var(--muted); margin-top:6px; font-style:italic; }
+    /* Bloco antigo de .unit-card-* (PR3) removido no sprint v0.2 — substituído
+       pelo sistema de badge `.unit-card-badge--{jatiuca|serraria}` no Phase 10-03.
+       Mantida só a media query do .unit-compare-grid pra não regredir Patterns. */
     @media (max-width: 720px) {
       .unit-compare-grid { grid-template-columns: 1fr; }
     }
@@ -948,10 +964,10 @@
     @media (max-width: 900px) { .jat-kpis { grid-template-columns: repeat(2, 1fr); } }
     .jat-kpi {
       background: #fff; border: 1px solid #DCEAF4;
-      border-radius: 10px; padding: 12px 14px;
+      border-radius: 10px; padding: 10px 12px;
     }
     .jat-kpi .kpi-label { color: var(--blue); }
-    .jat-kpi .kpi-val { font-size: 22px; }
+    .jat-kpi .kpi-val { font-size: 26px; }
     .jat-camp-list { margin-top: 14px; padding-top: 14px; border-top: 1px dashed #C8DDEC; }
     .jat-camp-list-title {
       font-size: 10px; font-weight: 700; color: var(--blue);
@@ -1281,7 +1297,7 @@
       background: #fff;
       border: 1px solid var(--border);
       border-radius: var(--r-md);
-      padding: 14px 16px;
+      padding: 12px 14px;
     }
     .wr-block-label {
       font-size: 10px; font-weight: 700;
@@ -1294,7 +1310,7 @@
     }
     .wr-unit { padding: 10px 12px; border-radius: 8px; background: var(--mizu-cream); }
     .wr-unit-name { font-size: 11px; font-weight: 700; color: var(--mizu-gold-deep); text-transform: uppercase; letter-spacing: 0.4px; }
-    .wr-unit-val  { font-size: 22px; font-weight: 800; letter-spacing: -0.4px; color: var(--txt); margin-top: 4px; }
+    .wr-unit-val  { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; color: var(--txt); margin-top: 4px; }
     .wr-unit-delta { font-size: 11px; font-weight: 700; margin-top: 4px; }
     .wr-unit-delta.up   { color: #1A7A42; }
     .wr-unit-delta.down { color: var(--alert-red); }
@@ -1642,14 +1658,6 @@
       border-radius: var(--r-md);
       padding: 14px 16px;
     }
-    .unit-card-name {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      color: var(--mizu-gold-deep);
-      margin-bottom: 6px;
-    }
     .unit-card-total {
       font-size: 22px;
       font-weight: 800;
@@ -1858,31 +1866,8 @@
   gap: 16px;
 }
 @media (max-width: 960px) { .wr-grid { grid-template-columns: 1fr; } }
-.wr-block {
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  padding: 14px 16px;
-}
-.wr-block-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.7px;
-  text-transform: uppercase;
-  color: var(--txt-2);
-  margin-bottom: 8px;
-}
-.wr-units { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.wr-unit { padding: 10px 12px; border-radius: 8px; background: var(--mizu-cream); }
-.wr-unit-name { font-size: 11px; font-weight: 700; color: var(--mizu-gold-deep); text-transform: uppercase; letter-spacing: 0.4px; }
-.wr-unit-val  { font-size: 20px; font-weight: 800; letter-spacing: -0.4px; color: var(--txt); margin-top: 4px; }
-.wr-unit-delta { font-size: 11px; font-weight: 700; margin-top: 4px; }
-.wr-unit-delta.up   { color: #1A7A42; }
-.wr-unit-delta.down { color: var(--alert-red); }
-.wr-unit-delta.flat { color: var(--txt-2); }
-.wr-roas { display: flex; align-items: baseline; gap: 8px; }
-.wr-roas-val { font-size: 30px; font-weight: 800; letter-spacing: -0.6px; color: var(--mizu-gold-deep); line-height: 1; }
-.wr-roas-cap { font-size: 11px; color: var(--txt-2); }
+/* Bloco .wr-* duplicado removido em sprint v0.2 — definição canônica está
+   nas linhas ~1300 (indentada com 4 espaços, dentro do bloco MIZÚ v7). */
 .wr-spent { margin-top: 8px; font-size: 12px; color: var(--txt); }
 .wr-spent strong { font-weight: 700; }
 .wr-top { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
@@ -1925,12 +1910,12 @@
 .mkt-tile {
   background: var(--mizu-cream);
   border-radius: 8px;
-  padding: 12px 14px;
+  padding: 10px 12px;
 }
 .mkt-tile-val {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 800;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.6px;
   color: var(--txt);
   line-height: 1;
 }
@@ -1938,7 +1923,7 @@
   font-size: 11px;
   font-weight: 600;
   color: var(--txt-2);
-  margin-top: 6px;
+  margin-top: 4px;
 }
 .mkt-paid {
   display: grid;
@@ -2235,12 +2220,11 @@
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--r-md);
-  padding: 14px 16px;
+  padding: 12px 14px;
   box-shadow: var(--sh-xs);
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  min-height: 96px;
+  gap: 2px;
 }
 .trend-card-label {
   font-size: 11px;
@@ -2257,11 +2241,11 @@
   margin-top: 2px;
 }
 .trend-card-value {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 26px;
+  font-weight: 800;
   color: var(--txt);
-  letter-spacing: -0.3px;
-  line-height: 1.1;
+  letter-spacing: -0.5px;
+  line-height: 1.05;
 }
 .trend-card-hint {
   font-size: 11px;
@@ -3125,4 +3109,1218 @@ body { overflow-x: hidden; }
 }
 @media (max-width: 420px) {
   .jat-kpis { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   SectionHeader — Phase 10-01 (v2: identidade visível, não sutil)
+   Header unificado por seção com identidade visual por fonte.
+
+   Arquitetura de sinalização:
+   1) Kanji pill colorido  — área de cor com fundo soft + borda
+   2) Source badge textual — chip "META ADS / INSTAGRAM / …" no canto dir.
+   3) Border-left 5px      — tira lateral ligeiramente mais grossa
+   4) Period chip tintado  — cor herdada da fonte, não genérico cream
+============================================================ */
+
+/* --- wrapper geral ---------------------------------------- */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.section-header-main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* --- kanji pill ------------------------------------------- */
+/* Pill colorida: fundo soft da fonte, borda 1px da fonte,
+   tamanho fixo 36x36 para criar área de cor perceptível.     */
+.section-header-icon {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  /* fallback neutro */
+  background: var(--mizu-gold-soft);
+  border: 1px solid rgba(201,169,97,0.35);
+  color: var(--mizu-gold-deep);
+  vertical-align: middle;
+}
+
+/* --- título + sub ----------------------------------------- */
+.section-header-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--txt);
+  letter-spacing: -0.1px;
+  display: inline-flex;
+  align-items: center;
+}
+.section-header-sub {
+  font-size: 12px;
+  color: var(--txt-2);
+  font-weight: 500;
+  margin-top: 5px;
+  padding-left: 48px; /* alinha com o texto do título (icon 36px + gap 12px) */
+}
+
+/* --- chip de período -------------------------------------- */
+/* Herda tint da fonte via modifier (ver abaixo). Padrão cream. */
+.section-header-period {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  margin-top: 6px;
+  margin-left: 48px; /* alinha com subtítulo */
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--txt-2);
+  background: var(--mizu-cream);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+/* --- área direita: badge + actions ------------------------ */
+.section-header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Badge textual da fonte — ex: "META ADS", "INSTAGRAM"
+   Fica no slot de actions, inserido pelo componente.          */
+.section-source-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  border-radius: 999px;
+  /* fallback */
+  background: var(--mizu-gold-soft);
+  color: var(--mizu-gold-deep);
+  border: 1px solid rgba(201,169,97,0.30);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   Modifiers por fonte — aplicam cor consistente em:
+   · kanji pill (bg + border + color)
+   · period chip (color + border)
+   · source badge (bg + color + border)
+   · border-left do .mizu-section pai (via is-source-X)
+============================================================ */
+
+/* META ADS -------------------------------------------------- */
+.section-header--meta .section-header-icon {
+  background: var(--source-meta-soft);
+  border-color: rgba(24,119,242,0.30);
+  color: var(--source-meta);
+}
+.section-header--meta .section-header-period {
+  color: var(--source-meta);
+  border-color: rgba(24,119,242,0.25);
+  background: var(--source-meta-soft);
+}
+.section-header--meta .section-source-badge {
+  background: var(--source-meta-soft);
+  color: var(--source-meta);
+  border-color: rgba(24,119,242,0.25);
+}
+
+/* ANOTA AI -------------------------------------------------- */
+.section-header--anotaai .section-header-icon {
+  background: var(--source-anotaai-soft);
+  border-color: rgba(255,107,53,0.30);
+  color: var(--source-anotaai);
+}
+.section-header--anotaai .section-header-period {
+  color: var(--source-anotaai);
+  border-color: rgba(255,107,53,0.25);
+  background: var(--source-anotaai-soft);
+}
+.section-header--anotaai .section-source-badge {
+  background: var(--source-anotaai-soft);
+  color: var(--source-anotaai);
+  border-color: rgba(255,107,53,0.25);
+}
+
+/* INSTAGRAM ------------------------------------------------- */
+.section-header--instagram .section-header-icon {
+  background: var(--source-instagram-soft);
+  border-color: rgba(221,42,123,0.30);
+  color: var(--source-instagram);
+}
+.section-header--instagram .section-header-period {
+  color: var(--source-instagram);
+  border-color: rgba(221,42,123,0.25);
+  background: var(--source-instagram-soft);
+}
+.section-header--instagram .section-source-badge {
+  background: var(--source-instagram-soft);
+  color: var(--source-instagram);
+  border-color: rgba(221,42,123,0.25);
+}
+
+/* VENDAS ---------------------------------------------------- */
+.section-header--vendas .section-header-icon {
+  background: var(--source-vendas-soft);
+  border-color: rgba(201,169,97,0.35);
+  color: var(--mizu-gold-deep);
+}
+.section-header--vendas .section-header-period {
+  color: var(--mizu-gold-deep);
+  border-color: rgba(201,169,97,0.30);
+  background: var(--mizu-gold-soft);
+}
+.section-header--vendas .section-source-badge {
+  background: var(--mizu-gold-soft);
+  color: var(--mizu-gold-deep);
+  border-color: rgba(201,169,97,0.30);
+}
+
+/* DIÁRIO ---------------------------------------------------- */
+.section-header--diario .section-header-icon {
+  background: var(--source-diario-soft);
+  border-color: rgba(39,174,96,0.30);
+  color: var(--source-diario);
+}
+.section-header--diario .section-header-period {
+  color: var(--source-diario);
+  border-color: rgba(39,174,96,0.25);
+  background: var(--source-diario-soft);
+}
+.section-header--diario .section-source-badge {
+  background: var(--source-diario-soft);
+  color: var(--source-diario);
+  border-color: rgba(39,174,96,0.25);
+}
+
+/* NEUTRO (cross-section, gold) ------------------------------ */
+.section-header--neutro .section-header-icon {
+  background: var(--mizu-gold-soft);
+  border-color: rgba(201,169,97,0.35);
+  color: var(--mizu-gold-deep);
+}
+
+/* --- Tira lateral do .mizu-section (8px, claramente visível) - */
+.mizu-section {
+  border-left-width: 8px;
+}
+.mizu-section.is-source-meta      { border-left-color: var(--source-meta); }
+.mizu-section.is-source-anotaai   { border-left-color: var(--source-anotaai); }
+.mizu-section.is-source-instagram { border-left-color: var(--source-instagram); }
+.mizu-section.is-source-vendas    { border-left-color: var(--source-vendas); }
+.mizu-section.is-source-diario    { border-left-color: var(--source-diario); }
+.mizu-section.is-source-neutro    { border-left-color: var(--source-vendas); }
+
+/* --- Mobile ------------------------------------------------ */
+@media (max-width: 560px) {
+  .section-header-sub,
+  .section-header-period {
+    padding-left: 0;
+    margin-left: 0;
+  }
+  .section-source-badge {
+    font-size: 9px;
+    padding: 2px 7px;
+    letter-spacing: 0.4px;
+  }
+}
+
+/* ============================================================
+   Unit card badge — Phase 10-03
+   Identidade visual por unidade dentro do .unit-card da SalesSection.
+============================================================ */
+.unit-card { border-left-width: 6px; }
+.unit-card.jatiuca  { border-left-color: var(--unit-jatiuca); }
+.unit-card.serraria { border-left-color: var(--unit-serraria); }
+
+.unit-card-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+  background: var(--mizu-cream);
+  color: var(--txt-2);
+  border: 1px solid var(--border);
+}
+.unit-card-badge--jatiuca {
+  background: var(--unit-jatiuca-soft);
+  color: var(--unit-jatiuca);
+  border-color: rgba(41,128,185,0.30);
+}
+.unit-card-badge--serraria {
+  background: var(--unit-serraria-soft);
+  color: var(--unit-serraria);
+  border-color: rgba(142,68,173,0.30);
+}
+
+/* ============================================================
+   Sales top grid — Phase 11-04
+   5 KPIs no topo de Vendas: Hero + Item Mais Vendido + PDV + iFood + AnotaAi
+   Com sparklines (mini-gráficos), delta vs período comparado.
+============================================================ */
+.sales-top-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+@media (max-width: 1100px) {
+  .sales-top-grid { grid-template-columns: 1fr 1fr 1fr; }
+  .sales-top-card--hero { grid-column: span 3; }
+}
+@media (max-width: 640px) {
+  .sales-top-grid { grid-template-columns: 1fr 1fr; }
+  .sales-top-card--hero { grid-column: span 2; }
+}
+@media (max-width: 420px) {
+  .sales-top-grid { grid-template-columns: 1fr; }
+  .sales-top-card--hero { grid-column: span 1; }
+}
+
+.sales-top-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sales-top-card--hero {
+  background: linear-gradient(135deg, var(--mizu-ink-2) 0%, var(--mizu-ink) 100%);
+  color: white;
+  border-color: var(--mizu-gold-deep);
+  box-shadow: 0 4px 20px rgba(22,20,15,0.35), inset 0 1px 0 rgba(201,169,97,0.18);
+}
+.sales-top-card--hero::before {
+  content: '水';
+  font-family: 'Noto Serif JP', serif;
+  position: absolute;
+  right: -12px; bottom: -28px;
+  font-size: 130px;
+  color: var(--mizu-gold);
+  opacity: 0.08;
+  line-height: 1;
+  pointer-events: none;
+}
+.sales-top-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: var(--mizu-cream);
+  border: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+.sales-top-card--hero .sales-top-icon {
+  background: rgba(201,169,97,0.15);
+  border-color: rgba(201,169,97,0.30);
+}
+.sales-top-lbl {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--txt-2);
+}
+.sales-top-card--hero .sales-top-lbl {
+  color: rgba(255,255,255,0.72);
+}
+.sales-top-val {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+  line-height: 1;
+  color: var(--txt);
+  margin-top: 2px;
+}
+.sales-top-card--hero .sales-top-val {
+  color: #fff;
+}
+.sales-top-val--muted {
+  color: var(--txt-3);
+  font-weight: 600;
+}
+.sales-top-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--txt);
+  line-height: 1.2;
+  margin-top: 2px;
+  letter-spacing: -0.3px;
+}
+.sales-top-sub {
+  font-size: 11px;
+  color: var(--txt-2);
+  font-weight: 500;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.sales-top-card--hero .sales-top-sub {
+  color: rgba(255,255,255,0.65);
+}
+.sales-top-cmp {
+  font-size: 10px;
+  color: var(--txt-3);
+}
+.sales-top-card--hero .sales-top-cmp {
+  color: rgba(255,255,255,0.50);
+}
+.sales-top-spark {
+  margin-top: 6px;
+  width: 100%;
+}
+.sales-top-spark svg {
+  width: 100%;
+  height: 34px;
+  display: block;
+}
+.sales-top-spark--hero svg {
+  height: 38px;
+}
+.sparkline { display: block; }
+
+/* ============================================================
+   AdsVsSalesChart — Phase 11-11
+   Eixo Y duplo: Invest Meta (azul) × Faturamento (dourado).
+============================================================ */
+.ads-vs-sales-card {
+  margin-bottom: 16px;
+}
+.ads-vs-sales-chart {
+  position: relative;
+  height: 280px;
+  margin-top: 12px;
+}
+@media (max-width: 640px) {
+  .ads-vs-sales-chart { height: 220px; }
+}
+
+/* ============================================================
+   Operational Alerts — Phase 11-09
+   Painel de alertas no topo do Dashboard. Detecção automática
+   de anomalias: queda crítica, WoW, dias faltando, ROAS<1x.
+============================================================ */
+.ops-alerts {
+  background: linear-gradient(135deg, var(--mizu-ink) 0%, var(--mizu-ink-2) 100%);
+  color: white;
+  border: 1px solid var(--mizu-gold-deep);
+  border-radius: var(--r-lg);
+  padding: 16px 20px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 20px rgba(22,20,15,0.30);
+  position: relative;
+  overflow: hidden;
+}
+.ops-alerts::before {
+  content: '水';
+  font-family: 'Noto Serif JP', serif;
+  position: absolute;
+  right: -12px; bottom: -28px;
+  font-size: 110px;
+  color: var(--mizu-gold);
+  opacity: 0.08;
+  line-height: 1;
+  pointer-events: none;
+}
+.ops-alerts-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ops-alerts-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--mizu-gold);
+}
+.ops-alerts-count {
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  font-weight: 500;
+}
+.ops-alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ops-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.05);
+  border-left: 4px solid var(--mizu-gold);
+  border-radius: 8px;
+}
+.ops-alert--critical { border-left-color: #E74C3C; background: rgba(231,76,60,0.10); }
+.ops-alert--warning  { border-left-color: #F39C12; background: rgba(243,156,18,0.08); }
+.ops-alert--positive { border-left-color: #27AE60; background: rgba(39,174,96,0.10); }
+.ops-alert--info     { border-left-color: #5D6D7E; background: rgba(93,109,126,0.10); }
+
+.ops-alert-icon {
+  font-size: 18px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.ops-alert-body { flex: 1; min-width: 0; }
+.ops-alert-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.3;
+}
+.ops-alert-detail {
+  font-size: 11px;
+  color: rgba(255,255,255,0.65);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+@media print {
+  .ops-alerts { background: white !important; color: black !important; border: 1px solid #ccc !important; box-shadow: none !important; }
+  .ops-alerts::before { display: none; }
+  .ops-alerts-title, .ops-alert-title { color: black !important; }
+  .ops-alert-detail, .ops-alerts-count { color: #555 !important; }
+}
+
+/* ============================================================
+   Analysis sparse note — Phase 11-07
+   Aviso quando poucos meses/semanas pra comparação justa.
+============================================================ */
+.analysis-sparse-note {
+  background: var(--mizu-cream);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--mizu-gold);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--txt-2);
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+.analysis-charts--sparse .analysis-chart-canvas {
+  max-height: 220px;
+}
+
+/* ============================================================
+   Products KPIs grid — Phase 11-06
+   4 KPIs no topo da Análise de Produtos.
+============================================================ */
+.products-kpis-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+@media (max-width: 900px) { .products-kpis-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 420px) { .products-kpis-grid { grid-template-columns: 1fr; } }
+
+.products-kpi {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--source-anotaai);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.products-kpi-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--source-anotaai);
+  margin-bottom: 4px;
+}
+.products-kpi-val {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--txt);
+  line-height: 1.1;
+}
+.products-kpi-val--text {
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+.products-kpi-sub {
+  font-size: 10px;
+  color: var(--txt-3);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   Header 2 faixas — Phase 11-05 / refinado Phase 11-12
+   Sem emojis, alinhamento real, selects estilizados.
+   Princípio: densidade controlada (não esmagada), ícones SVG autorais.
+============================================================ */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(255,252,243,0.92);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(201,169,97,0.08);
+}
+
+/* === Faixa superior: marca + ações ============================ */
+.header-top {
+  border-bottom: 1px solid rgba(232,224,204,0.5);
+  background: rgba(255,252,243,0.8);
+}
+.header-top-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 28px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.header-top-spacer { flex: 1; }
+
+/* Botões da faixa superior — padrão visual coeso (sync, PDF, logout) */
+.sync-status-badge,
+.header-print-btn,
+.header-logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--txt-2);
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  cursor: pointer;
+}
+.header-print-btn:hover,
+.header-logout:hover {
+  background: var(--mizu-cream);
+  border-color: var(--mizu-gold);
+  color: var(--mizu-gold-deep);
+}
+.header-print-btn svg,
+.header-logout-icon { color: var(--txt-2); }
+.header-print-btn:hover svg,
+.header-logout:hover .header-logout-icon { color: var(--mizu-gold-deep); }
+.header-logout-email {
+  font-weight: 500;
+  color: var(--txt-2);
+  font-size: 12px;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* === Sync badge: bullet + label + refresh SVG =================== */
+.sync-status-badge { padding: 0 10px 0 12px; gap: 8px; }
+.sync-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+}
+.sync-dot--fresh  { background: #27AE60; box-shadow: 0 0 0 3px rgba(39,174,96,0.18); }
+.sync-dot--stale  { background: #F39C12; box-shadow: 0 0 0 3px rgba(243,156,18,0.18); }
+.sync-dot--error  { background: #E74C3C; box-shadow: 0 0 0 3px rgba(231,76,60,0.18); }
+.sync-dot--idle   { background: var(--txt-3); }
+.sync-status-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--txt-2);
+  white-space: nowrap;
+}
+.sync-status-refresh {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  border-radius: 6px;
+  color: var(--txt-2);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+.sync-status-refresh:hover:not(:disabled) {
+  background: var(--mizu-cream);
+  color: var(--mizu-gold-deep);
+}
+.sync-status-refresh:disabled { cursor: not-allowed; opacity: 0.5; }
+.sync-status-refresh.is-pending svg { animation: sync-spin 1s linear infinite; }
+@keyframes sync-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* === Faixa inferior: filtros globais ============================= */
+.header-filters {
+  background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,252,243,0.5) 100%);
+}
+.header-filters-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 12px 28px;
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.header-filters .filter-sep {
+  width: 1px;
+  height: 32px;
+  background: var(--border);
+  align-self: flex-end;
+  margin-bottom: 4px;
+}
+
+/* Filter group: label em cima, select embaixo, altura consistente */
+.header-filters .fg {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.header-filters .fg-label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--txt-2);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* Selects estilizados: caret SVG inline, sem padrão do browser */
+.header-filters .fg select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 36px;
+  min-width: 160px;
+  padding: 0 32px 0 12px;
+  background: #fff;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6253' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--txt);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  font-family: inherit;
+}
+.header-filters .fg select:hover {
+  border-color: var(--mizu-gold);
+}
+.header-filters .fg select:focus {
+  outline: none;
+  border-color: var(--mizu-gold);
+  box-shadow: 0 0 0 3px rgba(201,169,97,0.18);
+}
+
+/* DateRangePicker — alinha com os outros campos */
+.header-filters .drp-trigger {
+  height: 36px;
+  padding: 0 12px;
+  min-width: 220px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--txt);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.header-filters .drp-trigger:hover { border-color: var(--mizu-gold); }
+.header-filters .drp-trigger.open {
+  border-color: var(--mizu-gold);
+  box-shadow: 0 0 0 3px rgba(201,169,97,0.18);
+}
+.header-filters .drp-t-caret { color: var(--txt-2); opacity: 0.6; }
+
+/* Toggle Mensal/Semanal — visual coeso */
+.header-filters .fg-toggle-btns {
+  display: inline-flex;
+  height: 36px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.header-filters .fg-toggle-btns button {
+  background: transparent;
+  border: none;
+  padding: 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--txt-2);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-family: inherit;
+  line-height: 1;
+}
+.header-filters .fg-toggle-btns button:hover {
+  background: var(--mizu-cream);
+}
+.header-filters .fg-toggle-btns button.active {
+  background: var(--mizu-gold-soft);
+  color: var(--mizu-gold-deep);
+  font-weight: 700;
+}
+
+/* Mobile === */
+@media (max-width: 768px) {
+  .header-top-inner {
+    padding: 0 16px;
+    height: 52px;
+    gap: 10px;
+  }
+  .header-logout-email { display: none; }
+  .header-filters-inner {
+    padding: 10px 16px;
+    gap: 10px;
+  }
+  .header-filters .filter-sep { display: none; }
+  .header-filters .fg { flex: 1 1 calc(50% - 5px); min-width: 0; }
+  .header-filters .fg select { min-width: 0; width: 100%; }
+}
+@media (max-width: 480px) {
+  .header-top-inner { flex-wrap: wrap; height: auto; padding: 10px 16px; }
+  .header-top-spacer { display: none; }
+  .header-filters .fg { flex: 1 1 100%; }
+}
+
+/* ============================================================
+   Hero summary — Phase 10-04
+   Frase-resumo em prosa no topo de seções-chave (WeeklyRecap,
+   MarketingUnif, RoiSection). Padrão do painel HTML antigo.
+============================================================ */
+.hero-summary {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--txt);
+  line-height: 1.55;
+  padding: 12px 16px;
+  margin: 0 0 16px;
+  background: var(--mizu-cream);
+  border-left: 4px solid var(--mizu-gold);
+  border-radius: 6px;
+}
+.hero-summary strong {
+  font-weight: 800;
+  color: var(--mizu-ink);
+}
+.mizu-section.is-source-meta      .hero-summary { border-left-color: var(--source-meta); }
+.mizu-section.is-source-anotaai   .hero-summary { border-left-color: var(--source-anotaai); }
+.mizu-section.is-source-instagram .hero-summary { border-left-color: var(--source-instagram); }
+.mizu-section.is-source-vendas    .hero-summary { border-left-color: var(--source-vendas); }
+.mizu-section.is-source-diario    .hero-summary { border-left-color: var(--source-diario); }
+
+/* ============================================================
+   Meta-only KPIs grid — Phase 11-01
+   8 indicadores de performance Meta Ads no topo da seção.
+============================================================ */
+.meta-kpis-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+@media (max-width: 900px) { .meta-kpis-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 420px) { .meta-kpis-grid { grid-template-columns: 1fr; } }
+
+.meta-kpi {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--source-meta);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.meta-kpi-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--source-meta);
+  margin-bottom: 4px;
+}
+.meta-kpi-val {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--txt);
+  line-height: 1.1;
+}
+.meta-kpi-sub {
+  font-size: 10px;
+  color: var(--txt-3);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   Category breakdown table + Unit breakdown cards — Phase 11-02
+============================================================ */
+.cat-breakdown-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-top: 12px;
+}
+.cat-breakdown-table th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--txt-2);
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--border);
+}
+.cat-breakdown-table th.r,
+.cat-breakdown-table td.r {
+  text-align: right;
+}
+.cat-breakdown-table td {
+  padding: 8px;
+  border-bottom: 1px solid rgba(232,224,204,0.4);
+  color: var(--txt);
+}
+.cat-breakdown-table tr:last-child td { border-bottom: none; }
+/* Phase 11-08: tabela wide com mais colunas + linha de total */
+.cat-breakdown-table--wide {
+  font-size: 11px;
+}
+.cat-breakdown-table--wide th,
+.cat-breakdown-table--wide td {
+  padding: 6px 6px;
+}
+.cat-breakdown-total td {
+  background: var(--mizu-cream);
+  border-top: 2px solid var(--border) !important;
+  font-weight: 800;
+}
+.cat-dot {
+  display: inline-block;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.unit-breakdown-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 12px;
+}
+.unit-breakdown-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--txt-3);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.unit-breakdown-card--jatiuca  { border-left-color: var(--unit-jatiuca); }
+.unit-breakdown-card--serraria { border-left-color: var(--unit-serraria); }
+.unit-breakdown-card--geral    { border-left-color: var(--txt-3); }
+.unit-breakdown-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--txt-2);
+}
+.unit-breakdown-card--jatiuca .unit-breakdown-lbl  { color: var(--unit-jatiuca); }
+.unit-breakdown-card--serraria .unit-breakdown-lbl { color: var(--unit-serraria); }
+.unit-breakdown-val {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--txt);
+  letter-spacing: -0.3px;
+  margin-top: 2px;
+}
+.unit-breakdown-pct {
+  font-size: 11px;
+  color: var(--txt-3);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   Uploads area — Phase 12-01 (discreto no rodapé)
+============================================================ */
+.uploads-area {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--border);
+}
+.uploads-area > summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--txt-2);
+  padding: 10px 14px;
+  background: var(--mizu-cream);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  list-style: none;
+  user-select: none;
+  transition: background 0.15s;
+}
+.uploads-area > summary:hover { background: #F0EBD9; }
+.uploads-area > summary::-webkit-details-marker { display: none; }
+.uploads-area > summary::before {
+  content: '▸';
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 0.15s;
+  color: var(--mizu-gold);
+}
+.uploads-area[open] > summary::before {
+  transform: rotate(90deg);
+}
+.uploads-area-inner {
+  padding-top: 16px;
+}
+
+/* ============================================================
+   Mobile compactness pass — Phase 12-02
+   Touch targets ≥ 44px, reflow 1-col, padding compacto.
+============================================================ */
+@media (max-width: 640px) {
+  main { padding: 16px 12px !important; }
+  .mizu-section { padding: 16px 14px; border-left-width: 6px; }
+  .sales-kpis,
+  .sales-unit-grid,
+  .meta-kpis-grid,
+  .trends-grid,
+  .ads-analysis-grid,
+  .products-analysis-grid,
+  .patterns-grid,
+  .correlation-grid,
+  .wr-grid,
+  .roi-grid,
+  .mkt-metrics,
+  .mkt-paid {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+  }
+  .unit-breakdown-cards {
+    grid-template-columns: 1fr !important;
+  }
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .section-header-actions {
+    margin-top: 8px;
+  }
+  .section-source-badge {
+    align-self: flex-start;
+  }
+  button, select, input[type="text"], input[type="number"], input[type="date"], textarea {
+    min-height: 44px;
+  }
+  .btn-sm, button.btn-sm {
+    min-height: 38px;
+  }
+  .header-inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px 16px;
+    gap: 10px;
+  }
+  .header-spacer { display: none; }
+  .filter-sep { display: none; }
+  .fg { width: 100%; }
+  .fg select { width: 100%; }
+  .hero-summary { font-size: 13px; padding: 10px 12px; }
+  .section-header-icon { font-size: 18px; width: 32px; height: 32px; }
+}
+
+@media (max-width: 420px) {
+  .uploads-area > summary { font-size: 12px; }
+  .meta-kpi-val, .trend-card-value, .kpi-val, .mkt-tile-val { font-size: 22px; }
+  .wr-roas-val { font-size: 24px; }
+}
+
+/* ============================================================
+   Export PNG button — Phase 13-01
+============================================================ */
+.section-export-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+  line-height: 1;
+  min-height: 30px;
+  opacity: 0.35;
+}
+.mizu-section:hover .section-export-btn,
+.section-export-btn:hover,
+.section-export-btn:focus-visible {
+  opacity: 1;
+  background: var(--mizu-cream);
+  border-color: var(--border);
+}
+.section-export-btn:hover,
+.section-export-btn:focus-visible {
+  border-color: var(--mizu-gold);
+  background: #F0EBD9;
+}
+.section-export-btn:focus-visible {
+  outline: 2px solid var(--mizu-gold);
+  outline-offset: 2px;
+}
+.section-export-btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+@media (hover: none) {
+  /* Touch devices: sempre visível com opacidade média */
+  .section-export-btn { opacity: 0.7; }
+}
+@media print {
+  .section-export-btn { display: none !important; }
+}
+
+/* ============================================================
+   Header print button + global print styles — Phase 13-02
+============================================================ */
+.header-print-btn {
+  background: var(--mizu-cream);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--txt-2);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  margin-right: 10px;
+  white-space: nowrap;
+}
+.header-print-btn:hover {
+  background: #F0EBD9;
+  border-color: var(--mizu-gold);
+  color: var(--mizu-gold-deep);
+}
+
+@media print {
+  /* Esconde só os controles — whitelist explícita (não usar selector "button" puro) */
+  .header,
+  .header-print-btn,
+  .header-logout,
+  .uploads-area,
+  .lazy-fallback,
+  .roi-toggle,
+  .section-source-badge,
+  .data-table-export,
+  .section-export-btn,
+  .fg-toggle-btns,
+  .drp-toggle,
+  .upload-zone {
+    display: none !important;
+  }
+  /* Page setup A4-friendly */
+  @page {
+    margin: 12mm 10mm;
+    size: A4;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+  }
+  main {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+  /* Seção sem sombra/border colorido em papel — mas SEM forçar avoid no break,
+     porque seções com 8+ KPIs + 2 donuts + tabela passam de 1 A4 e quebrariam ruim */
+  .mizu-section {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    margin-bottom: 12pt !important;
+  }
+  /* Componentes internos que NÃO devem quebrar no meio */
+  .chart-card,
+  .meta-kpi,
+  .trend-card,
+  .kpi-card,
+  .unit-card,
+  .wr-block {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  /* Header de seção mais discreto em papel */
+  .section-header {
+    background: transparent !important;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8pt;
+    margin-bottom: 10pt;
+  }
+  /* Marca d'água Mizú no rodapé impresso (via @page seria ideal mas não tem suporte amplo) */
+  .mizu-section::after {
+    content: '水 Sushi Mizú';
+    position: absolute;
+    bottom: 6pt;
+    right: 12pt;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 9pt;
+    color: rgba(201,169,97,0.5);
+  }
+  /* Charts ainda renderizam — Chart.js em canvas é printable */
+  canvas { max-width: 100% !important; }
 }

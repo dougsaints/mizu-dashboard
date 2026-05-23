@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { format, isToday, isYesterday, parseISO } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { useDiary, useAddDiaryEntry } from '../api/useDiary'
+import SectionHeader from '../components/SectionHeader'
 
 const AUTORES = ['Mike', 'Gab', 'Tráfego', 'Operação', 'Outro']
 
@@ -36,17 +37,13 @@ export default function DiarioSection() {
   const dias = Object.keys(grupos).sort().reverse()
 
   return (
-    <section className="mizu-section" id="diarioSection">
-      <div className="mizu-section-head">
-        <div>
-          <div className="mizu-section-title">
-            <span className="kanji-deco">記</span> Diário do Time
-          </div>
-          <div className="mizu-section-sub">
-            Espaço comum · sincronizado em tempo real entre todos os dispositivos
-          </div>
-        </div>
-      </div>
+    <section className="mizu-section is-source-diario" id="diarioSection">
+      <SectionHeader
+        source="diario"
+        kanji="記"
+        title="Diário do Time"
+        subtitle="Espaço comum · sincronizado em tempo real entre todos os dispositivos"
+      />
 
       <div className="diario-input">
         <div className="diario-row">

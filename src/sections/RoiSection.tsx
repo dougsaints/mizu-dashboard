@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRoi, useSaveRoiConfig, type RoiMode } from '../api/useRoi'
+import SectionHeader from '../components/SectionHeader'
 
 function brl(n: number): string {
   return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0, maximumFractionDigits: 0 })
@@ -54,27 +55,39 @@ export default function RoiSection() {
   const margemCls = fat > 0 ? (margem > 0 ? 'good' : margem < 0 ? 'bad' : '') : ''
 
   return (
-    <section className="mizu-section" id="roiSection">
-      <div className="mizu-section-head">
-        <div>
-          <div className="mizu-section-title">
-            <span className="kanji-deco">投</span> ROI · Investimento vs Retorno
-          </div>
-          <div className="mizu-section-sub">
-            Valores editáveis (salvos na nuvem, sincronizam entre dispositivos).
-          </div>
-        </div>
-        <div className="mizu-section-actions">
+    <section className="mizu-section is-source-meta" id="roiSection">
+      <SectionHeader
+        source="meta"
+        kanji="投"
+        title="ROI · Investimento vs Retorno"
+        subtitle="Valores editáveis (salvos na nuvem, sincronizam entre dispositivos)."
+        actions={
           <div className="roi-toggle">
             <button className={isSem ? '' : 'on'} onClick={() => setMode('mes')}>Mensal</button>
             <button className={isSem ? 'on' : ''} onClick={() => setMode('sem')}>Semanal</button>
           </div>
-        </div>
-      </div>
+        }
+      />
 
       {error && (
         <div style={{ color: 'var(--alert-red)', marginTop: 8, fontSize: 13 }}>
           Erro ao carregar ROI: {String(error)}
+        </div>
+      )}
+
+      {!isLoading && (
+        <div className="hero-summary">
+          {invest > 0 && fat > 0 ? (
+            <>
+              Você investiu <strong>{brl(invest)}</strong> em marketing {periodLbl2} e faturou <strong>{brl(fat)}</strong>, com margem de <strong>{brl(margem)}</strong> (ROAS <strong>{roas.toFixed(2)}x</strong>).
+            </>
+          ) : invest > 0 ? (
+            <>
+              Investimento configurado: <strong>{brl(invest)}</strong> {periodLbl}. Aguardando faturamento {periodLbl2} pra calcular margem e ROAS.
+            </>
+          ) : (
+            <>Configure os valores de investimento abaixo pra ver o resumo do ROI.</>
+          )}
         </div>
       )}
 

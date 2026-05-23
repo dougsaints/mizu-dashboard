@@ -10,6 +10,7 @@ import { useOrganic } from '../api/useOrganic'
 import { useAnotaaiProducts } from '../api/useAnotaai'
 import { useFilters, type Channel } from '../lib/period'
 import TrendCard, { type Favorability } from '../components/TrendCard'
+import SectionHeader from '../components/SectionHeader'
 import type { Database } from '../types/database'
 
 type SalesRow = Database['public']['Tables']['sales_daily']['Row']
@@ -313,19 +314,20 @@ export default function TrendsSection() {
   }, [metrics, comparing, cmpModeLabel])
 
   return (
-    <section className="mizu-section">
-      <div className="mizu-section-head">
-        <div>
-          <div className="mizu-section-title">
-            <span className="kanji-deco">流</span> Tendências do período
-          </div>
-          <div className="mizu-section-sub trends-summary">
-            {!comparing && 'Ative "Comparar com" no topo pra ver tendências entre períodos.'}
-            {comparing && summary && summary}
-            {comparing && !summary && 'Sem variações relevantes pra comparar (todas estáveis ou sem dados).'}
-          </div>
-        </div>
-      </div>
+    <section className="mizu-section is-source-vendas">
+      <SectionHeader
+        source="vendas"
+        kanji="流"
+        title="Tendências do período"
+        subtitle={
+          !comparing
+            ? 'Ative "Comparar com" no topo pra ver tendências entre períodos.'
+            : summary
+              ? summary
+              : 'Sem variações relevantes pra comparar (todas estáveis ou sem dados).'
+        }
+        period={{ start, end }}
+      />
 
       {isLoading && <div className="trends-loading">Carregando indicadores…</div>}
 

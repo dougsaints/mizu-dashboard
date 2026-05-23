@@ -19,6 +19,7 @@ import { useAds } from '../api/useAds'
 import { useFilters, type Channel } from '../lib/period'
 import { pearson, interpretCorrelation, formatR } from '../lib/statistics'
 import type { Database } from '../types/database'
+import SectionHeader from '../components/SectionHeader'
 
 ChartJS.register(LinearScale, PointElement, Tooltip, Legend)
 
@@ -225,17 +226,14 @@ export default function CorrelationSection() {
   const error = sales.error || ads.error
 
   return (
-    <section className="mizu-section">
-      <div className="mizu-section-head">
-        <div>
-          <div className="mizu-section-title">
-            <span className="kanji-deco">関</span> Correlação Meta Ads × Vendas
-          </div>
-          <div className="mizu-section-sub">
-            Cada ponto = 1 dia do período. Quanto mais próximo de +1 ou −1, mais relacionados. Próximo de 0, sem relação aparente.
-          </div>
-        </div>
-      </div>
+    <section className="mizu-section is-source-neutro">
+      <SectionHeader
+        source="neutro"
+        kanji="関"
+        title="Correlação Meta Ads × Vendas"
+        subtitle="Cada ponto = 1 dia do período. Quanto mais próximo de +1 ou −1, mais relacionados. Próximo de 0, sem relação aparente."
+        period={{ start, end }}
+      />
 
       {isLoading && <div className="correlation-loading">Carregando dados…</div>}
       {error && (
