@@ -10,24 +10,24 @@ See: .paul/PROJECT.md (updated 2026-05-22)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 6 ✅ Complete (5/5 plans, reaberta como "Correlações e análises avançadas"). Phase 7 parcial (07-01b feito; 07-01 deploy e 07-02 auth aguardam decisões do Doug).
-Plan: 06-01, 06-02, 06-03, 06-04, 06-05, 07-01b — 6 plans completos no total da sessão.
-Status: Phase 6 fechada. Pronto pra Phase 7 (deploy + auth).
-Last activity: 2026-05-23 — UNIFY 06-05 + commit (heatmap + comparação justa)
+Phase: 6 ✅ Complete. Phase 7: 07-01b ✅ + 07-01 ✅ (prep). Deploy real aguarda Doug. 07-02 (auth) aguarda decisão de estratégia.
+Plan: 06-01 a 06-05 + 07-01b + 07-01 — 7 plans completos.
+Status: Repo pronto pra deploy. `vercel.json` + `DEPLOY.md` criados. Aguarda Doug clicar 5 botões na Vercel + escolher estratégia de auth.
+Last activity: 2026-05-23 — UNIFY 07-01 (deploy prep)
 
 Progress:
-- Milestone: [█████████░] ~93% (Phase 6 100%; Phase 7 com 1 de 2 plans estruturais feitos)
-- Phase 6: [██████████] 100% (5/5 plans)
-- Phase 7: [█████░░░░░] 50% (07-01b feito; 07-01 deploy e 07-02 auth aguardam Doug)
+- Milestone: [█████████▌] ~95% (falta deploy real + auth)
+- Phase 6: [██████████] 100%
+- Phase 7: [████████░░] 75% (07-01b + 07-01 prep ✅; deploy clique + 07-02 auth pendentes)
 
 ## Loop Position
 
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [6 loops fechados: 06-01 a 06-05, 07-01b]
+  ✓        ✓        ✓     [7 loops fechados]
 ```
 
-Próximo: **Doug valida visualmente** as 5 novas seções no `npm run dev`. Depois decide juntos: deploy Vercel (07-01) e auth (07-02).
+Próximo: Doug abre `DEPLOY.md`, executa os 5 passos (~10min). Depois escolhe estratégia de auth (A senha compartilhada / B magic link / C login+senha — recomendo B). Eu crio 07-02 PLAN + implemento.
 
 ## Accumulated Context
 
