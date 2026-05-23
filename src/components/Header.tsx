@@ -1,6 +1,7 @@
 import { useCurrentTenant } from '../lib/tenant'
 import { useUnits } from '../api/useUnits'
 import { useFilters, type Channel, type CmpMode, type AnalysisMode } from '../lib/period'
+import { useAuth, signOut } from '../api/useAuth'
 import DateRangePicker from './DateRangePicker'
 import SyncStatusBadge from './SyncStatusBadge'
 
@@ -21,6 +22,7 @@ export default function Header() {
   const tenant = useCurrentTenant()
   const { data: units = [] } = useUnits()
   const { unitId, channel, cmpMode, analysisMode, setUnit, setChannel, setCmpMode, setAnalysisMode } = useFilters()
+  const { user } = useAuth()
 
   return (
     <header className="header">
@@ -113,6 +115,21 @@ export default function Header() {
         </div>
 
         <SyncStatusBadge />
+
+        {user && (
+          <button
+            type="button"
+            className="header-logout"
+            onClick={() => {
+              void signOut()
+            }}
+            title={`Sair (${user.email})`}
+            aria-label="Sair"
+          >
+            <span className="header-logout-email">{user.email}</span>
+            <span className="header-logout-icon" aria-hidden="true">↩</span>
+          </button>
+        )}
       </div>
     </header>
   )

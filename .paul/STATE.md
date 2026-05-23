@@ -10,24 +10,24 @@ See: .paul/PROJECT.md (updated 2026-05-22)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 6 ✅ Complete. Phase 7: 07-01b ✅ + 07-01 ✅ (prep). Deploy real aguarda Doug. 07-02 (auth) aguarda decisão de estratégia.
-Plan: 06-01 a 06-05 + 07-01b + 07-01 — 7 plans completos.
-Status: Repo pronto pra deploy. `vercel.json` + `DEPLOY.md` criados. Aguarda Doug clicar 5 botões na Vercel + escolher estratégia de auth.
-Last activity: 2026-05-23 — UNIFY 07-01 (deploy prep)
+Phase: 6 ✅ Complete. Phase 7: 07-01b ✅ + 07-01 ✅ (prep) + 07-02 ✅ (UI). Deploy real + Supabase Auth config aguardam Doug.
+Plan: 06-01 a 06-05 + 07-01b + 07-01 + 07-02 — 8 plans completos.
+Status: Painel funcionalmente completo. Falta Doug fazer 2 setups manuais (DEPLOY.md ~10min + AUTH_SETUP.md ~5min).
+Last activity: 2026-05-23 — UNIFY 07-02 (magic link auth UI)
 
 Progress:
-- Milestone: [█████████▌] ~95% (falta deploy real + auth)
+- Milestone: [██████████] ~98% (falta deploy real + Supabase Auth config)
 - Phase 6: [██████████] 100%
-- Phase 7: [████████░░] 75% (07-01b + 07-01 prep ✅; deploy clique + 07-02 auth pendentes)
+- Phase 7: [██████████] 90% (todos os plans prontos; aguarda ações manuais Doug)
 
 ## Loop Position
 
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [7 loops fechados]
+  ✓        ✓        ✓     [8 loops fechados]
 ```
 
-Próximo: Doug abre `DEPLOY.md`, executa os 5 passos (~10min). Depois escolhe estratégia de auth (A senha compartilhada / B magic link / C login+senha — recomendo B). Eu crio 07-02 PLAN + implemento.
+Próximo: Doug executa **DEPLOY.md** (Vercel) + **AUTH_SETUP.md** (Supabase Auth). Painel sobe ao ar. Depois disso, próxima fase será Phase 8 (polish visual: cards heroes, Meta Ads expandido, hero Jatiúca) — opcional.
 
 ## Accumulated Context
 
