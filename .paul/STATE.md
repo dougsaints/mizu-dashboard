@@ -62,7 +62,7 @@ Próximo: Doug clica 2 vezes no Supabase Dashboard (Site URL + Redirect URLs; de
 | Hospedagem Vercel | Init | S | Phase 7 |
 | Filtro global de período no topo do sistema (pedido do Doug em 22/05 durante o 05-02) | Phase 5 | M | Plano 05-03 — decisão pendente: substituir ou sincronizar os seletores 7/30/60 já existentes |
 | Estender toggle Mensal/Semanal pro gráfico de linha de Vendas (opção (c) do plano 05-05) | Phase 5 | S | Phase 6 ou pós-MVP — Doug optou por manter isolado na AnalysisSection; revisitar se sentir falta usando |
-| Bundle JS em ~738KB (warning Vite >500KB) | Phase 5 | S | Phase 7 — usar dynamic import() / code-splitting antes do deploy Vercel |
+| ~~Bundle JS em ~738KB (warning Vite >500KB)~~ ✅ RESOLVIDO em alguma das fases 6/7/8 | Phase 5 | — | Auditado em 23/05 na Phase 9 ociosa: code-splitting + manualChunks já presentes. Maior chunk: supabase-vendor 196KB (50KB gzip). Sections individuais <10KB. Entry inicial 47KB (17KB gzip). Saudável. |
 
 ### Blockers/Concerns
 
