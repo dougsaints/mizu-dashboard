@@ -69,10 +69,22 @@ Nenhum.
 
 ## Session Continuity
 
-Last session: 2026-05-22
-Stopped at: Phase 5 completa e fechada (5/5 plans). UNIFY do 05-05 criou SUMMARY oficial. Transition executado: PROJECT.md, ROADMAP.md, paul.json sincronizados. Commit do phase pendente (será criado pela transition). Próximo: Phase 6 — Correlações e análise cruzada (2 plans: 06-01 Correlação Meta Ads × Vendas, 06-02 Painel de tendências consolidado).
-Next action: /paul:plan para abrir Phase 6
-Resume file: .paul/ROADMAP.md
+Last session: 2026-05-23
+Stopped at: 11 loops PAUL fechados, tudo commitado e pushado pra GitHub (último: 52b0766 Phase 8-02 Meta Ads expandido). Vercel auto-deployou, painel funcional em <https://mizu-dashboard-pi.vercel.app/> (validado via curl + screenshot Chrome headless). Doug AFK no AnyDesk remoto — não pode clicar no Supabase Dashboard pra fechar Phase 7.
+
+Próximos passos (em ordem):
+1. **Doug fora do remoto**: 2 cliques no Supabase Dashboard (Authentication → URL Configuration: Site URL + Redirect URLs; Sign In/Up: desligar "Allow new users to sign up"). Detalhes em AUTH_SETUP.md.
+2. **Doug testa login**: aba anônima, abre Vercel, pede magic link, usa o CÓDIGO de 8 dígitos (não o link — Gmail consome) no campo OTP fallback.
+3. **Doug valida visual** das 11 entregas. Especial atenção:
+   - SalesSection Total Geral (card preto com 水 dourado)
+   - TrendsSection 1º card (Faturamento, preto)
+   - MetaAdsAnalysisSection (NOVA, donut por objetivo + donut por unidade + hero Jatiúca azul claro)
+4. **Próximo plan possível**: Phase 9 — RLS hardening (Claude pode fazer sozinho via MCP). Trocar phase1_anon_access por authenticated-only nas tabelas. Risco médio, reversível. Aguarda confirmação Doug.
+
+Next action: Doug abre nova sessão → digita "/paul:resume" ou simplesmente "continua daí" → Claude lê STATE.md.
+Resume file: .paul/STATE.md (este arquivo)
+
+Bundle Vercel atual: index-DVqeydRB.js / CSS index-Cagec8OR.css (validado em 23/05 às 12:49 BRT).
 
 ---
 *STATE.md — Updated after every significant action*
