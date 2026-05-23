@@ -5,28 +5,28 @@
 See: .paul/PROJECT.md (updated 2026-05-22)
 
 **Core value:** Time e cliente têm acesso rápido a métricas de faturamento, tráfego e delivery — tudo num lugar, sem abrir múltiplas plataformas.
-**Current focus:** v0.1 MVP — Phase 5: Gráficos e comparativos
+**Current focus:** v0.1 MVP — Phase 6: Correlações e análise cruzada
 
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 5 of 7 (Gráficos e comparativos) — APPLY completo, aguardando UNIFY
-Plan: 05-05 aplicado, checkpoint visual aprovado ("parece aprovado")
-Status: Pronto pra UNIFY (fecha Fase 5 + MVP v0.1 em 100%)
-Last activity: 2026-05-22 — APPLY do 05-05 + fix de cascade de invalidation (loop ERR_INSUFFICIENT_RESOURCES resolvido)
+Phase: 6 of 7 (Correlações e análise cruzada) — Not started
+Plan: Not started
+Status: Pronto pra planejar Phase 6
+Last activity: 2026-05-22 — Phase 5 completa (5/5 plans), transition executado
 
 Progress:
-- Milestone: [██████████] ~98% (falta só UNIFY do 05-05)
-- Phase 5: [██████████] 100% (todos os 5 plans aplicados)
+- Milestone: [███████░░░] ~71% (5 de 7 fases completas)
+- Phase 6: [░░░░░░░░░░] 0% (0 de 2 plans)
 
 ## Loop Position
 
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ○     [APPLY completo, aguardando UNIFY]
+  ✓        ✓        ✓     [Loop fechado — Phase 5 completa]
 ```
 
-Próximo: Doug digita /paul:unify .paul/phases/05-graficos-comparativos/05-05-PLAN.md
+Próximo: Doug digita /paul:plan para abrir o planejamento da Phase 6.
 
 ## Accumulated Context
 
@@ -67,9 +67,9 @@ Nenhum.
 ## Session Continuity
 
 Last session: 2026-05-22
-Stopped at: APPLY do 05-05 completo. react-engineer entregou T1-T3, eu qualifiquei e achei 1 GAP (badges não estavam no breakdown PDV/iFood/Anota AI), corrigido. Checkpoint visual revelou loop ERR_INSUFFICIENT_RESOURCES — diagnosticado como spec issue (queryKey da comparison compartilhava prefix com QK_SALES → cascata de invalidation por Realtime). Fix aplicado: QK_SALES_CMP separada + opt-out de Realtime em hooks multi-consumer. App estabilizou (88 erros baseline). Doug "parece aprovado".
-Next action: Doug digita /paul:unify .paul/phases/05-graficos-comparativos/05-05-PLAN.md
-Resume file: .paul/phases/05-graficos-comparativos/05-05-PLAN.md
+Stopped at: Phase 5 completa e fechada (5/5 plans). UNIFY do 05-05 criou SUMMARY oficial. Transition executado: PROJECT.md, ROADMAP.md, paul.json sincronizados. Commit do phase pendente (será criado pela transition). Próximo: Phase 6 — Correlações e análise cruzada (2 plans: 06-01 Correlação Meta Ads × Vendas, 06-02 Painel de tendências consolidado).
+Next action: /paul:plan para abrir Phase 6
+Resume file: .paul/ROADMAP.md
 
 ---
 *STATE.md — Updated after every significant action*

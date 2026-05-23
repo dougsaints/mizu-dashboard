@@ -8,7 +8,7 @@ Portar o painel HTML monolítico (painel-diario.html) para uma aplicação web m
 
 **v0.1 MVP** (v0.1.0)
 Status: Em progresso
-Phases: 4 of 7 complete
+Phases: 5 of 7 complete
 
 ## Phases
 
@@ -18,7 +18,7 @@ Phases: 4 of 7 complete
 | 2 | Meta Ads | 1 | ✅ Complete | 2026-05-16 |
 | 3 | Anota AI / Delivery | 1 | ✅ Complete | 2026-05-18 |
 | 4 | Resumos: semana, ROI e marketing | 1 | ✅ Complete | 2026-05-22 |
-| 5 | Gráficos e comparativos | 5 | 🔨 Em progresso | - |
+| 5 | Gráficos e comparativos | 5 | ✅ Complete | 2026-05-22 |
 | 6 | Correlações e análise cruzada | 2 | 📋 Not started | - |
 | 7 | Hospedagem, polish e autenticação | 2 | 📋 Not started | - |
 
@@ -88,11 +88,11 @@ Phases: 4 of 7 complete
 
 ---
 
-### Phase 5: Gráficos e comparativos
+### Phase 5: Gráficos e comparativos ✅
 
 **Goal:** Gráficos visuais por tipo de métrica e comparação entre períodos
 **Depends on:** Phase 4
-**Research:** Likely (escolha de biblioteca de gráficos)
+**Completed:** 2026-05-22
 
 **Scope:**
 - Gráficos de linha/barra para vendas diárias e semanais
@@ -105,7 +105,7 @@ Phases: 4 of 7 complete
 - [x] 05-02: Gráficos Meta Ads e delivery + seletor de período (completo 22/05)
 - [x] 05-03: Seletor de período completo (calendário + 12 atalhos) (completo 22/05)
 - [x] 05-04: Filtros de Unidade e Canal de Venda (completo 22/05)
-- [ ] 05-05: "Comparar com" + Análise mensal/semanal
+- [x] 05-05: "Comparar com" + Análise mensal/semanal (completo 22/05)
 
 > Notas:
 > - Chart.js + react-chartjs-2 já estavam instalados — a parte
@@ -115,6 +115,10 @@ Phases: 4 of 7 complete
 >   Período (03), Unidade/Canal (04), Comparar/Análise (05).
 > - A 1ª versão do 05-03 (3 botões 7/30/60) foi revisada — simples demais
 >   perto da referência.
+> - **Spec issue descoberto no 05-05** (cascata de invalidates por
+>   prefix match no React Query) gerou aprendizado salvo na memória:
+>   queryKey de queries derivadas NÃO deve compartilhar prefix com
+>   chaves invalidadas por Realtime. Pattern aplicar em Phase 6.
 
 ---
 
@@ -151,4 +155,4 @@ Phases: 4 of 7 complete
 
 ---
 *Roadmap created: 2026-05-18*
-*Last updated: 2026-05-22 (reconciliação — Fase 4 nova, renumeração das seguintes)*
+*Last updated: 2026-05-22 (Phase 5 completa — barra de filtros global + comparativo + análise mensal/semanal)*

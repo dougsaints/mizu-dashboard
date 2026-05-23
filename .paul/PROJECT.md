@@ -14,8 +14,8 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 |-----------|-------|
 | Type | Application |
 | Version | 0.1.0 |
-| Status | MVP em construção |
-| Last Updated | 2026-05-22 |
+| Status | MVP em construção (Fase 5 de 7 completa) |
+| Last Updated | 2026-05-22 (após Phase 5) |
 
 ## Requirements
 
@@ -37,18 +37,24 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 - [x] WeeklyRecap — resumo semanal (faturamento, ROAS, top 3 produtos) — v0.1
 - [x] RoiSection — ROI / investimento vs retorno (salvo na nuvem) — v0.1
 - [x] MarketingUnif — marketing unificado Instagram (total + fatia paga) — v0.1
+- [x] Gráfico de linha de faturamento diário por unidade (Chart.js) — Phase 5
+- [x] Gráficos de Meta Ads e delivery — Phase 5
+- [x] Seletor global de período (calendário + 12 atalhos) — Phase 5
+- [x] Filtros globais Unidade + Canal de Venda — Phase 5
+- [x] Comparativos entre períodos (anterior / mês passado) com delta ▲▼% nos KPIs e linha tracejada no gráfico — Phase 5
+- [x] Análise mensal/semanal agregada (AnalysisSection com barras agrupadas) — Phase 5
 
 ### Active (In Progress)
 
-- [ ] Nada em andamento — próximo: gráficos comparativos (Phase 5)
+- [ ] Nada em andamento — próximo: correlações e análise cruzada (Phase 6)
 
 ### Planned (Next)
 
-- [ ] Gráficos comparativos por período
-- [ ] Cruzamento de métricas entre fontes
-- [ ] Dashboard analítico (tendências, correlações)
-- [ ] Hospedagem no Vercel
-- [ ] Autenticação básica (pós-MVP)
+- [ ] Correlação Meta Ads × Vendas (Phase 6)
+- [ ] Painel de tendências e indicadores consolidados (Phase 6)
+- [ ] Hospedagem no Vercel (Phase 7)
+- [ ] Code-splitting do bundle (>500KB) (Phase 7)
+- [ ] Autenticação básica (Phase 7, pós-MVP)
 
 ### Out of Scope
 
@@ -80,15 +86,19 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 | Sem auth no MVP | Reduz complexidade; URL privada suficiente por ora | 2026-05-18 | Active |
 | Upload manual Meta Ads | Meta não tem API pública gratuita | 2026-05-18 | Active |
 | React Query + Supabase Realtime | Atualização automática sem polling manual | 2026-05-18 | Active |
+| Filtros globais via FilterProvider (Context único) | Período + Unidade + Canal + cmpMode + analysisMode num só lugar; setters via spread preservam outros campos | 2026-05-22 | Active |
+| Filtros Unidade/Canal aplicam só em Vendas | Meta Ads ~48% sem loja, Anota AI 100% sem; filtrar lá esconderia dado válido | 2026-05-22 | Active |
+| queryKey de queries derivadas separada do prefix invalidado por Realtime | Evita cascade de invalidates → loop ERR_INSUFFICIENT_RESOURCES. Pattern: QK_X_CMP separada + staleTime alto | 2026-05-22 | Active |
+| Hooks Realtime multi-consumer com opt-out (subscribeRealtime?: false) | Cache do React Query é compartilhado pela queryKey; 2º consumer não precisa abrir WebSocket próprio | 2026-05-22 | Active |
 
 ## Success Metrics
 
 | Metric | Target | Current | Status |
 |--------|--------|---------|--------|
 | Todas as fontes de dados conectadas | 4 fontes (Vendas, Meta, Delivery, Orgânico) | 4/4 | ✅ Completo |
-| Comparativo de períodos funcionando | Diário + semanal + mensal | - | Não iniciado |
-| Correlações entre métricas visíveis | Pelo menos 2 cruzamentos | - | Não iniciado |
-| Leitura diária efetiva | Time usa todo dia sem abrir outras plataformas | - | Não iniciado |
+| Comparativo de períodos funcionando | Diário + semanal + mensal | 3/3 | ✅ Completo (Phase 5) |
+| Correlações entre métricas visíveis | Pelo menos 2 cruzamentos | - | Phase 6 (próxima) |
+| Leitura diária efetiva | Time usa todo dia sem abrir outras plataformas | - | Pós-deploy (Phase 7) |
 
 ## Tech Stack / Tools
 
@@ -111,4 +121,4 @@ Dono do restaurante, gestor e time de assessoria têm acesso rápido às princip
 
 ---
 *PROJECT.md — Updated when requirements or context change*
-*Last updated: 2026-05-22*
+*Last updated: 2026-05-22 after Phase 5*
