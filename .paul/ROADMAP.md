@@ -19,7 +19,7 @@ Phases: 5 of 7 complete
 | 3 | Anota AI / Delivery | 1 | ✅ Complete | 2026-05-18 |
 | 4 | Resumos: semana, ROI e marketing | 1 | ✅ Complete | 2026-05-22 |
 | 5 | Gráficos e comparativos | 5 | ✅ Complete | 2026-05-22 |
-| 6 | Correlações e análise cruzada | 2 | 📋 Not started | - |
+| 6 | Correlações e análise cruzada | 2 | 🔄 In progress | - |
 | 7 | Hospedagem, polish e autenticação | 2 | 📋 Not started | - |
 
 ## Phase Details

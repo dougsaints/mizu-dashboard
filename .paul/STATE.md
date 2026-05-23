@@ -10,23 +10,23 @@ See: .paul/PROJECT.md (updated 2026-05-22)
 ## Current Position
 
 Milestone: v0.1 MVP
-Phase: 6 of 7 (Correlações e análise cruzada) — Not started
-Plan: Not started
-Status: Pronto pra planejar Phase 6
-Last activity: 2026-05-22 — Phase 5 completa (5/5 plans), transition executado
+Phase: 6 of 7 (Correlações e análise cruzada) — In progress
+Plan: 06-01 completo (Correlação Meta Ads × Vendas). Próximo: 06-02.
+Status: Loop 06-01 fechado. Indo pro PLAN 06-02.
+Last activity: 2026-05-22 — UNIFY 06-01 + commit (sessão noturna autônoma)
 
 Progress:
-- Milestone: [███████░░░] ~71% (5 de 7 fases completas)
-- Phase 6: [░░░░░░░░░░] 0% (0 de 2 plans)
+- Milestone: [████████░░] ~79% (5 de 7 fases + 1 de 2 plans da Phase 6)
+- Phase 6: [█████░░░░░] 50% (1 de 2 plans completos)
 
 ## Loop Position
 
 ```
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop fechado — Phase 5 completa]
+  ✓        ✓        ✓     [Loop 06-01 fechado]
 ```
 
-Próximo: Doug digita /paul:plan para abrir o planejamento da Phase 6.
+Próximo: PLAN 06-02 (Painel de tendências consolidado) → APPLY → UNIFY → PLAN 07-01b → APPLY → UNIFY. Tudo autônomo. Doug valida visualmente de manhã.
 
 ## Accumulated Context
 

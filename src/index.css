@@ -2147,3 +2147,70 @@
 @media (max-width: 560px) {
   .analysis-chart-canvas { height: 220px; }
 }
+
+/* ---- Correlação Meta Ads × Vendas (Phase 6-01) ---------------- */
+.correlation-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 8px;
+}
+.correlation-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px 18px;
+  box-shadow: var(--sh-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.correlation-card-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.correlation-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--txt);
+}
+.correlation-r {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.correlation-r-num {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+.correlation-r-label {
+  font-size: 13px;
+  font-weight: 500;
+}
+.correlation-chart {
+  height: 280px;
+  position: relative;
+}
+.correlation-empty {
+  color: var(--txt-2);
+  font-size: 13px;
+  padding: 32px 12px;
+  text-align: center;
+  background: var(--mizu-gold-soft);
+  border-radius: var(--r-sm);
+}
+.correlation-loading {
+  color: var(--txt-2);
+  font-size: 14px;
+  padding: 16px 0;
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .correlation-grid {
+    grid-template-columns: 1fr;
+  }
+  .correlation-chart { height: 240px; }
+}
