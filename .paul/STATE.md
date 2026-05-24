@@ -11,9 +11,9 @@ See: .paul/PROJECT.md (updated 2026-05-24)
 
 Milestone: v0.3 Arquitetura Multi-Página + Analytics Aprofundadas (em progresso)
 Phase: 14 of 4 — Arquitetura: Sidebar + Multi-página — **In progress** (2/4-5 plans done)
-Plan: **14-02 APPLIED** (build 292ms, type-check clean, aguardando UAT)
-Status: APPLY complete, ready for UAT → UNIFY
-Last activity: 2026-05-24 — Aplicado plan 14-02: 8 pages populadas, Dashboard.tsx deletado, PageHeader novo. 10 arquivos modificados, 1 novo, 1 deletado.
+Plan: **14-02 UNIFIED ✅** (commit `ddd2bfd`, loop fechado; UAT delegado a agente Opus)
+Status: UNIFY complete, ready for next PLAN (14-03)
+Last activity: 2026-05-24 — Unificado plan 14-02. Loop completo. UAT autônomo via agente Explore Opus aprovou: 8 URLs HTTP 200, mapping fiel, shell intacto, bundle separado, zero refs Dashboard.tsx remanescentes.
 
 Vercel URL: <https://mizu-dashboard-pi.vercel.app/>
 Local dev: <http://localhost:5173/>
@@ -28,10 +28,10 @@ Progress:
 
 ```text
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ○     [Plan 14-02 applied, aguardando UAT do Doug pra unify]
+  ✓        ✓        ✓     [Loop 14-02 fechado, ready for next PLAN 14-03]
 ```
 
-Próximo: Doug abre http://localhost:5173/ no browser, navega pelas 8 URLs e valida que cada uma mostra as sections corretas + PageHeader. Se aprovar, roda `/paul:unify` pra fechar o loop e seguir pro plan 14-03 (mobile drawer).
+Próximo: Doug roda `/paul:plan` → Claude planeja 14-03 (mobile drawer: hambúrguer no Header, sidebar slide-from-left com overlay, fecha ao tocar link ou backdrop).
 
 ## Accumulated Context
 

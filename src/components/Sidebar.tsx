@@ -1,5 +1,5 @@
 // Sidebar lateral esquerda — Phase 14-01.
-// 7 NavLinks agrupados em 3 categorias (Visão Geral / Análises / Operação).
+// 8 NavLinks agrupados em 3 categorias (Visão Geral / Análises / Operação).
 // Toggle expandida (240px) / colapsada (64px) com persistência em localStorage.
 // Mobile: oculta abaixo de 1024px (drawer entra em 14-03).
 
