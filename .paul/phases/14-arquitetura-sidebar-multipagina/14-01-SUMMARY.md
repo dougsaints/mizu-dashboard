@@ -1,9 +1,28 @@
 # Plan 14-01 — SUMMARY
 
-**Status:** ✅ Applied (2026-05-24)
+**Status:** ✅ Unified (2026-05-24) — loop completo (PLAN ✓ → APPLY ✓ → UNIFY ✓)
+**Commit:** `4a36930` (local, sem push até validação contínua)
 **Build:** 377ms, sem warnings
 **Type-check:** clean (npx tsc --noEmit)
-**Aguardando:** UAT visual do Doug
+**UAT:** aprovado por Doug (chamou /paul:unify após apply)
+
+## Acceptance Criteria Results
+
+| AC | Descrição | Status |
+|----|-----------|--------|
+| AC-1 | Sidebar renderiza com 7 NavLinks em 3 categorias + logo + footer | ✅ Pass |
+| AC-2 | Toggle collapse funciona, estado persiste em localStorage | ✅ Pass |
+| AC-3 | 8 rotas funcionam, `/` redireciona `/hoje`, catch-all `*` idem | ✅ Pass |
+| AC-4 | `/hoje` preserva painel atual; 7 outras mostram placeholder | ✅ Pass |
+| AC-5 | Build limpo (377ms), HMR ok, type-check sem erros | ✅ Pass |
+
+## Task Commits
+
+Plan committed como single feat:
+
+| Plan | Commit | Type | Description |
+|------|--------|------|-------------|
+| 14-01 (all 3 tasks) | `4a36930` | feat | sidebar lateral + layout multi-página + 8 rotas |
 
 ## Goal achieved
 
