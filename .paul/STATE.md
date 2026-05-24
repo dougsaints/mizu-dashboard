@@ -10,10 +10,10 @@ See: .paul/PROJECT.md (updated 2026-05-24)
 ## Current Position
 
 Milestone: v0.3 Arquitetura Multi-Página + Analytics Aprofundadas (em progresso)
-Phase: 14 of 4 — Arquitetura: Sidebar + Multi-página — **In progress** (1/4-5 plans done)
-Plan: **14-01 UNIFIED ✅** (commit `4a36930`, loop fechado)
-Status: UNIFY complete, ready for next PLAN (14-02)
-Last activity: 2026-05-24 — Unificado plan 14-01. Loop completo (PLAN ✓ APPLY ✓ UNIFY ✓). Doug aprovou UAT chamando /paul:unify.
+Phase: 14 of 4 — Arquitetura: Sidebar + Multi-página — **In progress** (2/4-5 plans done)
+Plan: **14-02 APPLIED** (build 292ms, type-check clean, aguardando UAT)
+Status: APPLY complete, ready for UAT → UNIFY
+Last activity: 2026-05-24 — Aplicado plan 14-02: 8 pages populadas, Dashboard.tsx deletado, PageHeader novo. 10 arquivos modificados, 1 novo, 1 deletado.
 
 Vercel URL: <https://mizu-dashboard-pi.vercel.app/>
 Local dev: <http://localhost:5173/>
@@ -22,16 +22,16 @@ Progress:
 
 - v0.1: [██████████] 100% ✓ (9 phases, 20 plans, 2026-05-23)
 - v0.2: [██████████] 100% ✓ (4 phases, 17 plans, 2026-05-24)
-- v0.3: [██░░░░░░░░] ~6% (Phase 14: 1/4-5 plans done, milestone total ~1/18-22)
+- v0.3: [███░░░░░░░] ~11% (Phase 14: 2/4-5 plans done, milestone total ~2/18-22)
 
 ## Loop Position
 
 ```text
 PLAN ──▶ APPLY ──▶ UNIFY
-  ✓        ✓        ✓     [Loop 14-01 fechado, ready for next PLAN 14-02]
+  ✓        ✓        ○     [Plan 14-02 applied, aguardando UAT do Doug pra unify]
 ```
 
-Próximo: Doug roda `/paul:plan` → Claude planeja 14-02 (redistribuir as 13 sections de Dashboard.tsx nas 7 páginas correspondentes: Hoje focado, Vendas, Produtos, Marketing, Padrões, Diário, Dados, Recap Semanal).
+Próximo: Doug abre http://localhost:5173/ no browser, navega pelas 8 URLs e valida que cada uma mostra as sections corretas + PageHeader. Se aprovar, roda `/paul:unify` pra fechar o loop e seguir pro plan 14-03 (mobile drawer).
 
 ## Accumulated Context
 

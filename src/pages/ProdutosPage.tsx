@@ -1,14 +1,25 @@
-// ProdutosPage — Phase 14-01 (placeholder, 14-02 popula).
+// ProdutosPage — /produtos (Phase 14-02).
+// Mix do cardápio, ranking, concentração e tendências de produtos.
+
+import { lazy, Suspense } from 'react'
+import PageHeader from '../components/PageHeader'
+
+const ProductsAnalysisSection = lazy(() => import('../sections/ProductsAnalysisSection'))
+
+function LazyFallback({ label = 'Carregando…' }: { label?: string }) {
+  return <div className="lazy-fallback">{label}</div>
+}
 
 export default function ProdutosPage() {
   return (
-    <div className="page-placeholder">
-      <h1 className="page-placeholder-title">Produtos</h1>
-      <p className="page-placeholder-text">
-        Esta página vai receber: <strong>ProductsAnalysisSection</strong>
-        (donut categoria, Pareto, 4 KPIs, futuramente treemap).
-        <br />Plan <code>14-02</code> redistribui o conteúdo.
-      </p>
-    </div>
+    <>
+      <PageHeader
+        title="Produtos"
+        subtitle="Mix do cardápio, ranking, concentração e tendências por categoria"
+      />
+      <Suspense fallback={<LazyFallback label="Carregando análise de produtos…" />}>
+        <ProductsAnalysisSection />
+      </Suspense>
+    </>
   )
 }

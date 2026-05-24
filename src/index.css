@@ -4603,6 +4603,40 @@ body:has(.sidebar-collapsed) .app-shell-main {
   gap: 0;
 }
 
+/* ------ PageHeader (14-02) — header leve no topo de cada page ------ */
+
+.page-header {
+  margin: 0 0 24px;
+  padding: 0 0 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--txt);
+  letter-spacing: -0.5px;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.page-header-subtitle {
+  font-size: 13px;
+  color: var(--txt-2);
+  margin: 4px 0 0;
+  line-height: 1.5;
+  max-width: 720px;
+}
+
+@media (max-width: 640px) {
+  .page-header-title { font-size: 22px; }
+  .page-header-subtitle { font-size: 12px; }
+}
+
+@media print {
+  .page-header { border-bottom-color: #ccc; }
+}
+
 /* ------ Placeholder pra páginas que vão ser populadas em 14-02 ------ */
 
 .page-placeholder {

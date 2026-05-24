@@ -1,14 +1,43 @@
-// DadosPage — Phase 14-01 (placeholder, 14-02 popula).
+// DadosPage — /dados (Phase 14-02).
+// Tabela bruta consolidada (export CSV) + configuração de fontes (uploads Meta/Anota/Instagram).
+
+import { lazy, Suspense } from 'react'
+import PageHeader from '../components/PageHeader'
+
+const DataTableSection = lazy(() => import('../sections/DataTableSection'))
+const AdsUploadCard = lazy(() => import('../components/AdsUploadCard'))
+const AnotaaiUploadCard = lazy(() => import('../components/AnotaaiUploadCard'))
+const InstagramUploadCard = lazy(() => import('../components/InstagramUploadCard'))
+
+function LazyFallback({ label = 'Carregando…' }: { label?: string }) {
+  return <div className="lazy-fallback">{label}</div>
+}
 
 export default function DadosPage() {
   return (
-    <div className="page-placeholder">
-      <h1 className="page-placeholder-title">Dados</h1>
-      <p className="page-placeholder-text">
-        Esta página vai receber: <strong>DataTableSection</strong> (tabela bruta + export CSV)
-        + área de <strong>Uploads</strong> (Meta Ads CSV, Anota AI CSV, Instagram CSV).
-        <br />Plan <code>14-02</code> redistribui o conteúdo.
-      </p>
-    </div>
+    <>
+      <PageHeader
+        title="Dados"
+        subtitle="Tabela bruta consolidada com export CSV e configuração de fontes de dados"
+      />
+      <Suspense fallback={<LazyFallback label="Carregando tabela…" />}>
+        <DataTableSection />
+      </Suspense>
+
+      <details className="uploads-area">
+        <summary>⚙ Configurações & Uploads</summary>
+        <div className="uploads-area-inner">
+          <Suspense fallback={<LazyFallback label="Carregando Meta Ads…" />}>
+            <AdsUploadCard />
+          </Suspense>
+          <Suspense fallback={<LazyFallback label="Carregando Anota AI…" />}>
+            <AnotaaiUploadCard />
+          </Suspense>
+          <Suspense fallback={<LazyFallback label="Carregando Instagram…" />}>
+            <InstagramUploadCard />
+          </Suspense>
+        </div>
+      </details>
+    </>
   )
 }

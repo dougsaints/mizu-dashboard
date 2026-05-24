@@ -1,14 +1,26 @@
-// PadroesPage — Phase 14-01 (placeholder, 14-02 popula).
+// PadroesPage — /padroes (Phase 14-02).
+// Padrões de venda por dia da semana e horário (heatmap dia×semana).
+// Phase 17 vai adicionar heatmap hora×dia + análise de horário de pico.
+
+import { lazy, Suspense } from 'react'
+import PageHeader from '../components/PageHeader'
+
+const PatternsSection = lazy(() => import('../sections/PatternsSection'))
+
+function LazyFallback({ label = 'Carregando…' }: { label?: string }) {
+  return <div className="lazy-fallback">{label}</div>
+}
 
 export default function PadroesPage() {
   return (
-    <div className="page-placeholder">
-      <h1 className="page-placeholder-title">Padrões</h1>
-      <p className="page-placeholder-text">
-        Esta página vai receber: <strong>PatternsSection, TrendsSection</strong>
-        (heatmap dia×semana + tendências consolidadas; futuramente heatmap hora×dia).
-        <br />Plan <code>14-02</code> redistribui o conteúdo.
-      </p>
-    </div>
+    <>
+      <PageHeader
+        title="Padrões"
+        subtitle="Padrões de venda por dia da semana e horário do dia"
+      />
+      <Suspense fallback={<LazyFallback label="Carregando padrões…" />}>
+        <PatternsSection />
+      </Suspense>
+    </>
   )
 }

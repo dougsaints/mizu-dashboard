@@ -1,14 +1,17 @@
-// RecapSemanalPage — Phase 14-01 (placeholder, 14-02 popula).
+// RecapSemanalPage — /recap-semanal (Phase 14-02).
+// Resumo da semana fechada: faturamento, ROAS, top 3 produtos, alerta semanal.
+
+import PageHeader from '../components/PageHeader'
+import WeeklyRecap from '../sections/WeeklyRecap'
 
 export default function RecapSemanalPage() {
   return (
-    <div className="page-placeholder">
-      <h1 className="page-placeholder-title">Recap Semanal</h1>
-      <p className="page-placeholder-text">
-        Esta página vai receber: <strong>WeeklyRecap</strong> com mais profundidade
-        (faturamento da semana, ROAS, top 3 produtos, alertas semanais).
-        <br />Plan <code>14-02</code> redistribui o conteúdo.
-      </p>
-    </div>
+    <>
+      <PageHeader
+        title="Recap Semanal"
+        subtitle="Resumo da semana anterior: faturamento, ROAS, top produtos e alertas"
+      />
+      <WeeklyRecap />
+    </>
   )
 }

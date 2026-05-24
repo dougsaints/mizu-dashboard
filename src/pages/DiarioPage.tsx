@@ -1,14 +1,25 @@
-// DiarioPage — Phase 14-01 (placeholder, 14-02 popula).
+// DiarioPage — /diario (Phase 14-02).
+// Form de lançamento + feed de anotações operacionais por autor/tag.
+
+import { lazy, Suspense } from 'react'
+import PageHeader from '../components/PageHeader'
+
+const DiarioSection = lazy(() => import('../sections/DiarioSection'))
+
+function LazyFallback({ label = 'Carregando…' }: { label?: string }) {
+  return <div className="lazy-fallback">{label}</div>
+}
 
 export default function DiarioPage() {
   return (
-    <div className="page-placeholder">
-      <h1 className="page-placeholder-title">Diário</h1>
-      <p className="page-placeholder-text">
-        Esta página vai receber: <strong>DiarioSection</strong>
-        (form de lançamento + feed de anotações por autor/tag).
-        <br />Plan <code>14-02</code> redistribui o conteúdo.
-      </p>
-    </div>
+    <>
+      <PageHeader
+        title="Diário"
+        subtitle="Anotações operacionais e contexto do dia a dia (lançamentos, eventos, observações)"
+      />
+      <Suspense fallback={<LazyFallback label="Carregando diário…" />}>
+        <DiarioSection />
+      </Suspense>
+    </>
   )
 }

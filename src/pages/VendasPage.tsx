@@ -1,13 +1,29 @@
-// VendasPage — Phase 14-01 (placeholder, 14-02 popula).
+// VendasPage — /vendas (Phase 14-02).
+// Faturamento detalhado por unidade/canal + análise mensal/semanal agregada.
+
+import { lazy, Suspense } from 'react'
+import PageHeader from '../components/PageHeader'
+
+const SalesSection = lazy(() => import('../sections/SalesSection'))
+const AnalysisSection = lazy(() => import('../sections/AnalysisSection'))
+
+function LazyFallback({ label = 'Carregando…' }: { label?: string }) {
+  return <div className="lazy-fallback">{label}</div>
+}
 
 export default function VendasPage() {
   return (
-    <div className="page-placeholder">
-      <h1 className="page-placeholder-title">Vendas</h1>
-      <p className="page-placeholder-text">
-        Esta página vai receber: <strong>SalesSection, AnalysisSection, DataTableSection</strong>.
-        <br />Plan <code>14-02</code> redistribui o conteúdo.
-      </p>
-    </div>
+    <>
+      <PageHeader
+        title="Vendas"
+        subtitle="Faturamento detalhado por unidade, canal e período"
+      />
+      <Suspense fallback={<LazyFallback label="Carregando vendas…" />}>
+        <SalesSection />
+      </Suspense>
+      <Suspense fallback={<LazyFallback label="Carregando análise…" />}>
+        <AnalysisSection />
+      </Suspense>
+    </>
   )
 }
