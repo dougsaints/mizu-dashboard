@@ -2,22 +2,116 @@
 
 ## Overview
 
-Portar o painel HTML monolítico (`painel-diario.html`) para uma aplicação web moderna com banco de dados, atualização automática e análise cruzada de métricas. O MVP (v0.1) entregou leitura diária efetiva de vendas, tráfego pago, delivery e marketing orgânico, com auth + RLS hardening. A v0.2 entregou **polish visual, densidade, organização e exportação PNG/PDF** — alinhamento do React ao padrão visual do HTML antigo de referência e fluxo de envio pro cliente via WhatsApp/email.
+Portar o painel HTML monolítico (`painel-diario.html`) para uma aplicação web moderna com banco de dados, atualização automática e análise cruzada de métricas. O MVP (v0.1) entregou leitura diária efetiva de vendas, tráfego pago, delivery e marketing orgânico, com auth + RLS hardening. A v0.2 entregou **polish visual, densidade, organização e exportação PNG/PDF**. A v0.3 reorganiza o app numa estrutura **multi-página com sidebar lateral esquerda** e aprofunda as análises com práticas estado-da-arte de F&B analytics (Toast, Delaget, Square, iFood).
 
 ## Current Milestone
 
-**Nenhuma milestone ativa.**
-Status: ✅ v0.2 completa em 2026-05-24
-Próximo passo: rode `/paul:discuss-milestone` pra conversar sobre escopo da v0.3, ou `/paul:milestone` se já tem direção definida.
+**v0.3 Arquitetura Multi-Página + Analytics Aprofundadas** (v0.3.0)
+Status: 🆕 Not started (criada em 2026-05-24)
+Phases: 0 of 4 complete
 
-## Next Milestone (a definir)
+**Foco:** Sair do scroll-único pra sidebar+páginas (padrão Stripe/Linear/Vercel), fechar gap "planilha desatualizada pro dono", aprofundar análises fracas (gauge ROAS, lag analysis, heatmap hora×dia, treemap), e adicionar quick wins de F&B analytics (YoY/WoW lado-a-lado, sazonalidade decomposta, waterfall, frequency Meta, distribuição ticket).
 
-Candidatos prováveis baseados em carryover:
+**Tamanho estimado:** 4 phases, 18-22 plans, 3-5 dias de trabalho assistido.
 
-- **v0.3 Polish v2 + correções pequenas** — alinhamento header/subheader, pílulas mensais de saúde da planilha, helper `unitSlug`, débito técnico do code-reviewer
-- **v0.3 Filtro global de período** — substituir/sincronizar seletores 7/30/60 (carryover v0.1)
-- **v0.3 Endurecimento RLS tenant-scoped** — popular `tenant_users` + 13 WARNs `rls_policy_always_true`
-- **v0.3 Novas integrações** — Instagram Insights API real, ou outra fonte de dados
+## Phases
+
+| Phase | Name | Plans (est.) | Status | Completed |
+|-------|------|--------------|--------|-----------|
+| 14 | Arquitetura: Sidebar + Multi-página | 4-5 | 🆕 Not started | — |
+| 15 | Aviso planilha desatualizada + Chart theme tokenizado | 3-4 | ⏳ Pending | — |
+| 16 | Analytics quick wins (high impact / low effort) | 5-6 | ⏳ Pending | — |
+| 17 | Refatorar análises fracas + aprofundar razoáveis | 5-6 | ⏳ Pending | — |
+
+## Phase Details
+
+### Phase 14: Arquitetura — Sidebar + Multi-página
+
+**Goal:** Reorganizar o app de scroll-único pra estrutura com sidebar lateral esquerda + páginas separadas. Resolver carryover de alinhamento header/subheader da v0.2.
+**Depends on:** Nada (primeira phase da v0.3)
+**Plans:** TBD (via `/paul:plan`). Ver [`phases/14-arquitetura-sidebar-multipagina/PHASE-OVERVIEW.md`](phases/14-arquitetura-sidebar-multipagina/PHASE-OVERVIEW.md)
+
+**Scope:**
+
+- Shell `<Layout>` com sidebar esquerda + `<Outlet>` (React Router já instalado)
+- 7 itens nível 1 agrupados em 3 headers (VISÃO GERAL: Hoje, Recap Semanal · ANÁLISES: Vendas, Produtos, Marketing, Padrões · OPERAÇÃO: Diário, Dados)
+- Sidebar 240px expandida / 64px colapsada / mobile drawer 280px com overlay, estado persistido em localStorage
+- Redistribuir 13 sections atuais em 7 páginas conforme arquitetura proposta
+- `/` redireciona pra `/hoje` (landing — vendas do dia + alertas + recap rápido, padrão Stripe)
+- Alinhamento header vs subheader (carryover v0.2 UAT)
+- Ícones SVG inline lucide-style (zero dep nova)
+
+---
+
+### Phase 15: Aviso planilha desatualizada + Chart theme tokenizado
+
+**Goal:** Fechar gap "planilha desatualizada pro dono" e resolver débito técnico de chart (cores hardcoded + tooltip default Chart.js).
+**Depends on:** Phase 14 (Layout shell pra plugar banner persistente)
+**Plans:** TBD. Ver [`phases/15-aviso-planilha-chart-theme/PHASE-OVERVIEW.md`](phases/15-aviso-planilha-chart-theme/PHASE-OVERVIEW.md)
+
+**Scope:**
+
+- Banner persistente no `<Layout>` (visível em todas as páginas) com mensagem direcionada ao dono: "⚠ Jatiúca: 3 dias sem registro (último: 21/05). Doug, atualize a planilha"
+- Distinguir 2 cenários no `OperationalAlerts`: sync OK mas dado vazio (dono não preencheu) vs sync falhou (problema técnico)
+- Limiar configurável por unidade
+- Botão "Abrir planilha" linkando direto pro Sheets correto
+- `lib/chartTheme.ts` centralizando paleta + helpers `brl/brlShort/num`
+- Tooltip plugin Chart.js branded único (background `--ink-soft`, border gold, font Inter)
+- Migrar 14 charts pra consumir tokens
+- Helper `unitSlug(name)` em `lib/` — elimina duplicação 3x
+- `KPI_DEFS.map()` no MetaAdsAnalysisSection
+- Unificar 2 blocos `@media print`
+- Refazer regex unicode em `exportPng.ts` pra range explícito
+- Fallback se `useCORS:true` falhar no html2canvas
+
+---
+
+### Phase 16: Analytics quick wins (high impact / low effort)
+
+**Goal:** Adicionar análises estado-da-arte F&B identificadas na pesquisa Toast/Delaget/Square/iFood — todas priorizadas por alto impacto e baixo effort, funcionam com dados que já temos.
+**Depends on:** Phase 15 (chart theme tokenizado pra novas visualizações nascerem com paleta única)
+**Plans:** TBD. Ver [`phases/16-analytics-quick-wins/PHASE-OVERVIEW.md`](phases/16-analytics-quick-wins/PHASE-OVERVIEW.md)
+
+**Scope:**
+
+- Comparativo YoY / WoW lado-a-lado (Vendas + Marketing)
+- Sazonalidade decomposta visual: trend + seasonal + residual (Padrões)
+- Waterfall de variação ("vendas caíram -20%: -10% Meta, -5% iFood, -5% restante") na landing Hoje
+- Saturação de audiência Meta (frequency >3 = saturando)
+- Distribuição de ticket (boxplot, não só média)
+- Cancellation / refund rate delivery (iFood + AnotaAi expoem)
+
+---
+
+### Phase 17: Refatorar análises fracas + aprofundar razoáveis
+
+**Goal:** Atacar as sections classificadas como Fracas ou Razoáveis na auditoria de charts da v0.2. Cada uma vira viz/análise robusta consumindo o chart-theme da Phase 15.
+**Depends on:** Phases 14-16 (estrutura final + theme + quick wins definidos)
+**Plans:** TBD. Ver [`phases/17-refatorar-analises-fracas/PHASE-OVERVIEW.md`](phases/17-refatorar-analises-fracas/PHASE-OVERVIEW.md)
+
+**Scope:**
+
+- **RoiSection** (Fraca): adicionar gauge de ROAS com meta + bullet de margem
+- **CorrelationSection** (Fraca): lag analysis (D, D+1, D+2) + p-value + linha de regressão + segmentação por unidade/canal
+- **MarketingUnif** (Fraca): viz de fatia paga vs orgânica ao longo do tempo (stacked area)
+- **PatternsSection** (Razoável): adicionar heatmap hora×dia (restaurante vive de horário de pico)
+- **AnalysisSection** (Razoável): MA sobreposta + banda min/max + destaque mês corrente como projeção
+- **ProductsAnalysisSection** (Razoável): treemap hierárquico categoria→produto complementando Pareto
+- **OperationalAlerts** (Razoável): thresholds fixos → z-score (mais robusto a outlier)
+
+---
+
+## Adiado pra v0.4+
+
+Análises de alto impacto mas effort L (requerem mudança de schema do banco):
+
+- RFM + cohort de clientes delivery (precisa `customer_id` no iFood/AnotaAi)
+- LTV / CAC por canal (depende do anterior)
+- Menu engineering matrix (BCG) — precisa cadastrar custo unitário por produto (nova tabela `product_costs`)
+- Geo-heatmap bairros entrega — precisa parsear CEP do CSV
+- Forecast 7-30d com confidence interval (Holt-Winters) — escopo grande
+- Anomaly detection com root-cause GenAI — requer LLM call paga
+- **Integração Meta Ads API** (System User + Edge Function) — futuro v0.5/v0.6, zero risco pras contas dos clientes se feito direito. Salvo na memória do Claude
 
 ## Completed Milestones
 
